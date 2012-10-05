@@ -1,0 +1,52 @@
+<%- model_class = Repairer -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:business_name) %></th>
+      <th><%= model_class.human_attribute_name(:picture) %></th>
+      <th><%= model_class.human_attribute_name(:street_address_1) %></th>
+      <th><%= model_class.human_attribute_name(:street_address_2) %></th>
+      <th><%= model_class.human_attribute_name(:suburb) %></th>
+      <th><%= model_class.human_attribute_name(:state) %></th>
+      <th><%= model_class.human_attribute_name(:postcode) %></th>
+      <th><%= model_class.human_attribute_name(:hour_service_24) %></th>
+      <th><%= model_class.human_attribute_name(:phone_number) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @repairers.each do |repairer| %>
+      <tr>
+        <td><%= link_to repairer.id, repairer_path(repairer) %></td>
+        <td><%= repairer.business_name %></td>
+        <td><%= repairer.picture %></td>
+        <td><%= repairer.street_address_1 %></td>
+        <td><%= repairer.street_address_2 %></td>
+        <td><%= repairer.suburb %></td>
+        <td><%= repairer.state %></td>
+        <td><%= repairer.postcode %></td>
+        <td><%= repairer.hour_service_24 %></td>
+        <td><%= repairer.phone_number %></td>
+        <td><%=l repairer.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_repairer_path(repairer), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      repairer_path(repairer),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_repairer_path,
+            :class => 'btn btn-primary' %>

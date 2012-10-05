@@ -1,0 +1,35 @@
+<%- model_class = TruckFleet -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:trading_name_of_business) %>:</strong></dt>
+  <dd><%= @truck_fleet.trading_name_of_business %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:street) %>:</strong></dt>
+  <dd><%= @truck_fleet.street %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:street_2) %>:</strong></dt>
+  <dd><%= @truck_fleet.street_2 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:suburb) %>:</strong></dt>
+  <dd><%= @truck_fleet.suburb %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:state) %>:</strong></dt>
+  <dd><%= @truck_fleet.state %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:postcode) %>:</strong></dt>
+  <dd><%= @truck_fleet.postcode %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              truck_fleets_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_truck_fleet_path(@truck_fleet), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              truck_fleet_path(@truck_fleet),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
+
+<div>
+  <%= render "fleets/index.html" %>
+</div>

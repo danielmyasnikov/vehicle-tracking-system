@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @contacts_repaier.name %>
+</p>
+
+<p>
+  <b>Mobile:</b>
+  <%= @contacts_repaier.mobile %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @contacts_repaier.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_contacts_repaier_path(@contacts_repaier) %> |
+<%= link_to 'Back', contacts_repaiers_path %>

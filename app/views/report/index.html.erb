@@ -1,0 +1,29 @@
+<h1>My Reports</h1>
+<%- model_class = Service -%>
+<div class="page-header">
+  
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Vehicle Number</th>
+	  <th>Service type</th>
+	  <th>Warranty</th>
+	  <th>Damage</th>
+	  <th>Repair</th>
+	  <th>Self Service</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td><%= Fleet.find(:first, :conditions => {:id => service.fleet_id}).VIN  %></td>
+ 		<td><%= service.service_type %></td>
+		<td><%= service.warranty %></td>
+		<td><%= service.damage %></td>
+		<td><%= service.repair %></td>
+		<td><%= service.self_service ? "Yes" : "No" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

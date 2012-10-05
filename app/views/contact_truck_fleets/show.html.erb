@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Main:</b>
+  <%= @contact_truck_fleet.main %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @contact_truck_fleet.title %>
+</p>
+
+<p>
+  <b>Mobile:</b>
+  <%= @contact_truck_fleet.mobile %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @contact_truck_fleet.email %>
+</p>
+
+<p>
+  <b>Truck fleet:</b>
+  <%= @contact_truck_fleet.truck_fleet_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_contact_truck_fleet_path(@contact_truck_fleet) %> |
+<%= link_to 'Back', contact_truck_fleets_path %>

@@ -1,0 +1,37 @@
+<%- model_class = Fleet -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
+  <dd><%= @fleet.pic %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:make) %>:</strong></dt>
+  <dd><%= @fleet.make %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:model) %>:</strong></dt>
+  <dd><%= @fleet.model %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+  <dd><%= @fleet.year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:VIN) %>:</strong></dt>
+  <dd><%= @fleet.VIN %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:registration) %>:</strong></dt>
+  <dd><%= @fleet.registration %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fleet_number) %>:</strong></dt>
+  <dd><%= @fleet.fleet_number %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:auto_services) %>:</strong></dt>
+  <dd><%= @fleet.auto_services %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:truck_fleet_id) %>:</strong></dt>
+  <dd><%= @fleet.truck_fleet_id %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              fleets_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_fleet_path(@fleet), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              fleet_path(@fleet),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

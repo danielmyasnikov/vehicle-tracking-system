@@ -1,0 +1,39 @@
+<h1>Listing services</h1>
+
+<table>
+  <tr>
+    <th>Fleet</th>
+    <th>Repairer</th>
+    <th>Service type</th>
+    <th>Warranty</th>
+    <th>Damage</th>
+    <th>Repair</th>
+    <th>Self service</th>
+    <th>Km since last service</th>
+    <th>Time since last service</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @services.each do |service| %>
+  <tr>
+    <td><%= service.fleet_id %></td>
+    <td><%= service.repairer_id %></td>
+    <td><%= service.service_type %></td>
+    <td><%= service.warranty %></td>
+    <td><%= service.damage %></td>
+    <td><%= service.repair %></td>
+    <td><%= service.self_service %></td>
+    <td><%= service.KM_since_last_service %></td>
+    <td><%= service.time_since_last_service %></td>
+    <td><%= link_to 'Show', service %></td>
+    <td><%= link_to 'Edit', edit_service_path(service) %></td>
+    <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service', new_service_path %>

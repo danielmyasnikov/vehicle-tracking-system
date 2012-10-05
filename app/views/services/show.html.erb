@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fleet:</b>
+  <%= @service.fleet_id %>
+</p>
+
+<p>
+  <b>Repairer:</b>
+  <%= @service.repairer_id %>
+</p>
+
+<p>
+  <b>Service type:</b>
+  <%= @service.service_type %>
+</p>
+
+<p>
+  <b>Warranty:</b>
+  <%= @service.warranty %>
+</p>
+
+<p>
+  <b>Damage:</b>
+  <%= @service.damage %>
+</p>
+
+<p>
+  <b>Repair:</b>
+  <%= @service.repair %>
+</p>
+
+<p>
+  <b>Self service:</b>
+  <%= @service.self_service %>
+</p>
+
+<p>
+  <b>Km since last service:</b>
+  <%= @service.KM_since_last_service %>
+</p>
+
+<p>
+  <b>Time since last service:</b>
+  <%= @service.time_since_last_service %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_path(@service) %> |
+<%= link_to 'Back', services_path %>

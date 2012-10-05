@@ -1,0 +1,37 @@
+<%= form_for(@contact_truck_fleet) do |f| %>
+  <% if @contact_truck_fleet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact_truck_fleet.errors.count, "error") %> prohibited this contact_truck_fleet from being saved:</h2>
+
+      <ul>
+      <% @contact_truck_fleet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :main %><br />
+    <%= f.check_box :main %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile %><br />
+    <%= f.text_field :mobile %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :truck_fleet_id %><br />
+    <%= f.number_field :truck_fleet_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

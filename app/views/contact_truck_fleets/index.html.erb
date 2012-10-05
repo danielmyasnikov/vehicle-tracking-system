@@ -1,0 +1,31 @@
+<h1>Listing contact_truck_fleets</h1>
+
+<table>
+  <tr>
+    <th>Main</th>
+    <th>Title</th>
+    <th>Mobile</th>
+    <th>Email</th>
+    <th>Truck fleet</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contact_truck_fleets.each do |contact_truck_fleet| %>
+  <tr>
+    <td><%= contact_truck_fleet.main %></td>
+    <td><%= contact_truck_fleet.title %></td>
+    <td><%= contact_truck_fleet.mobile %></td>
+    <td><%= contact_truck_fleet.email %></td>
+    <td><%= contact_truck_fleet.truck_fleet_id %></td>
+    <td><%= link_to 'Show', contact_truck_fleet %></td>
+    <td><%= link_to 'Edit', edit_contact_truck_fleet_path(contact_truck_fleet) %></td>
+    <td><%= link_to 'Destroy', contact_truck_fleet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contact truck fleet', new_contact_truck_fleet_path %>

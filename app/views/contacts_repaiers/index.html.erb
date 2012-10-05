@@ -1,0 +1,27 @@
+<h1>Listing contacts_repaiers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Mobile</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contacts_repaiers.each do |contacts_repaier| %>
+  <tr>
+    <td><%= contacts_repaier.name %></td>
+    <td><%= contacts_repaier.mobile %></td>
+    <td><%= contacts_repaier.email %></td>
+    <td><%= link_to 'Show', contacts_repaier %></td>
+    <td><%= link_to 'Edit', edit_contacts_repaier_path(contacts_repaier) %></td>
+    <td><%= link_to 'Destroy', contacts_repaier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contacts repaier', new_contacts_repaier_path %>
