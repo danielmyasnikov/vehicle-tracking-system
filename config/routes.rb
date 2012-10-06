@@ -26,11 +26,11 @@ BootstraDevisePosgtreSQLOnRails::Application.routes.draw do
   resources :truck_fleets
 
   authenticated :user do
-    root :to => 'calendar#index'
+    root :to => 'report#index'
   end
   unauthenticated :user do
     devise_scope :user do 
-      get "/" => "devise/sessions#new"
+      get "/" => "report#index"
     end
   end
   devise_for :users
