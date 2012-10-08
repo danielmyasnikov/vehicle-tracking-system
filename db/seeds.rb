@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-=begin
+
 # Truck Fleets
 puts 'Creating Truck Fleets'
 truck_fleet_1 = TruckFleet.create! :trading_name_of_business => 'Fleet Guard', :street => '14 Rodborough road', 
@@ -76,7 +76,7 @@ service_2 = Service.create! :id => 2, :fleet_id => 2, :repairer_id => 1,
 
 puts 'Successfully created: ' << service_1.fleet_id
 puts 'Successfully created: ' << service_2.fleet_id
-=end
+=begin
 puts 'SETTING UP DEFAULT USER LOGIN'
 user = User.create! :name => 'Administrator', :email => 'admin@example.com', 
                     :password => 'pa$$w0rd', :password_confirmation => 'pa$$w0rd', :approved => true
@@ -85,3 +85,4 @@ user2 = User.create! :name => 'User', :email => 'user@example.com',
                      :password => 'password', :password_confirmation => 'password', :approved => true
 puts 'New user created: ' << user2.name
 user.add_role :admin
+=end
