@@ -30,7 +30,7 @@ BootstraDevisePosgtreSQLOnRails::Application.routes.draw do
   end
   unauthenticated :user do
     devise_scope :user do 
-      get "/" => "fleets#index"
+      get "/" => "devise/sessions#new"
     end
   end
   devise_for :users
