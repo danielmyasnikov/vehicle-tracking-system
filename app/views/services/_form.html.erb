@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :fleet_id %><br />
-    <%= f.number_field :fleet_id %>
+    <%= f.label :fleet_number %><br />
+    <%= collection_select :fleet, :fleet_id, Fleet.all, :id, :fleet_number, :promt => true %>
   </div>
   <div class="field">
     <%= f.label :repairer_id %><br />
-    <%= f.number_field :repairer_id %>
+    <%= collection_select :repairer, :repairer_id, Repairer.all, :id, :business_name, :promt => true %>
   </div>
   <div class="field">
     <%= f.label :service_type %><br />
