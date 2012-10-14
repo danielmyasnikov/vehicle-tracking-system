@@ -48,6 +48,7 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    fullcalendar-rails (1.5.3.0)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -131,6 +132,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 3.2.1)
   devise
+  fullcalendar-rails
   jquery-rails
   pg
   rails (= 3.2.8)

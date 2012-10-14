@@ -1,4 +1,6 @@
 BootstraDevisePosgtreSQLOnRails::Application.routes.draw do
+  get "calendar/view"
+
   get "calendar/index"
 
   get "calendar/show"
