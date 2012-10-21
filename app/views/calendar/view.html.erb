@@ -1,2 +1,67 @@
-<h1>Calendar#view</h1>
-<p>Find me in app/views/calendar/view.html.erb</p>
+<h1>Bookings</h1>
+<p>
+	<div id='id-time'>Time: <%= @date[:hours] %> <%= @date[:suffix]%> </div>
+	<div id='id-date'>Day: <%= @date[:day] %> </div>
+	<%= form_for(@service) do |f| %>
+	  <% if @service.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
+
+	      <ul>
+	      <% @service.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+	
+	  <div class="field">
+	    <%= f.label :name %><br />
+	    <%= f.text_field :name %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :fleet_number %><br />
+	    <%= collection_select :fleet, :fleet_id, Fleet.all, :id, :fleet_number, :promt => true %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :repairer_id %><br />
+	    <%= collection_select :repairer, :repairer_id, Repairer.all, :id, :business_name, :promt => true %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :service_type %><br />
+	    <%= f.text_field :service_type %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :warranty %><br />
+	    <%= f.text_field :warranty %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :damage %><br />
+	    <%= f.text_area :damage %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :repair %><br />
+	    <%= f.text_field :repair %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :self_service %><br />
+	    <%= f.check_box :self_service %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :KM_since_last_service %><br />
+	    <%= f.text_field :KM_since_last_service %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :time_since_last_service %><br />
+	    <%= f.text_field :time_since_last_service %>
+	  </div>
+	  <div class="actions">
+	    <%= f.submit %>
+	  </div>
+	<% end %>
+	
+	
+</p>
+<script>
+$('.navbar').hide();
+</script>

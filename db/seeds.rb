@@ -67,11 +67,15 @@ puts 'Creating serivces'
 service_1 = Service.create! :id => 1, :fleet_id => 3, :repairer_id => 1, 
                             :service_type => 'Scheduled', :warranty => "N/A", :damage => 'N/A', 
                             :repair => 'N/A', :self_service => false, :KM_since_last_service => 1000, 
+                            :start_service_date => '2012-10-23', :start_service_time => '10:00:00',
+                            :finish_service_date => '2012-10-23', :finish_service_time => '12:00:00',
                             :time_since_last_service => 240
                             
 service_2 = Service.create! :id => 2, :fleet_id => 2, :repairer_id => 1, 
                             :service_type => 'Scheduled', :warranty => "N/A", :damage => 'N/A', 
                             :repair => 'N/A', :self_service => false, :KM_since_last_service => 1000, 
+                            :start_service_date => '2012-10-25', :start_service_time => '8:00:00',
+                            :finish_service_date => '2012-10-25', :finish_service_time => '10:00:00',
                             :time_since_last_service => 240
 
 puts 'Successfully created: ' << service_1.fleet_id

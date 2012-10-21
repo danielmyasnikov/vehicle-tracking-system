@@ -1,2 +1,100 @@
 <h1>Calendar</h1>
-<div id='id-calendar'></div>
+<div class='row'>
+	<div id='id-repairers-list' class='span2'>
+		<div id='wrap'>
+			<div id='external-events'>
+				<% @repairers.each do |r| %>
+				  <div class='external-event'><%= r.business_name %></div>
+				<% end %>
+			</div>
+		</div>
+		<!-- Might be needed if we want to implement search on the repairer guys -->
+		<table id="id-repairer-table" class='hidden'>
+		    <thead>
+		        <tr>
+		            <th>Biz name</th>
+		            <th>Postcode</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+			<% @repairers.each do |r| %>
+		        <tr id='id-repairer-row' class='dragable'>
+		            <td><%= r.business_name %></td>
+		            <td><%= r.postcode %></td>
+		        </tr>
+			<% end %>
+		    </tbody>
+		</table>
+	</div>
+	<div id='id-calendar' class='span8'></div>
+	<div id='id-trucks-list' class='span2'>
+		<% @trucks.each do |t| %>
+		  <div class='external-event'><%= t.make %></div>
+		<% end %>	
+				
+			<!-- Might be needed if we want to implement search on the repairer guys -->
+			<table id="id-repairer-table" class='hidden'>
+			    <thead>
+			        <tr>
+			            <th>Make</th>
+			            <th>Year</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+				<% @trucks.each do |t| %>
+			        <tr id='id-truck-row' class='dragable'>
+			            <td><%= t.make %></td>
+			            <td><%= t.year %></td>
+			        </tr>
+				<% end %>
+			    </tbody>
+			</table>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  var startDate;
+  startDate = function() {
+    var day, today;
+    today = new Date();
+    day = today.getDay();
+    switch (day - 2) {
+      case -1:
+        return 6;
+      case -2:
+        return 5;
+      default:
+        return day - 2;
+    }
+  };
+  
+  $('#id-calendar').fullCalendar({
+    aspectRatio: 0.5,
+    defaultView: 'agendaWeek',
+    slotMinutes: 120,
+    minTime: 8,
+    maxTime: 20,
+    firstDay: startDate(),
+	events: [
+	<% @services.each do |s| %>
+		{
+			title: '<%= s.service_type %>',
+			start: '<%= s.start_service_date %> <%= s.start_service_time.hour.to_s + ':00:00' if !s.start_service_time.nil? %>',
+			end: '<%= s.start_service_date %> <%= s.finish_service_time.hour.to_s + ':00:00' if !s.finish_service_time.nil? %>',
+			allDay: false
+		},
+	<% end %>
+	],
+	dayClick: function(date, allDay, jsEvent, view){
+		m = date.getMonth() + 1;
+		suffix = (date.getHours >= 12)? 'pm' : 'am';
+		cuteLittleWindow = window.open("/services/new.html" + '?' + 
+		'year='  + date.getFullYear() + '&' + 
+		'month=' + m + '&' + 
+		'day='   + date.getDate() + '&' + 
+		'suffix=' + suffix + '&' +
+		'hours=' + date.getHours(), "littleWindow", "location=no,width=640,height=400,top=250,left=300"); 
+	}
+  });
+});
+</script>
