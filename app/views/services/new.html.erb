@@ -1,6 +1,6 @@
 <h1>New service</h1>
-<div id='id-time'>Time: <%= @date[:hours] %> <%= @date[:suffix]%> </div>
-<div id='id-date'>Day: <%= @date[:day] %> </div>
+<div id='id-time'>Time: <%= @date[:hours] %>:00</div>
+<div id='id-date'>Day: <%= @date[:day] %>/<%= @date[:month] %>/<%= @date[:year] %> </div>
 <%= render 'form' %>
 
 <%= link_to 'Back', services_path %>
