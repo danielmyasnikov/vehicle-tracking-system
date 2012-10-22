@@ -28,10 +28,13 @@
 	</div>
 	<div id='id-calendar' class='span8'></div>
 	<div id='id-trucks-list' class='span2'>
-		<% @trucks.each do |t| %>
-		  <div class='external-event'><%= t.make %></div>
-		<% end %>	
-				
+		<div id='wrap'>
+			<div id='external-events'>
+				<% @trucks.each do |t| %>
+				  <div class='external-event'><%= t.make %></div>
+				<% end %>
+			</div>
+		</div>
 			<!-- Might be needed if we want to implement search on the repairer guys -->
 			<table id="id-repairer-table" class='hidden'>
 			    <thead>
