@@ -1,0 +1,33 @@
+<%- model_class = Driver -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @driver.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:phone_no) %>:</strong></dt>
+  <dd><%= @driver.phone_no %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
+  <dd><%= @driver.pic %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:dl_number) %>:</strong></dt>
+  <dd><%= @driver.dl_number %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:dl_expiry) %>:</strong></dt>
+  <dd><%= @driver.dl_expiry %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:training_schedule) %>:</strong></dt>
+  <dd><%= @driver.training_schedule %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:training_documents) %>:</strong></dt>
+  <dd><%= @driver.training_documents %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              drivers_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_driver_path(@driver), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              driver_path(@driver),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

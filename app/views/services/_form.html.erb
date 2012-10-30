@@ -1,54 +1,68 @@
-<%= form_for(@service) do |f| %>
-  <% if @service.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@service.errors.count, "error") %> prohibited this service from being saved:</h2>
-
-      <ul>
-      <% @service.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="field">
-    <%= f.label :fleet_number %><br />
+    <%= f.label :fleet_number, :class => 'control-label' %>
+	  <div class="controls">
     <%= collection_select :fleet, :fleet_id, Fleet.all, :id, :fleet_number, :promt => true %>
+	  </div>
   </div>
   <div class="field">
-    <%= f.label :repairer_id %><br />
-    <%= collection_select :repairer, :repairer_id, Repairer.all, :id, :business_name, :promt => true %>
+    <%= f.label :repairer_id, :class => 'control-label' %>
+	<div class="controls">
+      <%= collection_select :repairer, :repairer_id, Repairer.all, :id, :business_name, :promt => true, :class => 'text_field' %>
+	</div>
   </div>
-  <div class="field">
-    <%= f.label :service_type %><br />
-    <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], :promt => true %>
+  <div class="control-group">
+    <%= f.label :service_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], :promt => true %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :warranty %><br />
-    <%= f.text_field :warranty %>
+  <div class="control-group">
+    <%= f.label :warranty, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :warranty, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :damage %><br />
-    <%= f.text_area :damage %>
+  <div class="control-group">
+    <%= f.label :damage, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :damage, :class => 'text_area' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :repair %><br />
-    <%= f.text_field :repair %>
+  <div class="control-group">
+    <%= f.label :repair, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :repair, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    Self Service:
-	<%= f.check_box :self_service %>
+  <div class="control-group">
+    <%= f.label :self_service, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :self_service, :class => 'check_box' %>
+    </div>
   </div>
-<br />
-  <div class="field">
-    <%= f.label :KM_since_last_service %><br />
-    <%= f.text_field :KM_since_last_service %>
+  <div class="control-group">
+    <%= f.label :KM_since_last_service, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :KM_since_last_service, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :time_since_last_service %><br />
-    <%= f.text_field :time_since_last_service %>
+  <div class="control-group">
+    <%= f.label :time_since_last_service, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :time_since_last_service, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                services_path, :id => 'id-cancel', :class => 'btn' %>
   </div>
 <% end %>
+<script>
+$('.navbar').hide();
+$('#id-cancel').click(function(){
+  window.close()
+})
+</script>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  phone_no: MyString
+  pic: MyString
+  dl_number: MyString
+  dl_expiry: 2012-10-29
+  training_schedule: MyString
+  training_documents: MyString
+
+two:
+  name: MyString
+  phone_no: MyString
+  pic: MyString
+  dl_number: MyString
+  dl_expiry: 2012-10-29
+  training_schedule: MyString
+  training_documents: MyString

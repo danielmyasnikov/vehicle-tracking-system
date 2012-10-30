@@ -3,6 +3,8 @@ class CalendarController < ApplicationController
     @services = Service.all
     @trucks = Fleet.all
     @repairers = Repairer.all
+    @drivers = Driver.all
+    @trainings = Training.all
   end
 
   def view

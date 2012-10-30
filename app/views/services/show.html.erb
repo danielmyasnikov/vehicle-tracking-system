@@ -1,50 +1,47 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Service -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Fleet:</b>
-  <%= @service.fleet_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
+  <dd><%= @service.fleet_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:repairer_id) %>:</strong></dt>
+  <dd><%= @service.repairer_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:service_type) %>:</strong></dt>
+  <dd><%= @service.service_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:warranty) %>:</strong></dt>
+  <dd><%= @service.warranty %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:damage) %>:</strong></dt>
+  <dd><%= @service.damage %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:repair) %>:</strong></dt>
+  <dd><%= @service.repair %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:self_service) %>:</strong></dt>
+  <dd><%= @service.self_service %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:KM_since_last_service) %>:</strong></dt>
+  <dd><%= @service.KM_since_last_service %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:time_since_last_service) %>:</strong></dt>
+  <dd><%= @service.time_since_last_service %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start_service_date) %>:</strong></dt>
+  <dd><%= @service.start_service_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:finish_service_date) %>:</strong></dt>
+  <dd><%= @service.finish_service_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start_service_time) %>:</strong></dt>
+  <dd><%= @service.start_service_time %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:finish_service_time) %>:</strong></dt>
+  <dd><%= @service.finish_service_time %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @service.name %></dd>
+</dl>
 
-<p>
-  <b>Repairer:</b>
-  <%= @service.repairer_id %>
-</p>
-
-<p>
-  <b>Service type:</b>
-  <%= @service.service_type %>
-</p>
-
-<p>
-  <b>Warranty:</b>
-  <%= @service.warranty %>
-</p>
-
-<p>
-  <b>Damage:</b>
-  <%= @service.damage %>
-</p>
-
-<p>
-  <b>Repair:</b>
-  <%= @service.repair %>
-</p>
-
-<p>
-  <b>Self service:</b>
-  <%= @service.self_service %>
-</p>
-
-<p>
-  <b>Km since last service:</b>
-  <%= @service.KM_since_last_service %>
-</p>
-
-<p>
-  <b>Time since last service:</b>
-  <%= @service.time_since_last_service %>
-</p>
-
-<script>
-$('.navbar').hide();
-</script>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              services_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_service_path(@service), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              service_path(@service),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

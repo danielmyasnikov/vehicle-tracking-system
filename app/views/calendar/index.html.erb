@@ -26,7 +26,36 @@
 		    </tbody>
 		</table>
 	</div>
-	<div id='id-calendar' class='span8'></div>
+	<div class='span8'>
+		<div id='id-calendar'></div>
+		<div id='id-my-team'>
+			<%- model_class = Driver -%>
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th><%= model_class.human_attribute_name(:name) %></th>
+			      <th><%= model_class.human_attribute_name(:phone_no) %></th>
+			      <th><%= model_class.human_attribute_name(:pic) %></th>
+			      <th><%= model_class.human_attribute_name(:training_schedule) %></th>
+				  <th><%=t '.actions', :default => t("helpers.actions") %></th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% @drivers.each do |driver| %>
+			      <tr>
+			        <td><%= link_to driver.name, driver_path(driver) %></td>
+			        <td><%= driver.phone_no %></td>
+			        <td><%= driver.pic %></td>
+			        <td><%= driver.training_schedule %></td>
+					<td><%= link_to t('.edit', :default => 'Training'),
+			                      new_training_path, :class => 'btn btn-mini' %></td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			</table>
+			
+		</div>
+	</div>
 	<div id='id-trucks-list' class='span2'>
 		<div id='wrap'>
 			<div id='external-events'>
@@ -87,15 +116,29 @@ $(document).ready(function() {
 	events: [
 	<% @services.each do |s| %>
 		{
-			title: '<%= s.service_type %>',
+			title: '<%= s.service_type %> SERVICE',
 			color: function(){
 				if (<%= s.start_service_date.nil? ? false : s.start_service_date < Date.today %>)
 				  return 'red'
-				else if (<%= s.start_service_date.nil? ? false : s.start_service_date >= Date.today && s.start_service_date <= Date.today + 3 %>) return 'yellow'
+				else if (<%= s.start_service_date.nil? ? false : s.start_service_date >= Date.today && s.start_service_date <= Date.today + 3 %>) return '#8B8989'
 				else return 'green'
 			}(),			
 			start: '<%= s.start_service_date %> <%= s.start_service_time.hour.to_s + ':00:00' if !s.start_service_time.nil? %>',
 			end: '<%= s.start_service_date %> <%= s.finish_service_time.hour.to_s + ':00:00' if !s.finish_service_time.nil? %>',
+			allDay: false
+		},
+	<% end %>
+	<% @trainings.each do |t| %>
+		{
+			title: '<%= t.name %> TRAINING \n for <%= Driver.find(t.driver_id).name %>',
+			color: function(){
+				if (<%= t.date.nil? ? false : t.date < Date.today %>)
+				  return '#C12267'
+				else if (<%= t.date.nil? ? false : t.date >= Date.today && t.date <= Date.today + 3 %>) return '#AF7817'
+				else return '#254117'
+			}(),
+			start: '<%= t.date %> <%= t.start_time.hour.to_s + ':00:00' if !t.start_time.nil? %>',
+			end: '<%= t.date %> <%= t.finish_time.hour.to_s + ':00:00' if !t.finish_time.nil? %>',
 			allDay: false
 		},
 	<% end %>
