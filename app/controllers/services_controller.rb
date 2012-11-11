@@ -31,11 +31,7 @@ class ServicesController < ApplicationController
     @@start_service_time = params[:hours]
     @@year = params[:year].to_i
     @@month = params[:month].to_i
-    puts '=month new'
-    puts @@month
     @@day = params[:day].to_i
-    puts '=params'
-    puts params
 
     respond_to do |format|
       format.html # new.html.erb
@@ -56,9 +52,11 @@ class ServicesController < ApplicationController
     @service.finish_service_time  = (@@start_service_time.to_i + 2).to_s
     @service.start_service_date   = Date.new(@@year, @@month, @@day)
     @service.finish_service_date  = @service.start_service_date
-
+    @user_group = User.find_subscribtions
+    
     respond_to do |format|
       if @service.save
+        UserMailer.service(@service).deliver
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render json: @service, status: :created, location: @service }
       else

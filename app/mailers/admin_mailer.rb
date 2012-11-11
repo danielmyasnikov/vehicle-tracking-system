@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default from: "myasnikovdaniil@gmail.com"
+  default from: "info.niftysoft@gmail.com"
   
   def new_user_waiting_for_approval(user)
     @user = user

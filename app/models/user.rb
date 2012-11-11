@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
   rolify
+  
+  has_many :subscribtions, through: :subscribers
+  has_many :subscribers
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -8,10 +12,18 @@ class User < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me,
-                  :approved
+                  :approved, :subscribtion_ids
 
   def active_for_authentication? 
     super && approved? 
+  end
+  
+  def find_subscribtions
+    subscribtions = []
+    self.subscribtion_ids.each do |s|
+      subscribtions.push(Subscribtion.find(s))
+    end
+    subscribtions
   end
 
   def inactive_message 

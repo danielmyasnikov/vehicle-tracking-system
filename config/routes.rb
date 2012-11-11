@@ -1,4 +1,6 @@
 BootstraDevisePosgtreSQLOnRails::Application.routes.draw do
+  resources :subscribtions
+
   resources :trainings
 
   resources :drivers
@@ -39,6 +41,6 @@ BootstraDevisePosgtreSQLOnRails::Application.routes.draw do
       get "/" => "devise/sessions#new"
     end
   end
-  devise_for :users
-  resources :users, :only => [:show, :index]
+  
+  devise_for :users, :controllers => {:registrations => "registrations"}
 end

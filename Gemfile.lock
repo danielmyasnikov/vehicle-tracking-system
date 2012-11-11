@@ -134,6 +134,7 @@ DEPENDENCIES
   devise
   fullcalendar-rails
   jquery-rails
+  mail
   pg
   rails (= 3.2.8)
   rolify
