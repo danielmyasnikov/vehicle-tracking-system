@@ -6,11 +6,11 @@
   <body>
     <h1>Welcome to MyTruckFleet, <%= @user.name %></h1>
     <p>
-      You have successfully signed up to mytruckflee.com,
+      You have successfully signed up to mytruckfleet.com,
       your username is: <%= @user.email %>.<br/>
     </p>
     <p>
-      Your subscriptions are:</br> 
+      You will get the following updates:</br> 
 		<% @subscribtions.each do |s| %>
 			<%= s.name %>,</br>
 		<% end %>

@@ -1,4 +1,11 @@
-<h1>My Reports</h1>
+<div class='row'>
+	<div class='span2'><%= image_tag('MyReports/MyReports.jpg', :size => "128x64") %></div>
+	<div class='span8'>
+		<h2>MyReports</h2>
+	</div>
+	<div class='span2'></div>
+</div>
+</br>
 <%- model_class = Service -%>
 <div class="page-header">
   
@@ -17,7 +24,7 @@
   <tbody>
     <% @services.each do |service| %>
       <tr>
-        <td><%= Fleet.find(:first, :conditions => {:id => service.fleet_id}).VIN  %></td>
+        <td><%= Fleet.find(:first, :conditions => {:id => service.fleet_id}).VIN if Fleet.exists?(:id => service.fleet_id)  %></td>
  		<td><%= service.service_type %></td>
 		<td><%= service.warranty %></td>
 		<td><%= service.damage %></td>
