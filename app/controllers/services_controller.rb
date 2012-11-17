@@ -27,6 +27,7 @@ class ServicesController < ApplicationController
   # GET /services/new.json
   def new
     @service = Service.new
+    @service.warranty = true
     @date = params
     @@start_service_time = params[:hours]
     @@year = params[:year].to_i
@@ -48,11 +49,11 @@ class ServicesController < ApplicationController
   # POST /services.json
   def create
     @service = Service.new(params[:service])
-    @service.start_service_time   = @@start_service_time
-    @service.finish_service_time  = (@@start_service_time.to_i + 2).to_s
-    @service.start_service_date   = Date.new(@@year, @@month, @@day)
-    @service.finish_service_date  = @service.start_service_date
-    @user_group = User.find_subscribtions
+    #@service.start_service_time   = @@start_service_time
+    #@service.finish_service_time  = (@@start_service_time.to_i + 2).to_s
+    #@service.start_service_date   = Date.new(@@year, @@month, @@day)
+    #@service.finish_service_date  = @service.start_service_date
+    @user_group = current_user.find_subscribtions
     
     respond_to do |format|
       if @service.save

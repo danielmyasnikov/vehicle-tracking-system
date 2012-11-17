@@ -17,22 +17,40 @@
       <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], :promt => true %>
     </div>
   </div>
+  <div class="field">
+    <%= f.label :hours, :class => 'control-label' %>
+	<div class="controls">
+      <%= f.select :hours, [nil, 1, 2, 3, 4, 5, 6, 7, 8], :promt => true, :class => 'text_field' %>
+	</div>
+  </div>
+  <div class="control-group">
+    <%= f.label :service, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :service, :class => 'check_box' %>
+    </div>
+  </div>
   <div class="control-group">
     <%= f.label :warranty, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :warranty, :class => 'text_field' %>
+      <%= f.check_box :warranty, :class => 'check_box' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :damage, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_area :damage, :class => 'text_area' %>
+      <%= f.check_box :damage, :class => 'check_box' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :repair, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :repair, :class => 'text_field' %>
+      <%= f.check_box :repair, :class => 'check_box' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :breakdown, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :breakdown, :class => 'check_box' %>
     </div>
   </div>
   <div class="control-group">
@@ -51,6 +69,12 @@
     <%= f.label :time_since_last_service, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :time_since_last_service, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :other, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :time_since_last_service, :class => 'text_area' %>
     </div>
   </div>
 

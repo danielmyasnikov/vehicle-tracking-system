@@ -6,7 +6,7 @@
 			</div>
 			<div id='external-events'>
 				<% @trucks.each do |t| %>
-					<%= link_to truck_fleet_path(t) do %>
+					<%= link_to fleet_path(t) do %>
 				  		<div class='external-event'><%= t.make %></div>
 					<% end %>
 				<% end %>

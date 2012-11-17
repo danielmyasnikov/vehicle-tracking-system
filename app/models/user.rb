@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
     self.subscribtion_ids.each do |s|
       subscribtions.push(Subscribtion.find(s))
     end
-    
   end
   
   def find_subscribtions
