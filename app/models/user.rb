@@ -18,6 +18,14 @@ class User < ActiveRecord::Base
     super && approved? 
   end
   
+  def show_alerts
+    subscribtions = []
+    self.subscribtion_ids.each do |s|
+      subscribtions.push(Subscribtion.find(s))
+    end
+    
+  end
+  
   def find_subscribtions
     subscribtions = []
     self.subscribtion_ids.each do |s|

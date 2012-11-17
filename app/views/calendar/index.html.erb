@@ -1,39 +1,20 @@
 <div class='row'>
-	<div class='span2'><%= image_tag('MyCalendar/MyCalendar.jpg', :size => "128x64", :class => '') %></div>
-	<div class='span8'>
-		<h2>MyCalendar</h2>
-	</div>
-	<div class='span2'></div>
-</div>
-</br>
-<div class='row'>
 	<div id='id-repairers-list' class='span2'>
 		<div id='wrap'>
+			<div style='margin-bottom:74px'>
+				<%= image_tag('MyTruckFleet/MyTruckFleet.png', :size => "128x64") %>	
+			</div>
 			<div id='external-events'>
-				<% @repairers.each do |r| %>
-				  <div class='external-event'><%= r.business_name %></div>
+				<% @trucks.each do |t| %>
+					<%= link_to truck_fleet_path(t) do %>
+				  		<div class='external-event'><%= t.make %></div>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
-		<!-- Might be needed if we want to implement search on the repairer guys -->
-		<table id="id-repairer-table" class='hidden'>
-		    <thead>
-		        <tr>
-		            <th>Biz name</th>
-		            <th>Postcode</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-			<% @repairers.each do |r| %>
-		        <tr id='id-repairer-row' class='dragable'>
-		            <td><%= r.business_name %></td>
-		            <td><%= r.postcode %></td>
-		        </tr>
-			<% end %>
-		    </tbody>
-		</table>
 	</div>
 	<div class='span8'>
+		<%= image_tag('MyCalendar/MyCalendar.jpg', :size => "128x64", :class => '') %>
 		<div id='id-calendar'></div>
 		<div id='id-my-team'>
 			<%- model_class = Driver -%>
@@ -65,29 +46,17 @@
 	</div>
 	<div id='id-trucks-list' class='span2'>
 		<div id='wrap'>
+			<div style='margin-bottom:46px'>
+				<%= image_tag('MyRepairer/MyRepairer.jpg', :size => "128x64", :class => '') %>
+			</div>
 			<div id='external-events'>
-				<% @trucks.each do |t| %>
-				  <div class='external-event'><%= t.make %></div>
+				<% @repairers.each do |r| %>
+					<%= link_to repairer_path(r) do %>
+				  		<div class='external-event'><%= r.business_name %></div>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
-			<!-- Might be needed if we want to implement search on the repairer guys -->
-			<table id="id-repairer-table" class='hidden'>
-			    <thead>
-			        <tr>
-			            <th>Make</th>
-			            <th>Year</th>
-			        </tr>
-			    </thead>
-			    <tbody>
-				<% @trucks.each do |t| %>
-			        <tr id='id-truck-row' class='dragable'>
-			            <td><%= t.make %></td>
-			            <td><%= t.year %></td>
-			        </tr>
-				<% end %>
-			    </tbody>
-			</table>
 	</div>
 </div>
 <script type="text/javascript" charset="utf-8">

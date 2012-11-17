@@ -14,4 +14,12 @@ class UserMailer < ActionMailer::Base
     @greeting = ''
     mail :to => "myasnikovdaniil@gmail.com"
   end
+  
+  def scheduled_service_email(user, service)
+    
+  end
+  
+  def scheduled_training_email(user, training)
+    
+  end
 end
