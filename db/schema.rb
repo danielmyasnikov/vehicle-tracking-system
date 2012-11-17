@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117081558) do
+ActiveRecord::Schema.define(:version => 20121117233728) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -119,6 +119,11 @@ ActiveRecord::Schema.define(:version => 20121117081558) do
     t.float    "breakdown_price"
     t.boolean  "service"
     t.integer  "hours"
+    t.boolean  "service_done"
+    t.boolean  "repair_done"
+    t.boolean  "warranty_done"
+    t.boolean  "damage_done"
+    t.boolean  "breakdown_done"
   end
 
   create_table "subscribers", :force => true do |t|

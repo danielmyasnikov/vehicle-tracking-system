@@ -29,10 +29,17 @@ class ServicesController < ApplicationController
     @service = Service.new
     @service.warranty = true
     @date = params
-    @@start_service_time = params[:hours]
-    @@year = params[:year].to_i
-    @@month = params[:month].to_i
-    @@day = params[:day].to_i
+    
+    start_service_time = params[:hours]
+    year = params[:year].to_i
+    month = params[:month].to_i
+    day = params[:day].to_i
+    
+    @service.start_service_time   = start_service_time
+    # @service.finish_service_time  = (start_service_time.to_i + 2).to_s
+    @service.start_service_date   = Date.new(year, month, day)
+    # TODO specify a formula if the time goes over the shift
+    @service.finish_service_date  = @service.start_service_date
 
     respond_to do |format|
       format.html # new.html.erb
@@ -49,10 +56,7 @@ class ServicesController < ApplicationController
   # POST /services.json
   def create
     @service = Service.new(params[:service])
-    #@service.start_service_time   = @@start_service_time
-    #@service.finish_service_time  = (@@start_service_time.to_i + 2).to_s
-    #@service.start_service_date   = Date.new(@@year, @@month, @@day)
-    #@service.finish_service_date  = @service.start_service_date
+    @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     @user_group = current_user.find_subscribtions
     
     respond_to do |format|
