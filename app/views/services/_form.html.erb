@@ -1,8 +1,11 @@
+<% content_for :head do %>
+  <% javascript_include_tag "services.js" %>
+<% end %>
 <%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="field">
     <%= f.label :fleet_number, :class => 'control-label' %>
 	  <div class="controls">
-    	<%= collection_select :fleet, :fleet_id, Fleet.all, :id, :fleet_number, :promt => true %>
+    	<%= collection_select :fleet, :fleet_id, Fleet.all, :id, :make, :promt => true %>
 	  </div>
   </div>
   <div class="field">

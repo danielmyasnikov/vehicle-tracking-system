@@ -30,20 +30,25 @@ class ServicesController < ApplicationController
     @service.warranty = true
     @date = params
     
+    @trucks = Fleet.where(:auto_services => false).pluck(:id)
+    
     start_service_time = params[:hours]
     year = params[:year].to_i
     month = params[:month].to_i
     day = params[:day].to_i
     
     @service.start_service_time   = start_service_time
-    # @service.finish_service_time  = (start_service_time.to_i + 2).to_s
-    @service.start_service_date   = Date.new(year, month, day)
-    # TODO specify a formula if the time goes over the shift
+    @service.start_service_date   = Date.new(year, month, day) if year.to_s != "0"
     @service.finish_service_date  = @service.start_service_date
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @service }
+      format.json { 
+        render :json => {
+          :service => @service,
+          :truck_ids => @trucks
+        }
+      }
     end
   end
 

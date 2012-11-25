@@ -12,6 +12,12 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label :notifications_to, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :pic, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
     <%= f.label :make, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :make, :class => 'text_field' %>
@@ -50,10 +56,13 @@
   <div class="control-group">
     <%= f.label :auto_services, :class => 'control-label' %>
     <div class="controls">
-      <%= f.check_box :auto_services, :class => 'check_box' %>
+      <%= f.check_box :auto_services, :class => 'check_box' %>  <i><font size="2">If unticked kilometres will be entered on service page</font></i>
+	  </br></br>
+	  <%= f.text_field :km_estimates, :class => 'text_field', :value => "Enter KM estimates", :disabled => true %> KM per 
+	  <%= f.select :period, ['Year', 'Month', 'Week', 'Day'], :options => {:disabled => true, :promt => true}, :class => 'text_field' %>
     </div>
   </div>
-...(scheduled services will go in here)
+
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
