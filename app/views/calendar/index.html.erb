@@ -7,7 +7,22 @@
 			<div id='external-events'>
 				<% @trucks.each do |t| %>
 					<%= link_to fleet_path(t) do %>
-				  		<div class='external-event'><%= t.make %></div>
+				  		<div class='external-event'>
+				  			<% @setting = Setting.find_by_truck_fleet_id(
+				  				t.truck_fleet.id
+				  			) %>
+				  			<%= case @setting.truck_identification
+								when "Make"
+								  t.make
+								when "VIN"
+								  t.VIN
+								when "Model"
+								  t.model
+								when "Registration"
+								  t.registration
+								end 
+				  			 %>
+				  		</div>
 					<% end %>
 				<% end %>
 			</div>

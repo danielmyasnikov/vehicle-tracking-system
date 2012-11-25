@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118211318) do
+ActiveRecord::Schema.define(:version => 20121125134453) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -126,6 +126,15 @@ ActiveRecord::Schema.define(:version => 20121118211318) do
     t.boolean  "warranty_done"
     t.boolean  "damage_done"
     t.boolean  "breakdown_done"
+  end
+
+  create_table "settings", :force => true do |t|
+    t.string   "truck_identification"
+    t.string   "email_periods"
+    t.integer  "email_recepient_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "truck_fleet_id"
   end
 
   create_table "subscribers", :force => true do |t|

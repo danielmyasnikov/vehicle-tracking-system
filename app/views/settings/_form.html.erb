@@ -1,0 +1,33 @@
+<%= form_for @setting, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :for_truck_fleet_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select 	:truck_fleet_id, TruckFleet.all, :id, :trading_name_of_business, 
+      				:class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :truck_identification, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :truck_identification, ["Make", "Model", "VIN", "Registration"], :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :email_periods, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :email_periods, ["Daily", "Weekly", "Tuesdays & Thursdays"], :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :email_recepient_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :email_recepient_id, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                settings_path, :class => 'btn' %>
+  </div>
+<% end %>

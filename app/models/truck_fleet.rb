@@ -3,5 +3,5 @@ class TruckFleet < ActiveRecord::Base
   has_many :contact_truck_fleets, :dependent => :destroy
   has_many :fleets
   accepts_nested_attributes_for :contact_truck_fleets, :reject_if => lambda { |a| a[:email].blank? }, :allow_destroy => true
-  
+  has_one :setting
 end

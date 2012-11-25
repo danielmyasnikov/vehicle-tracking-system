@@ -1,4 +1,6 @@
 BootstraDevisePosgtreSQLOnRails::Application.routes.draw do
+  resources :settings
+
   resources :subscribtions
 
   resources :trainings

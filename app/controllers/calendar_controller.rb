@@ -5,6 +5,7 @@ class CalendarController < ApplicationController
     @repairers = Repairer.all
     @drivers = Driver.all
     @trainings = Training.all
+    @settings = Setting.all
   end
 
   def view
