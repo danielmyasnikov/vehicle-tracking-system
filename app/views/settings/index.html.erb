@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:truck_fleet_id) %></th>
       <th><%= model_class.human_attribute_name(:truck_identification) %></th>
       <th><%= model_class.human_attribute_name(:email_periods) %></th>
       <th><%= model_class.human_attribute_name(:email_recepient_id) %></th>
@@ -17,6 +18,7 @@
     <% @settings.each do |setting| %>
       <tr>
         <td><%= link_to setting.id, setting_path(setting) %></td>
+        <td><%= TruckFleet.find(setting.truck_fleet_id).trading_name_of_business %></td>
         <td><%= setting.truck_identification %></td>
         <td><%= setting.email_periods %></td>
         <td><%= setting.email_recepient_id %></td>
