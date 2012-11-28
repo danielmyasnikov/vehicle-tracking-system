@@ -1,50 +1,99 @@
-<%= image_tag('MyTruckFleet/MyTruckFleet.png', :size => "128x64", :class => 'brand') %>
-<ul class="nav">
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete', :class => 'left' %>        
-    </li>
-  <% else %>
-    <li>
-    <%= link_to 'Login', new_user_session_path %>  
-    </li>
-  <% end %>
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Edit account', edit_user_registration_path %>
-    </li>
-    <li>
-    <%= link_to 'My Calendar', calendar_index_path %>
-    </li>
-    <% if current_user.admin? %>
-      <li>
-      	<%#= link_to 'Admin', users_path %>
-      </li>
-      <li>
-      	<%= link_to 'Truck Fleets', truck_fleets_path %>
-      </li>
-	  <li>
-      	<%= link_to 'Fleets', fleets_path %>
-      </li>
-      <li>
-      	<%= link_to 'Repairers', repairers_path %>
-      </li>
-      <li>
-      	<%= link_to 'Reports', report_index_path %>
-      </li>
-      <li>
-      	<%= link_to 'My Team', drivers_path %>
-      </li>
-      <li>
-      	<%= link_to 'Trainings', trainings_path %>
-      </li>
-      <li>
-      	<%= link_to 'Settings', settings_path %>
-      </li>
-    <% end %>
-  <% else %>
-    <li>
-    <%= link_to 'Sign up', new_user_registration_path %>
-    </li>
-  <% end %>
-</ul>
+<%= image_tag('MyTruckFleet/MyTruckFleet.png', :size => "86x38", :class => 'brand') %>
+<div class="right bottom">
+	<ul class="nav">
+		<% if user_signed_in? %>
+		<li>
+			<%= link_to destroy_user_session_path, :method=>'delete', :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/outgoing.png', :size => '12x12' %> |
+				Logout
+			</div>
+			<% end %>
+		</li>
+		<% else %>
+		<li>
+			<%= link_to 'Login', new_user_session_path %>
+		</li>
+		<% end %>
+		<% if user_signed_in? %>
+		<li>
+			<%= link_to edit_user_registration_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/contract.png', :size => '12x12' %> |
+				Edit account
+			</div>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to calendar_index_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/calendar.png', :size => '12x12' %> |
+				MyCalendar
+			</div>
+			<% end %>
+		</li>
+		<% if current_user.admin? %>
+		<li>
+			<%#= link_to 'Admin', users_path %>
+		</li>
+		<li>
+			<%= link_to truck_fleets_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/store.png', :size => '12x12' %> |
+				Truck Fleets
+			</div>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to fleets_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/swatch.png', :size => '12x12' %> |
+				Fleets
+			</div>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to repairers_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/outgoing.png', :size => '12x12' %> |
+				Repairers
+			</div>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to report_index_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/paper-ripped.png', :size => '12x12' %> |
+				Reports
+			</div>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to drivers_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/contract-3.png', :size => '12x12' %> |
+				MyTeam
+			</div>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to settings_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/settings-3.png', :size => '12x12' %> |
+				Settings
+			</div>
+			<% end %>
+		</li>
+		<% end %>
+		<% else %>
+		<li>
+			<%= link_to new_user_registration_path, :class => 'font-12px' do %>
+			<div class='btn'>
+				<%= image_tag 'icons/inbox-2.png', :size => '12x12' %> |
+				Sign up
+			</div>
+			<% end %>
+		</li>
+		<% end %>
+	</ul>
+</div>

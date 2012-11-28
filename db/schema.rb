@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125134453) do
+ActiveRecord::Schema.define(:version => 20121128132838) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -63,11 +63,15 @@ ActiveRecord::Schema.define(:version => 20121125134453) do
     t.string   "registration"
     t.string   "fleet_number"
     t.boolean  "auto_services"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.integer  "truck_fleet_id"
     t.float    "km_estimates"
     t.string   "period"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "repairers", :force => true do |t|
@@ -80,8 +84,12 @@ ActiveRecord::Schema.define(:version => 20121125134453) do
     t.integer  "postcode"
     t.boolean  "hour_service_24"
     t.string   "phone_number"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "roles", :force => true do |t|
@@ -171,6 +179,10 @@ ActiveRecord::Schema.define(:version => 20121125134453) do
     t.integer  "postcode"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "users", :force => true do |t|

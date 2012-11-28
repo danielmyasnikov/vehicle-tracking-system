@@ -14,3 +14,12 @@
 .right{
 	float: right;
 }
+.bottom{
+	vertical-align: bottom;
+}
+.font-12px{
+	font-size: 12px;
+}
+.navbar .nav > li > a {
+    padding: 0 !important;
+}

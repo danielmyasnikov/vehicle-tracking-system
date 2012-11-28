@@ -8,6 +8,7 @@
 				<% @trucks.each do |t| %>
 					<%= link_to fleet_path(t) do %>
 				  		<div class='external-event'>
+				  			<%= image_tag t.avatar.url, :size => '16x16' %> | 
 				  			<% @setting = Setting.find_by_truck_fleet_id(
 				  				t.truck_fleet.id
 				  			) %>
@@ -67,7 +68,10 @@
 			<div id='external-events'>
 				<% @repairers.each do |r| %>
 					<%= link_to repairer_path(r) do %>
-				  		<div class='external-event'><%= r.business_name %></div>
+						<div class='external-event'>
+							<%= image_tag r.avatar.url, :size => '16x16' %> | 
+					  		<%= r.business_name %>
+					  	</div>
 					<% end %>
 				<% end %>
 			</div>

@@ -5,6 +5,12 @@
       <%= f.text_field :trading_name_of_business, :class => 'text_field' %>
     </div>
   </div>
+    <div class="control-group">
+    <%= f.label :image, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :avatar %>
+    </div>
+  </div>
   <div class="control-group">
     <%= f.label :street, :class => 'control-label' %>
     <div class="controls">
