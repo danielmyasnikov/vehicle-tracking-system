@@ -4,6 +4,13 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <p>Service has been registered as: <%= @service %></p>
+    <p>Service has been registered for: <%= @fleet.model %></p>
+    <p>Service will be conducted at: <%= @repairer.business_name %></p>
+    <p>
+    	Please note that service will start on:
+    	<bold><%= @service.start_service_date.strftime %></bold> at 
+    	<bold><%= @service.start_service_time.strftime("%H:%M") %></bold> 
+    	for <%= @service.hours %> hours.
+    </p>
   </body>
 </html>

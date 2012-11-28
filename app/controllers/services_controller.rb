@@ -62,11 +62,18 @@ class ServicesController < ApplicationController
   def create
     @service = Service.new(params[:service])
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
-    @user_group = current_user.find_subscribtions
+    
+    @fleet_email_contacts     = TruckFleet.find_contacts_by_fleet_id(@service.fleet_id)
+    @repairer_email_contacts  = Repairer.find_contacts_by_repairer_id(@service.repairer_id) 
+    
+    emails = @fleet_email_contacts.
+      concat(@repairer_email_contacts).
+      push(current_user.email).
+      uniq
     
     respond_to do |format|
       if @service.save
-        UserMailer.service(@service).deliver
+        UserMailer.service(@service, emails).deliver
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render json: @service, status: :created, location: @service }
       else

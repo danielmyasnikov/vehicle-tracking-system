@@ -4,4 +4,9 @@ class TruckFleet < ActiveRecord::Base
   has_many :fleets
   accepts_nested_attributes_for :contact_truck_fleets, :reject_if => lambda { |a| a[:email].blank? }, :allow_destroy => true
   has_one :setting
+  
+  def self.find_contacts_by_fleet_id(fleet_id)
+    fleet = Fleet.find(fleet_id)
+    fleet.truck_fleet.contact_truck_fleets.pluck(:email)
+  end
 end

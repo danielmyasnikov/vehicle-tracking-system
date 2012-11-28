@@ -5,13 +5,13 @@
   <div class="field">
     <%= f.label :fleet_number, :class => 'control-label' %>
 	  <div class="controls">
-    	<%= collection_select :fleet, :fleet_id, Fleet.all, :id, :make, :promt => true %>
+    	<%= f.collection_select :fleet_id, Fleet.all, :id, :make, :promt => true %>
 	  </div>
   </div>
   <div class="field">
     <%= f.label :repairer_id, :class => 'control-label' %>
 	<div class="controls">
-      <%= collection_select :repairer, :repairer_id, Repairer.all, :id, :business_name, :promt => true, :class => 'text_field' %>
+      <%= f.collection_select :repairer_id, Repairer.all, :id, :business_name, :promt => true, :class => 'text_field' %>
 	</div>
   </div>
   <div class="control-group">

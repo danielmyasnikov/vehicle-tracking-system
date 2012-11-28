@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "info.niftysoft@gmail.com"
+  default from: "myasnikovdaniil@gmail.com"
   
   def registered_user(user)
     @user = user
@@ -10,9 +10,14 @@ class UserMailer < ActionMailer::Base
     )
   end
   
-  def service(service)
-    @greeting = ''
-    mail :to => "myasnikovdaniil@gmail.com"
+  def service(service, emails)
+    @fleet = Fleet.find(service.fleet_id)
+    @repairer = Repairer.find(service.repairer_id)
+    @service = service
+    
+    emails = emails.join(",")
+    mail :to => emails, 
+         :subject => "Service has been successfully booked"
   end
   
   def scheduled_service_email(user, service)

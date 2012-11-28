@@ -5,4 +5,9 @@ class Repairer < ActiveRecord::Base
   has_many :contact_repairers, :dependent => :destroy
   accepts_nested_attributes_for :contact_repairers
   has_many :services
+  
+  def self.find_contacts_by_repairer_id(id)
+    repairer = self.find(id)
+    repairer.contact_repairers.pluck(:email)
+  end
 end
