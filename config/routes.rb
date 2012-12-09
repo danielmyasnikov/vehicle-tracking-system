@@ -1,4 +1,4 @@
-BootstraDevisePosgtreSQLOnRails::Application.routes.draw do
+Mytruckfleet::Application.routes.draw do
   resources :settings
 
   resources :subscribtions

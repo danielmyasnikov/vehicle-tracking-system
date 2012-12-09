@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-BootstraDevisePosgtreSQLOnRails::Application.load_tasks
+Mytruckfleet::Application.load_tasks

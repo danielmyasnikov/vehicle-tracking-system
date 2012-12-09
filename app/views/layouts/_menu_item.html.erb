@@ -1,0 +1,8 @@
+<li>
+	<%= link_to link, :method => optional ||= nil, :class => 'font-12px' do %>
+	<div class='btn'>
+		<%= image_tag icon, :size => '12x12' if defined?(icon) %><%= "|" if defined?(icon)%>
+		<%= name %>
+	</div>
+	<% end %>
+</li>

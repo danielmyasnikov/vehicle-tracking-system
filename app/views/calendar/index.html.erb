@@ -30,18 +30,16 @@
 		</div>
 	</div>
 	<div class='span8'>
-		<%= image_tag('MyCalendar/MyCalendar.jpg', :size => "128x64", :class => '') %>
-		<div id='id-calendar'></div>
+		<a href='#' id='id-my-team-link'>Display MyTeam <span id='id-my-team-arrow' class='closed'></span></a>
 		<div id='id-my-team'>
+			<%= image_tag('MyTeam/MyTeam.jpg', :size => "95x64") %>
 			<%- model_class = Driver -%>
 			<table class="table table-striped">
 			  <thead>
 			    <tr>
 			      <th><%= model_class.human_attribute_name(:name) %></th>
 			      <th><%= model_class.human_attribute_name(:phone_no) %></th>
-			      <th><%= model_class.human_attribute_name(:pic) %></th>
-			      <th><%= model_class.human_attribute_name(:training_schedule) %></th>
-				  <th><%=t '.actions', :default => t("helpers.actions") %></th>
+			      <th><%= model_class.human_attribute_name(:license_expiry_date) %></th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -49,16 +47,15 @@
 			      <tr>
 			        <td><%= link_to driver.name, driver_path(driver) %></td>
 			        <td><%= driver.phone_no %></td>
-			        <td><%= driver.pic %></td>
-			        <td><%= driver.training_schedule %></td>
-					<td><%= link_to t('.edit', :default => 'Training'),
-			                      new_training_path, :class => 'btn btn-mini' %></td>
+			        <td><%= driver.dl_expiry %></td>
 			      </tr>
 			    <% end %>
 			  </tbody>
 			</table>
-			
 		</div>
+		</br>
+		<%= image_tag('MyCalendar/MyCalendar.jpg', :size => "128x64", :class => '') %>
+		<div id='id-calendar'></div>
 	</div>
 	<div id='id-trucks-list' class='span2'>
 		<div id='wrap'>
@@ -81,6 +78,24 @@
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
   var startDate;
+  var myTeamLink = $('#id-my-team-link');
+  var myTeam = $('#id-my-team');
+  var myTeamArrow = $('#id-my-team-arrow')
+  myTeam.hide();
+  myTeamLink.click(function(){
+  	if (myTeamArrow.hasClass('open')){
+  		myTeamLink.html('Display MyTeam');
+  		myTeamArrow.removeClass('open');
+  		myTeamArrow.html('&#x25BC;');
+  	} else {
+  		myTeamLink.html('Hide MyTeam');
+  		myTeamArrow.addClass('open');
+  		myTeamArrow.html('&#x25B2;');
+  		
+  	}	
+  	myTeam.toggle('slow');
+  });
+ 
   startDate = function() {
     var day, today;
     today = new Date();
@@ -94,6 +109,8 @@ $(document).ready(function() {
         return day - 2;
     }
   };
+  
+  
 
   dateColor = function(past, current, upcoming){
 	if (past) return 'red';
@@ -101,10 +118,29 @@ $(document).ready(function() {
 	if (upcoming) return 'green';
   };
   
+  agendaWeek = function(){
+  	$("#id-calendar").fullCalendar('changeView', 'agendaWeek');
+  };
+  
   $('#id-calendar').fullCalendar({
     aspectRatio: 0.5,
     defaultView: 'agendaWeek',
     slotMinutes: 120,
+    columnFormat: {
+    	week: 'ddd d/M',
+    	day: 'dddd d/M',
+    },
+	header: {
+		left: 'prev,next today',
+		center: 'title',
+		right: 'month,basicWeek,basicDay'
+	},
+	viewDisplay: function(view){
+		if (view.name === 'basicDay')
+			$('#id-calendar').fullCalendar('changeView', 'agendaDay');
+		else if (view.name === 'basicWeek')
+			$('#id-calendar').fullCalendar('changeView', 'agendaWeek');
+	},
     minTime: 8,
     maxTime: 20,
     firstDay: startDate(),
