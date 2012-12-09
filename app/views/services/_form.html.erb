@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <% javascript_include_tag "services.js" %>
+  <%= javascript_include_tag "services.js" %>
 <% end %>
 <%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="field">
