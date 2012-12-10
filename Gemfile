@@ -5,7 +5,6 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
 gem 'devise'
 gem 'fullcalendar-rails'
 gem "mail"
@@ -16,6 +15,10 @@ gem 'aws-sdk', '~> 1.3.4'
 # geo location
 gem 'gmaps4rails'
 gem 'geocoder'
+gem 'pg'
+
+# DB and ARel extensions
+gem "squeel"
 
 # Gems used only for assets and not required
 # in production environments by default.

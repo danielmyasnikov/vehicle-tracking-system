@@ -6,6 +6,8 @@ class CalendarController < ApplicationController
     @drivers = Driver.all
     @trainings = Training.all
     @settings = Setting.all
+    @due = Fleet.due
+    @overdue = Fleet.overdue
   end
 
   def view

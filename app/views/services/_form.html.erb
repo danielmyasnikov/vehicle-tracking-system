@@ -98,14 +98,14 @@
   <%= f.text_field :start_service_time, :class => 'hidden' %>
   <%= f.text_field :finish_service_time, :class => 'hidden' %>
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit nil, :class => 'btn btn-primary', :id => 'id-create' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 services_path, :id => 'id-cancel', :class => 'btn' %>
   </div>
 <% end %>
 <script>
 $('.navbar').hide();
-$('#id-cancel').click(function(){
+$('#id-cancel, #id-create').click(function(){
   window.close()
 })
 </script>

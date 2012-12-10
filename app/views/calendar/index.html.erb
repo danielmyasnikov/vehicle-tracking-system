@@ -55,7 +55,48 @@
 		</div>
 		</br>
 		<%= image_tag('MyCalendar/MyCalendar.jpg', :size => "128x64", :class => '') %>
-		<div id='id-calendar'></div>
+		<div id='id-calendar'></div><br /><br />
+		<h4 id='id-overdue-open'>Overdue vehicles</h4>
+			<table id="id-due-overdue-items" class="table table-striped highlight-red open">
+			  <thead>
+			    <tr>
+			      <th>Make</th>
+			      <th>Model</th>
+			      <th>Next Service</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <% @overdue.each do |overdue| %>
+			      <tr class=''>
+			        <td class=''><%= link_to overdue.make, fleet_path(overdue) %></td>
+			        <td class=''><%= overdue.model %></td>
+			        <td class=''><%= overdue.next_service_date %></td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			  <b><%= 'No items to display' if @overdue.empty? %></b>
+			</table>
+			<h4 id='id-due-open'>Due vehicles</h4>
+			<table id="id-due-items" class="table table-striped">
+				<thead>
+				  <tr>
+				  	<th></th>
+				  	<th></th>
+				  	<th></th>
+				  </tr>
+				</thead>
+			  <tbody>
+			    <% @due.each_with_index do |due, index| %>
+			      <tr class='highlight-yellow'>
+			        <td class='due'><%= link_to due.make, fleet_path(due) %></td>
+			        <td class='due'><%= due.model %></td>
+			        <td class='due'><%= due.next_service_date %></td>
+			      </tr>
+			    <% end %>
+			  </tbody>
+			</table>
+			<%= puts @due == [] %>
+		<b><%= 'No items to display' if @due.empty? %></b>
 	</div>
 	<div id='id-trucks-list' class='span2'>
 		<div id='wrap'>
@@ -80,8 +121,21 @@ $(document).ready(function() {
   var startDate;
   var myTeamLink = $('#id-my-team-link');
   var myTeam = $('#id-my-team');
-  var myTeamArrow = $('#id-my-team-arrow')
+  var myTeamArrow = $('#id-my-team-arrow');
+  var dueHeader = $("#id-due-open");
+  var dueItems = $("#id-due-items");
+  var overdueHeader = $("#id-overdue-open");
+  var overdueItems = $("#id-due-overdue-items");
+  
   myTeam.hide();
+  dueItems.hide();
+  dueHeader.click(function(){
+  	dueItems.toggle("slow");
+  });
+  overdueHeader.click(function(){
+  	overdueItems.toggle("slow");
+  });
+  
   myTeamLink.click(function(){
   	if (myTeamArrow.hasClass('open')){
   		myTeamLink.html('Display MyTeam');

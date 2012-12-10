@@ -32,3 +32,19 @@
 #id-repairer-table td, #id-truck-table td {
 	background-color: #eee; color: black;
 }
+.highlight-red {
+	outline:5px solid red;
+}
+.highlight-yellow {
+	outline:5px solid yellow;	
+}
+.due{
+	background-color: yellow;
+}
+.overdue{
+	background-color: red;
+	background-color: red;
+}
+#id-due-open, #id-overdue-open {
+	cursor: pointer
+}
