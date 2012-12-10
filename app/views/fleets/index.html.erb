@@ -15,8 +15,6 @@
       <th><%= model_class.human_attribute_name(:registration) %></th>
       <th><%= model_class.human_attribute_name(:fleet_number) %></th>
       <th><%= model_class.human_attribute_name(:auto_services) %></th>
-      <th><%= model_class.human_attribute_name(:truck_fleet_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -24,7 +22,11 @@
     <% @fleets.each do |fleet| %>
       <tr>
         <td><%= link_to fleet.id, fleet_path(fleet) %></td>
-        <td><%= fleet.pic %></td>
+        <td>
+        	<%= image_tag fleet.avatar.url, :size => '24x24' if fleet.avatar.present? %>
+        	<%= image_tag "Vehicles/#{fleet.vehicle_type}.png", :size => '24x24' if fleet.vehicle_type.present? && !fleet.avatar.present? %>
+        	<%= image_tag 'Vehicles/Truck.png', :size => '24x24' if fleet.vehicle_type.nil? && !fleet.avatar.present? %>
+        </td>
         <td><%= fleet.make %></td>
         <td><%= fleet.model %></td>
         <td><%= fleet.year %></td>
@@ -32,8 +34,6 @@
         <td><%= fleet.registration %></td>
         <td><%= fleet.fleet_number %></td>
         <td><%= fleet.auto_services %></td>
-        <td><%= fleet.truck_fleet_id %></td>
-        <td><%=l fleet.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_fleet_path(fleet), :class => 'btn btn-mini' %>

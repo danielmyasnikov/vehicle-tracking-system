@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210042819) do
+ActiveRecord::Schema.define(:version => 20121210221858) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20121210042819) do
     t.string   "service_frequency_number"
     t.date     "last_service_date"
     t.date     "next_service_date"
+    t.string   "vehicle_type"
   end
 
   create_table "repairers", :force => true do |t|

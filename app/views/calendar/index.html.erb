@@ -8,10 +8,10 @@
 				<% @trucks.each do |t| %>
 					<%= link_to fleet_path(t) do %>
 				  		<div class='external-event'>
-				  			<%= image_tag t.avatar.url, :size => '16x16' %> | 
-				  			<% @setting = Setting.find_by_truck_fleet_id(
-				  				t.truck_fleet.id
-				  			) %>
+				  			<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
+				  			<%= image_tag "Vehicles/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
+				  			<%= image_tag 'Vehicles/Truck-MONO.png', :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
+				  			<% @setting = t.truck_fleet.setting %>
 				  			<%= case @setting.truck_identification
 								when "Make"
 								  t.make
