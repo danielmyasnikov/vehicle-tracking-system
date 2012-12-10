@@ -59,11 +59,15 @@
       <%= f.check_box :auto_services, :class => 'check_box' %>  <i><font size="2">If unticked kilometres will be entered on service page</font></i>
 	  </br></br>
 	  <%= f.text_field :km_estimates, :class => 'text_field', :value => "Enter KM estimates", :disabled => true %> KM per 
-	  <%= f.select :period, ['Year', 'Month', 'Week', 'Day'], :options => {:disabled => true, :promt => true}, :class => 'text_field' %>
+	  <%= f.select :period, ['Year', 'Month', 'Week', 'Day'], :options => {:disabled => true, :promt => true}, :class => 'text_field' %><br><br>OR<br>
+    </div>
+    
+    <div class="controls">
+    	Every:
+    	<%= f.text_field :service_frequency_number, :value => "Enter Date Frequency Estimates", :disabled => true %> 
+    	<%= f.select :service_frequency_period, ['Year', 'Month', 'Week', 'Day'], :options => {:disabled => true, :promt => true}, :class => 'text_field' %>
     </div>
   </div>
-
-
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

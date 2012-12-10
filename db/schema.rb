@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210020806) do
+ActiveRecord::Schema.define(:version => 20121210022636) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20121210020806) do
     t.string   "registration"
     t.string   "fleet_number"
     t.boolean  "auto_services"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "truck_fleet_id"
     t.float    "km_estimates"
     t.string   "period"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(:version => 20121210020806) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "service_frequency_period"
+    t.string   "service_frequency_number"
   end
 
   create_table "repairers", :force => true do |t|
