@@ -13,14 +13,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:business_name) %></th>
       <th><%= model_class.human_attribute_name(:picture) %></th>
-      <th><%= model_class.human_attribute_name(:street_address_1) %></th>
-      <th><%= model_class.human_attribute_name(:street_address_2) %></th>
-      <th><%= model_class.human_attribute_name(:suburb) %></th>
-      <th><%= model_class.human_attribute_name(:state) %></th>
-      <th><%= model_class.human_attribute_name(:postcode) %></th>
+      <th><%= model_class.human_attribute_name(:full_address) %></th>
       <th><%= model_class.human_attribute_name(:hour_service_24) %></th>
       <th><%= model_class.human_attribute_name(:phone_number) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -29,14 +24,9 @@
   <tbody>
     <% @repairers.each do |repairer| %>
       <tr>
-        <td><%= link_to repairer.id, repairer_path(repairer) %></td>
-        <td><%= repairer.business_name %></td>
+        <td><%= link_to repairer.business_name, repairer_path(repairer) %></td>
         <td><%= image_tag repairer.avatar.url, :size => '16x16' %></td>
-        <td><%= repairer.street_address_1 %></td>
-        <td><%= repairer.street_address_2 %></td>
-        <td><%= repairer.suburb %></td>
-        <td><%= repairer.state %></td>
-        <td><%= repairer.postcode %></td>
+        <td><%= truncate(repairer.full_address) %></td>
         <td><%= repairer.hour_service_24 %></td>
         <td><%= repairer.phone_number %></td>
         <td>
