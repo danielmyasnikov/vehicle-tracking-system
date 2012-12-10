@@ -53,11 +53,12 @@
 			  </tbody>
 			</table>
 		</div>
-		</br>
 		<%= image_tag('MyCalendar/MyCalendar.jpg', :size => "128x64", :class => '') %>
+		</br>
 		<div id='id-calendar'></div><br /><br />
 		<h4 id='id-overdue-open'>Overdue vehicles</h4>
-			<table id="id-due-overdue-items" class="table table-striped highlight-red open">
+		<div id="id-overdue-items">
+			<table class="table table-striped highlight-red open">
 			  <thead>
 			    <tr>
 			      <th>Make</th>
@@ -74,10 +75,13 @@
 			      </tr>
 			    <% end %>
 			  </tbody>
-			  <b><%= 'No items to display' if @overdue.empty? %></b>
+			  
 			</table>
-			<h4 id='id-due-open'>Due vehicles</h4>
-			<table id="id-due-items" class="table table-striped">
+			<b><%= 'No items to display' if @overdue.empty? %></b>
+		</div>
+		<h4 id="id-due-open">Due vehicles</h4>
+		<div id="id-due-items">
+			<table class="table table-striped">
 				<thead>
 				  <tr>
 				  	<th></th>
@@ -95,8 +99,9 @@
 			    <% end %>
 			  </tbody>
 			</table>
-			<%= puts @due == [] %>
+			<%= puts @due.blank? %>
 		<b><%= 'No items to display' if @due.empty? %></b>
+		</div>
 	</div>
 	<div id='id-trucks-list' class='span2'>
 		<div id='wrap'>
@@ -125,7 +130,7 @@ $(document).ready(function() {
   var dueHeader = $("#id-due-open");
   var dueItems = $("#id-due-items");
   var overdueHeader = $("#id-overdue-open");
-  var overdueItems = $("#id-due-overdue-items");
+  var overdueItems = $("#id-overdue-items");
   
   myTeam.hide();
   dueItems.hide();
