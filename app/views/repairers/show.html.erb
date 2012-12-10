@@ -1,13 +1,10 @@
 <%- model_class = Repairer -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%= @repairer.business_name %> <%= image_tag @repairer.avatar.url, :size => '32x32' %></h1>
 </div>
+<%= gmaps4rails(@gmap) %>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:business_name) %>:</strong></dt>
-  <dd><%= @repairer.business_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:picture) %>:</strong></dt>
-  <dd><%= @repairer.picture %></dd>
   <dt><strong><%= model_class.human_attribute_name(:street_address_1) %>:</strong></dt>
   <dd><%= @repairer.street_address_1 %></dd>
   <dt><strong><%= model_class.human_attribute_name(:street_address_2) %>:</strong></dt>

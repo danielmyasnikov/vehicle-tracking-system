@@ -1,7 +1,6 @@
 <div class='row'>
 	<div class='span2'><%= image_tag('MyRepairer/MyRepairer.jpg', :size => "128x64", :class => '') %></div>
 	<div class='span8'>
-		<h2>MyRepairer</h2>
 	</div>
 	<div class='span2'></div>
 </div>
@@ -9,7 +8,7 @@
 
 <%- model_class = Repairer -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  
 </div>
 <table class="table table-striped">
   <thead>
@@ -24,7 +23,6 @@
       <th><%= model_class.human_attribute_name(:postcode) %></th>
       <th><%= model_class.human_attribute_name(:hour_service_24) %></th>
       <th><%= model_class.human_attribute_name(:phone_number) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -33,7 +31,7 @@
       <tr>
         <td><%= link_to repairer.id, repairer_path(repairer) %></td>
         <td><%= repairer.business_name %></td>
-        <td><%= repairer.picture %></td>
+        <td><%= image_tag repairer.avatar.url, :size => '16x16' %></td>
         <td><%= repairer.street_address_1 %></td>
         <td><%= repairer.street_address_2 %></td>
         <td><%= repairer.suburb %></td>
@@ -41,7 +39,6 @@
         <td><%= repairer.postcode %></td>
         <td><%= repairer.hour_service_24 %></td>
         <td><%= repairer.phone_number %></td>
-        <td><%=l repairer.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_repairer_path(repairer), :class => 'btn btn-mini' %>

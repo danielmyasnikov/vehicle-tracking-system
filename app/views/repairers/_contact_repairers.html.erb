@@ -1,13 +1,15 @@
-<h4>Contacts:</h4>
-<p>
-  <%= f.label :content, "Name" %>
-  <%= f.text_field :name %>
-</p>
-<p>
-  <%= f.label :content, "Email" %>
-  <%= f.text_field :email %>
-</p>
-<p>
-  <%= f.label :content, "Phone" %>
-  <%= f.text_field :phone %>
-</p>
+<h4>Optional contact</h4>
+<div class="control-group">
+	<%= f.label :content, "Name", :class => 'control-label' %>
+	<div class="controls">
+		<%= f.text_field :name %>
+	</div>
+	<%= f.label :content, "Email", :class => 'control-label' %>
+	<div class="controls">
+		<%= f.text_field :email %>
+	</div>
+	<%= f.label :content, "Phone", :class => 'control-label' %>
+	<div class="controls">
+		<%= f.text_field :phone %>
+	</div>
+</div>

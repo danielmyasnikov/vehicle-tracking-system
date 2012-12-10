@@ -14,6 +14,9 @@ class RepairersController < ApplicationController
   # GET /repairers/1.json
   def show
     @repairer = Repairer.find(params[:id])
+    @gmap = @repairer.to_gmaps4rails
+    puts @repairer.to_yaml
+    puts @gmap.to_yaml
 
     respond_to do |format|
       format.html # show.html.erb

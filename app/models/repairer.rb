@@ -1,4 +1,5 @@
 class Repairer < ActiveRecord::Base
+  acts_as_gmappable
   attr_accessible :hour_service_24, :business_name, :phone_number, :picture, 
                   :postcode, :state, :street_address_1, :street_address_2, :suburb, 
                   :contact_repairers_attributes, :avatar
@@ -11,4 +12,13 @@ class Repairer < ActiveRecord::Base
     repairer = self.find(id)
     repairer.contact_repairers.pluck(:email)
   end
+  
+  #describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
+  def gmaps4rails_address
+    "#{self.suburb}, #{self.state}, #{self.postcode}" 
+  end
+  def gmaps4rails_infowindow
+    "<h4>#{business_name}</h4>"
+  end
+
 end
