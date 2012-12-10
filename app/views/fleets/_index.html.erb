@@ -22,9 +22,10 @@
       <tr>
         <td><%= link_to fleet.id, fleet_path(fleet) %></td>
         <td>
+        	<% aws_name = 'https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet'%>
         	<%= image_tag fleet.avatar.url, :size => '24x24' if fleet.avatar.present? %>
-        	<%= image_tag "Vehicles/#{fleet.type}-MONO.png", :size => '16x16' if fleet.type.present? %>
-        	<%= image_tag 'Vehicles/Truck-MONO.png', :size => '16x16' if fleet.type.nil? %>
+        	<%= image_tag "#{aws_name}/#{fleet.type}-MONO.png", :size => '16x16' if fleet.type.present? %>
+        	<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '16x16' if fleet.type.nil? %>
         </td>
         <td><%= fleet.make %></td>
         <td><%= fleet.model %></td>
