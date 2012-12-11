@@ -3,7 +3,7 @@ class Fleet < ActiveRecord::Base
                   :registration, :year, :truck_fleet_id, :km_estimates, :period,
                   :km_estimates, :period, :avatar, :service_frequency_number,
                   :service_frequency_period, :last_service_date, :next_service_date,
-                  :type
+                  :vehicle_type
   belongs_to :truck_fleet
   has_many :services
   has_many :fleet_services_infos
