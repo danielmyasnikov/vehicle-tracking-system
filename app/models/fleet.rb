@@ -9,14 +9,14 @@ class Fleet < ActiveRecord::Base
   has_many :fleet_services_infos
   has_many :drivers
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
-  before_save :next_service_date
+  before_save :calc_next_service_date
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   def self.due
-    where('next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today) 
+    where('next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today).order("next_service_date ASC")
   end
 
   def self.overdue
-    where('next_service_date < ?', Date.today)
+    where('next_service_date < ?', Date.today).order("next_service_date ASC")
   end
 
   def calculated_service_period
@@ -34,7 +34,7 @@ class Fleet < ActiveRecord::Base
     end
   end
   
-  def next_service_date
+  def calc_next_service_date
     self.next_service_date = last_service_date.present? ? calculated_time_estimation : row_time_estimation  
   end
   
