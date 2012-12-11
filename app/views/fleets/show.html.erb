@@ -5,7 +5,12 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
-  <dd><%= image_tag @fleet.avatar.url(:thumb) %></dd>
+  <dd>
+  	<% aws_name = 'https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet'%>
+    <%= image_tag fleet.avatar.url, :size => '24x24' if fleet.avatar.present? %>
+    <%= image_tag "#{aws_name}/#{fleet.vehicle_type}-MONO.png", :size => '16x16' if fleet.vehicle_type.present? %>
+    <%= image_tag "#{aws_name}/Truck-MONO.png", :size => '16x16' if fleet.vehicle_type.nil? %>
+  </dd>
   <dt><strong><%= model_class.human_attribute_name(:make) %>:</strong></dt>
   <dd><%= @fleet.make %></dd>
   <dt><strong><%= model_class.human_attribute_name(:model) %>:</strong></dt>

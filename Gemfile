@@ -13,7 +13,6 @@ gem "paperclip", "~> 3.0"
 gem 'aws-sdk', '~> 1.3.4'
 
 # geo location
-gem 'gmaps4rails'
 gem 'geocoder'
 gem 'pg'
 
