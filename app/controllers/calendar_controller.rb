@@ -1,13 +1,13 @@
 class CalendarController < ApplicationController
   def index
     @services = Service.all
-    @trucks = Fleet.all
+    @trucks = current_user.admin? ? Fleet.scoped : Fleet.where(:truck_fleet_id => TruckFleet.where(:user_id => current_user.id).pluck(:id))
     @repairers = Repairer.all
     @drivers = Driver.all
     @trainings = Training.all
     @settings = Setting.all
-    @due = Fleet.due
-    @overdue = Fleet.overdue
+    @due = @trucks.due if @trucks.present?
+    @overdue = @trucks.overdue if @trucks.present?
   end
 
   def view

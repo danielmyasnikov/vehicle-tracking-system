@@ -1,9 +1,9 @@
 class Fleet < ActiveRecord::Base
-  attr_accessible :VIN, :auto_services, :fleet_number, :make, :model, :pic,
+  attr_accessible :vin, :auto_services, :fleet_number, :make, :model, :pic,
                   :registration, :year, :truck_fleet_id, :km_estimates, :period,
                   :km_estimates, :period, :avatar, :service_frequency_number,
                   :service_frequency_period, :last_service_date, :next_service_date,
-                  :vehicle_type
+                  :vehicle_type, :other
   belongs_to :truck_fleet
   has_many :services
   has_many :fleet_services_infos
@@ -12,7 +12,7 @@ class Fleet < ActiveRecord::Base
   before_save :calc_next_service_date
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   def self.due
-    where('next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today).order("next_service_date ASC")
+    where('next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today).order("fleet_number ASC")
   end
 
   def self.overdue

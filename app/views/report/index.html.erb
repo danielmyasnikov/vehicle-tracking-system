@@ -24,7 +24,7 @@
   <tbody>
     <% @services.each do |service| %>
       <tr>
-        <td><%= Fleet.find(:first, :conditions => {:id => service.fleet_id}).VIN if Fleet.exists?(:id => service.fleet_id)  %></td>
+        <td><%= Fleet.find(:first, :conditions => {:id => service.fleet_id}).vin if Fleet.exists?(:id => service.fleet_id)  %></td>
  		<td><%= service.service_type %></td>
 		<td><%= service.warranty %></td>
 		<td><%= service.damage %></td>

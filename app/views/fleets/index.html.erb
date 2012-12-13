@@ -15,6 +15,7 @@
       <th><%= model_class.human_attribute_name(:registration) %></th>
       <th><%= model_class.human_attribute_name(:fleet_number) %></th>
       <th><%= model_class.human_attribute_name(:auto_services) %></th>
+      <th><%= model_class.human_attribute_name(:other) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -31,10 +32,11 @@
         <td><%= fleet.make %></td>
         <td><%= fleet.model %></td>
         <td><%= fleet.year %></td>
-        <td><%= fleet.VIN %></td>
+        <td><%= fleet.vin %></td>
         <td><%= fleet.registration %></td>
         <td><%= fleet.fleet_number %></td>
         <td><%= fleet.auto_services %></td>
+        <td><%= fleet.other %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_fleet_path(fleet), :class => 'btn btn-mini' %>

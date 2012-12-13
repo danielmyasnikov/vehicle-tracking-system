@@ -12,21 +12,10 @@
 				  			<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
 				  			<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
 				  			<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
-				  			<% @setting = t.truck_fleet.setting %>
-				  			<%= case @setting.truck_identification
-								when "Make"
-								  t.make
-								when "VIN"
-								  t.VIN
-								when "Model"
-								  t.model
-								when "Registration"
-								  t.registration
-								end 
-				  			 %>
+				  			<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
 				  		</div>
 					<% end %>
-				<% end %>
+				<% end if @trucks.present? %>
 			</div>
 		</div>
 	</div>
@@ -60,7 +49,7 @@
 		<div id='id-calendar'></div><br /><br />
 		<h4 id='id-overdue-open'>Overdue vehicles</h4>
 		<div id="id-overdue-items">
-			<table class="table table-striped highlight-red open <%= 'hidden' if @overdue.empty? %>">
+			<table class="table table-striped highlight-red open <%= 'hidden' if @overdue.nil? || @overdue.empty? %>">
 			  <thead>
 			    <tr>
 			      <th>Make</th>
@@ -75,15 +64,15 @@
 			        <td class=''><%= overdue.model %></td>
 			        <td class=''><%= overdue.next_service_date %></td>
 			      </tr>
-			    <% end %>
+			    <% end if @overdue.present? %>
 			  </tbody>
 			  
 			</table>
-			<b><%= 'No items to display' if @overdue.empty? %></b>
+			<b><%= 'No items to display' if @overdue.nil? || @overdue.empty? %></b>
 		</div>
 		<h4 id="id-due-open">Due vehicles</h4>
 		<div id="id-due-items">
-			<table class="table table-striped <%= 'hidden' if @overdue.empty? %>"">
+			<table class="table table-striped <%= 'hidden' if @due.nil? || @due.empty? %>"">
 				<thead>
 				  <tr>
 				  	<th></th>
@@ -98,11 +87,11 @@
 			        <td class='due'><%= due.model %></td>
 			        <td class='due'><%= due.next_service_date %></td>
 			      </tr>
-			    <% end %>
+			    <% end if @due.present? %>
 			  </tbody>
 			</table>
 			<%= puts @due.blank? %>
-		<b><%= 'No items to display' if @due.empty? %></b>
+		<b><%= 'No items to display' if @due.nil? || @due.empty? %></b>
 		</div>
 	</div>
 	<div id='id-trucks-list' class='span2'>
@@ -208,6 +197,7 @@ $(document).ready(function() {
 	events: [
 	<% @services.each do |s| %>
 		{
+			id: <%= s.id %>,
 			title: '<%= s.service_type %> SERVICE',
 			color: function(){
 				if (<%= s.start_service_date.nil? ? false : s.start_service_date < Date.today %>)
@@ -235,6 +225,10 @@ $(document).ready(function() {
 		},
 	<% end %>
 	],
+	eventClick: function(event, jsEvent, view){
+		cuteLittleWindow = window.open("/services/" + event.id + "/edit",
+			"littleWindow", "location=no,width=640,height=400,top=250,left=300");
+	},
 	dayClick: function(date, allDay, jsEvent, view){
 		m = date.getMonth() + 1;
 		suffix = (date.getHours >= 12)? 'pm' : 'am';

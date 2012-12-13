@@ -7,8 +7,8 @@
   <dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
   <dd>
   	<% aws_name = 'https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet'%>
-    <%= image_tag fleet.avatar.url, :size => '24x24' if @fleet.avatar.present? %>
-    <%= image_tag "#{aws_name}/#{fleet.vehicle_type}-MONO.png", :size => '16x16' if @fleet.vehicle_type.present? %>
+    <%= image_tag @fleet.avatar.url, :size => '24x24' if @fleet.avatar.present? %>
+    <%= image_tag "#{aws_name}/#{@fleet.vehicle_type}-MONO.png", :size => '16x16' if @fleet.vehicle_type.present? %>
     <%= image_tag "#{aws_name}/Truck-MONO.png", :size => '16x16' if @fleet.vehicle_type.nil? %>
   </dd>
   <dt><strong><%= model_class.human_attribute_name(:make) %>:</strong></dt>
@@ -17,8 +17,8 @@
   <dd><%= @fleet.model %></dd>
   <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
   <dd><%= @fleet.year %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:VIN) %>:</strong></dt>
-  <dd><%= @fleet.VIN %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:vin) %>:</strong></dt>
+  <dd><%= @fleet.vin %></dd>
   <dt><strong><%= model_class.human_attribute_name(:registration) %>:</strong></dt>
   <dd><%= @fleet.registration %></dd>
   <dt><strong><%= model_class.human_attribute_name(:fleet_number) %>:</strong></dt>
@@ -27,6 +27,8 @@
   <dd><%= @fleet.auto_services %></dd>
   <dt><strong><%= model_class.human_attribute_name(:truck_fleet_id) %>:</strong></dt>
   <dd><%= @fleet.truck_fleet_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:other) %>:</strong></dt>
+  <dd><%= @fleet.other %></dd>
 </dl>
 
 <div class="form-actions">

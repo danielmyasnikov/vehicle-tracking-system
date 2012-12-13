@@ -9,7 +9,7 @@
   <div class="control-group">
     <%= f.label :truck_identification, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select :truck_identification, ["Make", "Model", "VIN", "Registration"], :class => 'text_field' %>
+      <%= f.collection_select :truck_identification, [["Fleet Number", "fleet_number"], ["Make", "make"], ["Model", "model"], ["VIN", "vin"], ["Registration", "registration"]], :last, :first, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">

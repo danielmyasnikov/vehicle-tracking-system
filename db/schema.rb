@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210221858) do
+ActiveRecord::Schema.define(:version => 20121213054145) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20121210221858) do
     t.string   "make"
     t.string   "model"
     t.integer  "year"
-    t.string   "VIN"
+    t.string   "vin"
     t.string   "registration"
     t.string   "fleet_number"
     t.boolean  "auto_services"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20121210221858) do
     t.date     "last_service_date"
     t.date     "next_service_date"
     t.string   "vehicle_type"
+    t.text     "other"
   end
 
   create_table "repairers", :force => true do |t|
@@ -152,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20121210221858) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.integer  "truck_fleet_id"
+    t.string   "sort"
   end
 
   create_table "subscribers", :force => true do |t|
@@ -192,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20121210221858) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|

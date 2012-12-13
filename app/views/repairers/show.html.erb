@@ -8,9 +8,17 @@
   <dt><strong><%= model_class.human_attribute_name(:street_address_1) %>:</strong></dt>
   <dd><%= @repairer.full_address %></dd>
   <dt><strong><%= model_class.human_attribute_name(:hour_service_24) %>:</strong></dt>
-  <dd><%= @repairer.hour_service_24 %></dd>
+  <dd><%= @repairer.hour_service_24 ? "Yes" : "No" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:phone_number) %>:</strong></dt>
   <dd><%= @repairer.phone_number %></dd>
+  <hr>
+  <dt><strong><%= model_class.human_attribute_name(:other_contacts) %>:</strong></dt>
+  <% @repairer.contact_repairers.each do |r| %>
+  <dd><%= "Name: " + r.name if r.name.present? %></dd>
+  <dd><%= "Email: "+ r.email if r.email.present? %></dd>
+  <dd><%= "Phone: "+ r.phone if r.phone.present? %></dd>
+  <%= "<hr>".html_safe if r.name? %>
+  <% end if @repairer.contact_repairers.exists? && @repairer.contact_repairers.present? %>
 </dl>
 
 <div class="form-actions">

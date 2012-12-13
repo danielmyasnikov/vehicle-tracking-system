@@ -18,12 +18,6 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :notifications_to, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select :pic, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
     <%= f.label :make, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :make, :class => 'text_field' %>
@@ -44,7 +38,7 @@
   <div class="control-group">
     <%= f.label :VIN, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :VIN, :class => 'text_field' %>
+      <%= f.text_field :vin, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
@@ -57,6 +51,12 @@
     <%= f.label :fleet_number, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :fleet_number, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :other, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :other, :class => 'text_area' %>
     </div>
   </div>
   <div class="control-group">
