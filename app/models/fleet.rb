@@ -12,11 +12,11 @@ class Fleet < ActiveRecord::Base
   before_save :calc_next_service_date
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   def self.due
-    find(:all, :conditions => ['next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today], :order => "fleet_number ASC")
+    where('next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today).order("fleet_number ASC")
   end
 
   def self.overdue
-    find('next_service_date < ?', Date.today).order("next_service_date ASC")
+    where('next_service_date < ?', Date.today).order("next_service_date ASC")
   end
 
   def calculated_service_period
