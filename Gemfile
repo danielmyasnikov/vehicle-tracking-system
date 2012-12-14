@@ -14,10 +14,11 @@ gem 'aws-sdk', '~> 1.3.4'
 
 # geo location
 gem 'geocoder'
-gem 'pg'
 
 # DB and ARel extensions
 gem "squeel"
+gem 'pg'
+gem 'seed_dump', "~> 0.4.2"
 
 # Gems used only for assets and not required
 # in production environments by default.
