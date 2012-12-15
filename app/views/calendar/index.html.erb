@@ -5,7 +5,6 @@
 				<%= image_tag('MyTruckFleet/MyTruckFleet.png', :size => "128x64") %>	
 			</div>
 			<div id='external-events'>
-				<%= puts @trucks.to_yaml %>
 				<% @trucks.each do |k, tf| %>
 				<div class='dropable-truck-fleet-class'>
 					<%= k.trading_name_of_business.first(20) %><%= ".." if k.trading_name_of_business.size > 20 %> <span id='id-arrow-down-truck-fleet'>&#x25BC;</span>
@@ -24,7 +23,6 @@
 					</div>
 				</div>
 				<% end if current_user.admin? %>
-				<%= puts @trucks.to_yaml %>
 				<% @trucks.each do |t| %>
 					<%= link_to fleet_path(t) do %>
 				  		<div class='external-event'>
