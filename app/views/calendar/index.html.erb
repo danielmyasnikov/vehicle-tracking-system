@@ -210,20 +210,6 @@ $(document).ready(function() {
 			allDay: false
 		},
 	<% end %>
-	<% @trainings.each do |t| %>
-		{
-			title: '<%= t.name %> TRAINING \n for <%= Driver.find(t.driver_id).name %>',
-			color: function(){
-				if (<%= t.date.nil? ? false : t.date < Date.today %>)
-				  return '#C12267'
-				else if (<%= t.date.nil? ? false : t.date >= Date.today && t.date <= Date.today + 3 %>) return '#AF7817'
-				else return '#254117'
-			}(),
-			start: '<%= t.date %> <%= t.start_time.hour.to_s + ':00:00' if !t.start_time.nil? %>',
-			end: '<%= t.date %> <%= t.finish_time.hour.to_s + ':00:00' if !t.finish_time.nil? %>',
-			allDay: false
-		},
-	<% end %>
 	],
 	eventClick: function(event, jsEvent, view){
 		cuteLittleWindow = window.open("/services/" + event.id + "/edit",
