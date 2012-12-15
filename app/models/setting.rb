@@ -4,4 +4,5 @@ class Setting < ActiveRecord::Base
                   
   belongs_to :truck_fleet
   validates_uniqueness_of :truck_fleet_id 
+  # validates :email, :email_format => true
 end

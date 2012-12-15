@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213054145) do
+ActiveRecord::Schema.define(:version => 20121215081034) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20121213054145) do
     t.datetime "updated_at",           :null => false
     t.integer  "truck_fleet_id"
     t.string   "sort"
+    t.string   "email"
   end
 
   create_table "subscribers", :force => true do |t|
@@ -194,7 +195,6 @@ ActiveRecord::Schema.define(:version => 20121213054145) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(:version => 20121213054145) do
     t.string   "name"
     t.boolean  "approved",               :default => false, :null => false
     t.boolean  "admin",                  :default => false
+    t.integer  "truck_fleet_id"
   end
 
   add_index "users", ["approved"], :name => "index_users_on_approved"

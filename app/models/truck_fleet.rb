@@ -10,10 +10,18 @@ class TruckFleet < ActiveRecord::Base
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
   accepts_nested_attributes_for :contact_truck_fleets, :reject_if => lambda { |a| a[:email].blank? }, :allow_destroy => true
   has_one :setting
-  has_one :user
+  has_many :users
   
   def self.find_contacts_by_fleet_id(fleet_id)
     fleet = Fleet.find(fleet_id)
     fleet.truck_fleet.contact_truck_fleets.pluck(:email)
+  end
+  
+  def self.scoped_by_vehicle
+    @truck_fleets = {}
+    scoped.each do |tf|
+      @truck_fleets.merge!({tf => tf.fleets})
+    end
+    return @truck_fleets
   end
 end

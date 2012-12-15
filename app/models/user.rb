@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   
   has_many :subscribtions, through: :subscribers
   has_many :subscribers
-  has_one :truck_fleet
+  belongs_to :truck_fleet
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
