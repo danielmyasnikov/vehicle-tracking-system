@@ -111,11 +111,12 @@ TruckFleet.create([
   { :trading_name_of_business => "AGA TruckFleet", :street => "1/1 Rossi", :street_2 => "Northbound", :suburb => "South Hurstville", :state => "NSW", :postcode => 2221, :created_at => "2012-12-12 06:12:03", :updated_at => "2012-12-12 06:12:03", :avatar_file_name => nil, :avatar_content_type => nil, :avatar_file_size => nil, :avatar_updated_at => nil }
 ], :without_protection => true )
 
-
-
-User.create([
-  { :email => "user@example.com", :encrypted_password => "$2a$10$8AygYCNrK3GllAEwsISPrOxQwQs9g5jdTdcJkeL6QdGCXzesB0P/.", :reset_password_token => nil, :reset_password_sent_at => nil, :remember_created_at => nil, :sign_in_count => 0, :current_sign_in_at => nil, :last_sign_in_at => nil, :current_sign_in_ip => nil, :last_sign_in_ip => nil, :created_at => "2012-12-11 01:52:49", :updated_at => "2012-12-11 03:10:45", :name => "user_1", :approved => true, :admin => false },
-  { :email => "admin@example.com", :encrypted_password => "$2a$10$uLUmtFfIMsz3VMUII4xI2uG868jWo1jBEhvLORTjL057Tm4pdAGn2", :reset_password_token => nil, :reset_password_sent_at => nil, :remember_created_at => nil, :sign_in_count => 25, :current_sign_in_at => "2012-12-13 06:04:06", :last_sign_in_at => "2012-12-13 05:01:56", :current_sign_in_ip => "127.0.0.1", :last_sign_in_ip => "202.171.189.34", :created_at => "2012-12-11 01:52:27", :updated_at => "2012-12-13 06:04:06", :name => "admin", :approved => true, :admin => true }
-], :without_protection => true )
-
+puts 'SETTING UP DEFAULT USER LOGIN'
+user = User.create! :name => 'Administrator', :email => 'admin@example.com', 
+                    :password => 'pa$$w0rd', :password_confirmation => 'pa$$w0rd', :approved => true
+puts 'New user created: ' << user.name
+user2 = User.create! :name => 'User', :email => 'user@example.com', 
+                     :password => 'password', :password_confirmation => 'password', :approved => true
+puts 'New user created: ' << user2.name
+user.add_role :admin
 
