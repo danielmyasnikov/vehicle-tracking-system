@@ -1,33 +1,44 @@
 <%= form_for @setting, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
-    <%= f.label :for_truck_fleet_number, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.collection_select 	:truck_fleet_id, TruckFleet.all, :id, :trading_name_of_business, 
-      				:class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :truck_identification, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.collection_select :truck_identification, [["Fleet Number", "fleet_number"], ["Make", "make"], ["Model", "model"], ["VIN", "vin"], ["Registration", "registration"]], :last, :first, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :email_periods, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select :email_periods, ["Daily", "Weekly", "Tuesdays & Thursdays"], :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :email_recepient_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :email_recepient_id, :class => 'number_field' %>
-    </div>
-  </div>
+<div class="control-group">
+	<%= f.label :for_truck_fleet_number, :class => 'control-label' %>
+	<div class="controls">
+		<%= f.collection_select 	:truck_fleet_id, TruckFleet.all, :id, :trading_name_of_business,
+    :class => 'text_field' %>
+	</div>
+</div>
+<div class="control-group">
+	<%= f.label :truck_identification, :class => 'control-label' %>
+	<div class="controls">
+		<%= f.collection_select :truck_identification, [["Fleet Number", "fleet_number"], ["Make", "make"], ["Model", "model"], ["VIN", "vin"], ["Registration", "registration"]], :last, :first, :class => 'text_field' %>
+	</div>
+</div>
+<div class="control-group">
+	<%= f.label :email_periods, :class => 'control-label' %>
+	<div class="controls">
+		<%= f.select :email_periods, ["Daily", "Weekly", "Tuesdays & Thursdays"], :class => 'text_field' %>
+	</div>
+</div>
 
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                settings_path, :class => 'btn' %>
-  </div>
+<!-- TODO refactor this shit -->
+<% @setting.email_notifications.each do |e, i| %>
+	<%= f.fields_for e do |builder| %>
+    	<%= render "email_notifications", :f => builder, :emails => e, :index => i if !e.notification.nil? %>
+    <% end %>
+<% end if !@setting.created_at.nil? %>
+<% @notifications.each do |n| %>
+	<%= f.fields_for n.email_notifications do |builder| %>
+    	<%= render "notification_emails", :f => builder, :notification => n, :index => n.id %>
+    <% end %>
+<% end if @setting.created_at.nil? %>
+
+<div class="form-actions">
+	<%= f.submit nil, :class => 'btn btn-primary' %>
+	<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	settings_path, :class => 'btn' %>
+</div>
+<% end %>
+
+<%= form_for @setting.truck_fleet, :html => { :class => 'form-horizontal' } do |f| %>
+	<%= f.submit nil, :class => 'btn btn-primary' %></br>
+	<%= link_to_add_fields 'Add Contact Details', f, :contact_truck_fleets %>
 <% end %>

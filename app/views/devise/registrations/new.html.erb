@@ -13,18 +13,7 @@
 
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
-
-  <div class="control-group">
-    <%= f.label :subscribtions, :class => 'control-label' %>
-    <div class="controls">
-	<% Subscribtion.all.each do |s| %>
-      <%= check_box_tag "user[subscribtion_ids][]", s.id, :class => 'check_box' %>
-	  <%= s.name %></br>
-	<% end %>
-    </div>
-  </div>
   
-
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 

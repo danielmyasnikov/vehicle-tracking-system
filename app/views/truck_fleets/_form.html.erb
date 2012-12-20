@@ -42,8 +42,10 @@
     </div>
   </div>
   <%= f.fields_for :contact_truck_fleets do |builder| %>
-    <%= render "contact_truck_fleets_fields", :f => builder %>
+    <%= render "contact_truck_fleet_fields", :f => builder %>
   <% end %>
+  <%= link_to_add_fields 'Add Contact Details', f, :contact_truck_fleets %>
+  
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215081034) do
+ActiveRecord::Schema.define(:version => 20121219132619) do
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(:version => 20121215081034) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.integer  "fleet_id"
+  end
+
+  create_table "email_notifications", :force => true do |t|
+    t.integer "setting_id"
+    t.integer "notification_id"
+    t.boolean "primary"
+    t.boolean "secondary"
+    t.integer "frequency"
+    t.integer "interval"
   end
 
   create_table "fleet_service_infos", :force => true do |t|
@@ -78,6 +87,15 @@ ActiveRecord::Schema.define(:version => 20121215081034) do
     t.date     "next_service_date"
     t.string   "vehicle_type"
     t.text     "other"
+  end
+
+  create_table "notifications", :force => true do |t|
+    t.string   "name"
+    t.boolean  "primary"
+    t.boolean  "secondary"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.boolean  "required_intervals"
   end
 
   create_table "repairers", :force => true do |t|
@@ -150,11 +168,25 @@ ActiveRecord::Schema.define(:version => 20121215081034) do
     t.string   "truck_identification"
     t.string   "email_periods"
     t.integer  "email_recepient_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "truck_fleet_id"
     t.string   "sort"
     t.string   "email"
+    t.string   "update_vehicle_info"
+    t.string   "cancel_service"
+    t.string   "postponed_service"
+    t.string   "due_service"
+    t.string   "overdue_service"
+    t.integer  "overdue_service_reminder_interval"
+    t.string   "completed_booking"
+    t.string   "booking_date_reminder"
+    t.string   "pre_booking_date_reminder"
+    t.integer  "pre_booking_date_reminder_interval"
+    t.string   "service_date"
+    t.string   "overdue_service_information_incomplete"
+    t.string   "service_done"
+    t.string   "updated_rescheduled_service"
   end
 
   create_table "subscribers", :force => true do |t|

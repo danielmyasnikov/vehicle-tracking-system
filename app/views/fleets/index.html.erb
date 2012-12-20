@@ -8,12 +8,12 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:pic) %></th>
+      <th><%= model_class.human_attribute_name(:fleet_number) %></th>
+      <th><%= model_class.human_attribute_name(:registration) %></th>
+      <th><%= model_class.human_attribute_name(:VIN) %></th>
       <th><%= model_class.human_attribute_name(:make) %></th>
       <th><%= model_class.human_attribute_name(:model) %></th>
       <th><%= model_class.human_attribute_name(:year) %></th>
-      <th><%= model_class.human_attribute_name(:VIN) %></th>
-      <th><%= model_class.human_attribute_name(:registration) %></th>
-      <th><%= model_class.human_attribute_name(:fleet_number) %></th>
       <th><%= model_class.human_attribute_name(:auto_services) %></th>
       <th><%= model_class.human_attribute_name(:other) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -29,13 +29,13 @@
         	<%= image_tag "#{aws_name}/#{fleet.vehicle_type}.png", :size => '24x24' if fleet.vehicle_type.present? && !fleet.avatar.present? %>
         	<%= image_tag "#{aws_name}/Truck.png", :size => '24x24' if fleet.vehicle_type.nil? && !fleet.avatar.present? %>
         </td>
+        <td><%= fleet.fleet_number %></td>
+        <td><%= fleet.registration %></td>
+        <td><%= fleet.vin %></td>
         <td><%= fleet.make %></td>
         <td><%= fleet.model %></td>
         <td><%= fleet.year %></td>
-        <td><%= fleet.vin %></td>
-        <td><%= fleet.registration %></td>
-        <td><%= fleet.fleet_number %></td>
-        <td><%= fleet.auto_services %></td>
+        <td><%= fleet.auto_services ? "Yes" : "No" %></td>
         <td><%= fleet.other %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

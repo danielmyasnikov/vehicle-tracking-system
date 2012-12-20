@@ -111,6 +111,22 @@ TruckFleet.create([
   { :trading_name_of_business => "AGA TruckFleet", :street => "1/1 Rossi", :street_2 => "Northbound", :suburb => "South Hurstville", :state => "NSW", :postcode => 2221, :created_at => "2012-12-12 06:12:03", :updated_at => "2012-12-12 06:12:03", :avatar_file_name => nil, :avatar_content_type => nil, :avatar_file_size => nil, :avatar_updated_at => nil }
 ], :without_protection => true )
 
+# application specific data
+
+puts 'SETTING UP NOTIFICATIONS'
+Notification.create! :name => 'Update vehicle info except milage'
+Notification.create! :name => 'Cancel service'
+Notification.create! :name => 'Postponed service'
+Notification.create! :name => 'Due service'
+Notification.create! :name => 'Overdue service', :required_interval => true
+Notification.create! :name => 'Completed booking'
+Notification.create! :name => 'Date of booking'
+Notification.create! :name => 'Pre booking reminder', :required_interval => true
+Notification.create! :name => 'Service date'
+Notification.create! :name => 'Service information incomplete'
+Notification.create! :name => 'Service done'
+Notification.create! :name => 'Updated / Rescheduled service'
+
 puts 'SETTING UP DEFAULT USER LOGIN'
 user = User.create! :name => 'Administrator', :email => 'admin@example.com', 
                     :password => 'pa$$w0rd', :password_confirmation => 'pa$$w0rd', :approved => true

@@ -1,0 +1,7 @@
+<div class="control-group">
+	<b><%= f.label :main, "#{notification.name}", :class => 'control-label' if !notification.nil? %></b>
+	<div class="controls">
+		<%= check_box_tag "fields[#{notification.id}][primary]" %> Primary Contacts</br>
+		<%= check_box_tag "fields[#{notification.id}][secondary]" %> Secondary Contacts
+	</div>
+</div>

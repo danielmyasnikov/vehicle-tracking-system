@@ -1,4 +1,6 @@
 Mytruckfleet::Application.routes.draw do
+  resources :notifications
+
   resources :settings
 
   resources :subscribtions

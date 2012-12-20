@@ -33,7 +33,7 @@
         <td><%= fleet.vin %></td>
         <td><%= fleet.registration %></td>
         <td><%= fleet.fleet_number %></td>
-        <td><%= fleet.auto_services %></td>
+        <td><%= fleet.auto_services ? "Yes" : "No" %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_fleet_path(fleet), :class => 'btn btn-mini' %>

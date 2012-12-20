@@ -11,8 +11,35 @@
   <dt><strong><%= model_class.human_attribute_name(:email_recepient_id) %>:</strong></dt>
   <dd><%= @setting.email_recepient_id %></dd>
 </dl>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @setting.truck_fleet.contact_truck_fleets.each do |contact| %>
+      <tr>
+        <td><%= contact.title %></td>
+        <td><%= contact.email %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_contact_truck_fleet_path(contact), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      contact_truck_fleet_path(contact),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div class="form-actions">
+  
   <%= link_to t('.back', :default => t("helpers.links.back")),
               settings_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),

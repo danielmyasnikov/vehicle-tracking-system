@@ -1,0 +1,27 @@
+<fieldset>
+	<hr>
+<div class="control-group">
+	<b><%= f.label :main, "Is it main contact?", :class => 'control-label' %></b>
+	<div class="controls">
+		<%= f.check_box :main %>
+	</div>
+</div>
+<div class="control-group">
+	<%= f.label :title, "Title: ", :class => 'control-label' %>
+	<div class="controls">
+		<%= f.text_field :title %>
+	</div>
+</div>
+<div class="control-group">
+	<%= f.label :email, "Email: ", :class => 'control-label' %>
+	<div class="controls">
+		<%= f.text_field :email %>
+	</div>
+</div>
+<div class="control-group">
+	<%= f.label :mobile, "Mobile: ", :class => 'control-label'%>
+	<div class="controls">
+		<%= f.text_field :mobile %>
+	</div>
+</div>
+</fieldset>
