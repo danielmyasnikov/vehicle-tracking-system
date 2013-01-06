@@ -14,6 +14,7 @@ class FleetsController < ApplicationController
   # GET /fleets/1.json
   def show
     @fleet = Fleet.find(params[:id])
+    
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +26,7 @@ class FleetsController < ApplicationController
   # GET /fleets/new.json
   def new
     @fleet = Fleet.new
-
+    @fleet.build_fleet_services
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @fleet }
@@ -35,6 +36,7 @@ class FleetsController < ApplicationController
   # GET /fleets/1/edit
   def edit
     @fleet = Fleet.find(params[:id])
+    @fleet.prepare_services
   end
 
   # POST /fleets
@@ -59,7 +61,7 @@ class FleetsController < ApplicationController
     @fleet = Fleet.find(params[:id])
 
     respond_to do |format|
-      if @fleet.update_attributes(params[:fleet])
+      if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields])
         format.html { redirect_to @fleet, notice: 'Fleet was successfully updated.' }
         format.json { head :no_content }
       else

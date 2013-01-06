@@ -3,11 +3,13 @@ class Fleet < ActiveRecord::Base
                   :registration, :year, :truck_fleet_id, :km_estimates, :period,
                   :km_estimates, :period, :avatar, :service_frequency_number,
                   :service_frequency_period, :last_service_date, :next_service_date,
-                  :vehicle_type, :other
+                  :vehicle_type, :other, :actual_km
   belongs_to :truck_fleet
   has_many :services
   has_many :fleet_services_infos
   has_many :drivers
+  has_many :service_types, :through => :serviceables
+  has_many :serviceables
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
   before_save :calc_next_service_date
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
@@ -30,6 +32,34 @@ class Fleet < ActiveRecord::Base
         service_frequency_number.to_i.day * 7
       when 'Day'
         service_frequency_number.to_i.day
+      end
+    else
+      return 0
+    end
+    
+  end
+  
+  def prepare_services
+    ServiceType.all.each do |service_type|
+      service_types << service_type if does_not_include service_type
+    end
+  end
+  
+  def build_fleet_services
+    ServiceType.all.each do |service_type|
+      serviceables.new(:service_type => service_type)
+    end
+  end
+  
+  def does_not_include(item)
+    !service_types.include?(item)
+  end
+  
+  def update_serviceables(params)
+    if params.present?
+      params.each do |key, value|
+        s = serviceables.find_by_service_type_id(key)
+        s.update_attributes(value)
       end
     end
   end

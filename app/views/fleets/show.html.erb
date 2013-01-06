@@ -25,6 +25,9 @@
   <dd><%= @fleet.fleet_number %></dd>
   <dt><strong><%= model_class.human_attribute_name(:auto_services) %>:</strong></dt>
   <dd><%= @fleet.auto_services %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:actual_km) %>:</strong></dt>
+  <dd><%= @fleet.actual_km %> 10, 000 KM. Is it correct? <%= link_to t('.edit mileage', :default => t("helpers.links.edit")),
+              												edit_fleet_path(@fleet) + "#fleet_km_estimates", :class => 'btn btn-primary' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:truck_fleet_id) %>:</strong></dt>
   <dd><%= @fleet.truck_fleet_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:other) %>:</strong></dt>

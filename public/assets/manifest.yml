@@ -10,6 +10,18 @@ MyTeam/MyTeam.jpg: MyTeam/MyTeam-658d15408cc6e573b33eaca8cd7aa14a.jpg
 MyTruckFleet/MyTruckFleet.eps: MyTruckFleet/MyTruckFleet-a41fc95dc81027e62aca2fd27d75065d.eps
 MyTruckFleet/MyTruckFleet.jpg: MyTruckFleet/MyTruckFleet-f0442bfcee61108dd9cc0ba06e882243.jpg
 MyTruckFleet/MyTruckFleet.png: MyTruckFleet/MyTruckFleet-535e33d6c1af9286176f7fb1d56158d6.png
+Vehicles/Car-MONO.png: Vehicles/Car-MONO-55ac300c391b799db514ab37a29ec7bd.png
+Vehicles/Car.png: Vehicles/Car-84fbc655c07087fb629f5c429dafb946.png
+Vehicles/Forklift-MONO.png: Vehicles/Forklift-MONO-0af77da9159c61cb3bc132ff02799114.png
+Vehicles/Forklift.png: Vehicles/Forklift-8ecb34391a6cd3e6358b7814c77bb02b.png
+Vehicles/Other-Machinery-MONO.png: Vehicles/Other-Machinery-MONO-0c133f80d0506080ed4a2a03860d099b.png
+Vehicles/Other-Machinery.png: Vehicles/Other-Machinery-a796927e9eeaa14d2a7b98f73128c600.png
+Vehicles/Trailer-MONO.png: Vehicles/Trailer-MONO-dcdb5fc095c8bc33566809f2c4755ff8.png
+Vehicles/Trailer.png: Vehicles/Trailer-3cda784b549a4b4de7fa3a5da9ded672.png
+Vehicles/Truck-MONO.png: Vehicles/Truck-MONO-2fe1d3d2a95b0c29322f174b5e52e304.png
+Vehicles/Truck.png: Vehicles/Truck-08ecd9592a52595416ebafe2f084bf29.png
+Vehicles/Ute-MONO.png: Vehicles/Ute-MONO-4de3848e85f3c182052c13e1bda26e59.png
+Vehicles/Ute.png: Vehicles/Ute-5bbb1a56efc3faf7a9abb07e80387551.png
 iPhone Icon Suite.psd: iPhone Icon Suite-1b66472be1edb7afd159e1c154bac15a.psd
 iTruckFleet/iTruckFleet.eps: iTruckFleet/iTruckFleet-a108691cc4b4f03cc69eda3fcb42d4b1.eps
 iTruckFleet/iTruckFleet.jpg: iTruckFleet/iTruckFleet-3865314caf43e23e5258cac90b01aa54.jpg
@@ -35,9 +47,9 @@ icons/support-2.svg: icons/support-2-f890e0773cf3bf536e7c00d8594b3c28.svg
 icons/swatch.png: icons/swatch-e3069102b6976497e4178d312596dcf2.png
 icons/swatch.svg: icons/swatch-21546acc0c382d51763b140ecc2815ef.svg
 rails.png: rails-be8732dac73d845ac5b142c8fb5f9fb0.png
-application.js: application-d9cb9ef73b91c2f0e0ab08e1a919a036.js
+application.js: application-01a34fdc1734e4833e1b1242a444b994.js
 calendar.js: calendar-71c9eaf3c06bffedf041f8d52c511254.js
-application.css: application-1c6c9b6b6e4a0054f3c006b84ce1c7fa.css
+application.css: application-e2cabb9a9db24f35a353038908a24bce.css
 fontawesome-webfont.eot: fontawesome-webfont-7cf1b0de49e2f8672c9ad6d9e382115f.eot
 fontawesome-webfont.svg: fontawesome-webfont-4d19fdd70a080778557b652cb4868557.svg
 fontawesome-webfont.ttf: fontawesome-webfont-1e29be0bb354c9f664cbca7df9a966d8.ttf

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service_type_id: 1
+  fleet_id: 1
+  service_km_interval: 1.5
+  service_time_interval: 1.5
+  service_period: MyString
+
+two:
+  service_type_id: 1
+  fleet_id: 1
+  service_km_interval: 1.5
+  service_time_interval: 1.5
+  service_period: MyString

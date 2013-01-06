@@ -54,6 +54,19 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label :km_estimates, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :km_estimates, :class => 'text_field', :placeholder => "Enter KM estimates" %> KM per
+      <%= f.select :period, ['Year', 'Month', 'Week', 'Day'] %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :actual_mileage, "Current mileage", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :actual_km, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
     <%= f.label :other, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_area :other, :class => 'text_area' %>
@@ -64,16 +77,18 @@
     <div class="controls">
       <%= f.check_box :auto_services, :class => 'check_box' %>  <i><font size="2">If unticked kilometres will be entered on service page</font></i>
 	  </br></br>
-	  <%= f.text_field :km_estimates, :class => 'text_field', :value => "Enter KM estimates" %> KM per 
-	  <%= f.select :period, ['Year', 'Month', 'Week', 'Day'] %><br><br>OR<br>
     </div>
-    
     <div class="controls">
     	Every:
-    	<%= f.text_field :service_frequency_number, :value => "Enter Date Frequency Estimates" %> 
+    	<%= f.text_field :service_frequency_number, :placeholder => "Enter Date Frequency Estimates" %> 
     	<%= f.select :service_frequency_period, ['Year', 'Month', 'Week', 'Day'] %>
     </div>
   </div>
+  <% @fleet.serviceables.each do |fs| %>
+	<%= f.fields_for fs do |builder| %>
+	  <%= render "service_types", :f => builder, :fleet_service => fs %>
+	<% end %>
+  <% end %>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

@@ -1,0 +1,9 @@
+<div class="control-group">
+	<div class="controls">
+		<b><%= fleet_service.service_type.name.humanize %></b><br /><br />
+		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_km_interval]", fleet_service.service_km_interval %> KM <br />
+		OR<br />
+		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_time_interval]", fleet_service.service_time_interval %> 
+		<%= select_tag "fields[#{fleet_service.service_type.id}][service_period]", options_for_select(['Year', 'Month', 'Week', 'Day']) %>
+	</div>
+</div>

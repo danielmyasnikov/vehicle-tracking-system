@@ -1,4 +1,6 @@
 Mytruckfleet::Application.routes.draw do
+  resources :service_types
+
   resources :notifications
 
   resources :settings
