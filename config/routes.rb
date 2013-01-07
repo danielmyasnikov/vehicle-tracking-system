@@ -19,6 +19,8 @@ Mytruckfleet::Application.routes.draw do
   get "calendar/destroy"
   get "report/index"
   get "report/show"
+  get "services/postpone"
+  post "services/postpone"
 
   resources :services
   resources :contacts_repaiers

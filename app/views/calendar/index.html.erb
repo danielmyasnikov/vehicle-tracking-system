@@ -73,6 +73,7 @@
 			      <th>Make</th>
 			      <th>Model</th>
 			      <th>Next Service</th>
+			      <th>Actions</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -81,6 +82,21 @@
 			        <td class=''><%= link_to overdue.make, fleet_path(overdue) %></td>
 			        <td class=''><%= overdue.model %></td>
 			        <td class=''><%= overdue.next_service_date %></td>
+			        <td class=''>
+			        	<%= link_to 'Book', new_service_path(
+			        		:year => Date.today.year,
+			        		:month => Date.today.month,
+			        		:day => Date.today.day,
+			        		:hours =>  Time.now.hour
+			        	),
+                      	  :class => 'btn btn-mini btn-success' %>
+                      	  <%= puts overdue %>
+                      	<%= link_to 'Postpone', services_postpone_path(
+                      		:model => overdue.model, 
+                      		:next_service => overdue.next_service_date,
+                      		:fleet => overdue),
+		                  :class => 'btn btn-mini btn-warning' %>
+			        </td>
 			      </tr>
 			    <% end if @overdue.present? %>
 			  </tbody>

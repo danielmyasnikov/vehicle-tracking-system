@@ -1,0 +1,13 @@
+<div id="postpone"><%- model_class = Fleet -%>
+	<% @fleet = params[:fleet] %>
+	
+  	<%= 'Due or overdue date: '%><%= params[:next_service]%><br>
+  	<%= 'Postpone until: ' %><%= text_field :next_service_date, :placeholder => params[:next_service], :class => 'text_field' %>
+  	<div class="form-actions">
+    <%= link_to 'Postpone', services_postpone_path(:id => @fleet),
+		                  :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                calendar_index_path, :class => 'btn' %>
+  </div>
+	
+</div>

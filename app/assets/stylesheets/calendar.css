@@ -13,6 +13,8 @@
 	border: 1px solid #ccc;
 	background: #eee;
 	text-align: left;
+	height: 400px;
+	overflow-y: auto;
 	}
 	
 #external-events h4 {

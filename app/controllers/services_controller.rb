@@ -51,6 +51,10 @@ class ServicesController < ApplicationController
       }
     end
   end
+  
+  def postpone
+    
+  end
 
   # GET /services/1/edit
   def edit

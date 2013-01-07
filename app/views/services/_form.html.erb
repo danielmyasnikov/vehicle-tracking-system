@@ -18,6 +18,14 @@
     </div>
   </div>
   <div class="field">
+  	<%= f.label :day, :class => 'control-label' %>
+	<div class="controls">
+      <%= f.text_field :start_service_date, :class => 'text_field' %>
+	</div>
+  	<%= f.label :start_time, :class => 'control-label' %>
+	<div class="controls">
+      <%= f.select :start_service_time, ['08:00', '10:00', '12:00', '14:00', '16:00'], :class => 'text_field' %>
+	</div>
     <%= f.label :hours, :class => 'control-label' %>
 	<div class="controls">
       <%= f.select :hours, [1, 2, 3, 4, 5, 6, 7, 8], :promt => true, :class => 'text_field' %>
