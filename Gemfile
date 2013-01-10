@@ -12,8 +12,6 @@ gem 'whenever', :require => false
 gem "paperclip", "~> 3.0"
 gem 'aws-sdk', '~> 1.3.4'
 
-
-
 # geo location
 gem 'geocoder'
 
@@ -29,6 +27,8 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'client_side_validations'
+  gem 'bootstrap-datepicker-rails'
+  gem 'bootstrap-timepicker-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
