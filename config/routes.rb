@@ -1,14 +1,9 @@
 Mytruckfleet::Application.routes.draw do
   resources :service_types
-
   resources :notifications
-
   resources :settings
-
   resources :subscribtions
-
   resources :trainings
-
   resources :drivers
 
   get "calendar/view"
@@ -23,6 +18,7 @@ Mytruckfleet::Application.routes.draw do
   post "services/postpone"
 
   resources :services
+  resources :customers, :except => [:show]
   resources :contacts_repaiers
   resources :repairers
   resources :fleets
@@ -39,5 +35,12 @@ Mytruckfleet::Application.routes.draw do
     end
   end
   
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :skip => [:sessions]
+
+  as :user do
+    get 'signin' => 'devise/sessions#new', :as => :new_user_session
+    post 'signin' => 'devise/sessions#create', :as => :user_session
+    delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
+  
 end

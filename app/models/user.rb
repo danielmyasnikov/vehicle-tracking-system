@@ -33,6 +33,11 @@ class User < ActiveRecord::Base
     end
     subscribtions
   end
+  
+  def to_approve
+    self.approved = true
+    self.save!
+  end
 
   def inactive_message 
     if !approved? 
