@@ -73,15 +73,19 @@
 			      <th>Make</th>
 			      <th>Model</th>
 			      <th>Next Service</th>
+			      <th>Service Type</th>
+			      <th>Vehicle Mileage</th>
 			      <th>Actions</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <% @overdue.each do |overdue| %>
 			      <tr class=''>
-			        <td class=''><%= link_to overdue.make, fleet_path(overdue) %></td>
-			        <td class=''><%= overdue.model %></td>
-			        <td class=''><%= overdue.next_service_date %></td>
+			        <td class=''><%= link_to overdue.fleet.make, fleet_path(overdue.fleet) %></td>
+			        <td class=''><%= overdue.fleet.model %></td>
+			        <td class=''><%= overdue.fleet.next_service_date %></td>
+			        <td class=''><%= overdue.service_type.name %></td>
+			        <td class=''><%= overdue.fleet.km %></td>
 			        <td class=''>
 			        	<%= link_to 'Book', new_service_path(
 			        		:year => Date.today.year,
@@ -91,9 +95,9 @@
 			        	),
                       	  :class => 'btn btn-mini btn-success' %>
                       	<%= link_to 'Postpone', services_postpone_path(
-                      		:model => overdue.model, 
-                      		:next_service => overdue.next_service_date,
-                      		:fleet => overdue),
+                      		:model => overdue.fleet.model, 
+                      		:next_service => overdue.fleet.next_service_date,
+                      		:fleet => overdue.fleet),
 		                  :class => 'btn btn-mini btn-warning' %>
 			        </td>
 			      </tr>
@@ -108,17 +112,22 @@
 			<table class="table table-striped <%= 'hidden' if @due.nil? || @due.empty? %>"">
 				<thead>
 				  <tr>
-				  	<th></th>
-				  	<th></th>
-				  	<th></th>
+				      <th>Make</th>
+				      <th>Model</th>
+				      <th>Next Service</th>
+				      <th>Service Type</th>
+				      <th>Vehicle Mileage</th>
+				      <th>Actions</th>
 				  </tr>
 				</thead>
 			  <tbody>
 			    <% @due.each_with_index do |due, index| %>
 			      <tr class='highlight-yellow'>
-			        <td class='due'><%= link_to due.make, fleet_path(due) %></td>
-			        <td class='due'><%= due.model %></td>
+			        <td class='due'><%= link_to due.fleet.make, fleet_path(due.fleet) %></td>
+			        <td class='due'><%= due.fleet.model %></td>
 			        <td class='due'><%= due.next_service_date %></td>
+			        <td class='due'><%= due.service_type.name %></td>
+			        <td class='due'><%= due.fleet.km %></td>
 			        <td class=''>
 			        	<%= link_to 'Book', new_service_path(
 			        		:year => Date.today.year,
@@ -128,9 +137,9 @@
 			        	),
                       	  :class => 'btn btn-mini btn-success' %>
                       	<%= link_to 'Postpone', services_postpone_path(
-                      		:model => due.model, 
+                      		:model => due.fleet.model, 
                       		:next_service => due.next_service_date,
-                      		:fleet => due),
+                      		:fleet => due.fleet),
 		                  	:class => 'btn btn-mini btn-warning' %>
 			        </td>
 			      </tr>

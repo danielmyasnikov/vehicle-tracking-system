@@ -101,6 +101,14 @@ class ServicesController < ApplicationController
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
+    # TODO: fucking refactor that shit
+    services = ['service', 'warranty', 'damage', 'repair', 'breakdown']
+    services.each do |s| 
+      if @service.send(s) == true && @service.send(s + '_done') == true
+        serviceable = @service.fleet.serviceables.where(:service_type_id => params[:service][:service_type_name]).first
+        serviceable.update_attributes(:next_service_date => Date.today + @service.fleet.calc_next_period_for_services(serviceable.service_time_interval, serviceable.service_period))
+      end
+    end
   end
 
   # DELETE /services/1

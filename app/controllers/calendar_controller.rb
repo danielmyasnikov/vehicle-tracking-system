@@ -8,8 +8,8 @@ class CalendarController < ApplicationController
     @drivers = Driver.all
     @trainings = Training.all
     @settings = Setting.all
-    @due = @trucks.due if @trucks.present?
-    @overdue = @trucks.overdue if @trucks.present?
+    @due = Serviceable.due(@trucks.pluck(:id)) if @trucks.present?
+    @overdue = Serviceable.overdue(@trucks.pluck(:id)) if @trucks.present?
     @trucks = TruckFleet.scoped_by_vehicle if current_user.admin?
   end
 

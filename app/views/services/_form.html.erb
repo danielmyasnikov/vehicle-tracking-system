@@ -2,7 +2,7 @@
   <div class="field">
     <%= f.label :fleet_number, :class => 'control-label' %>
 	  <div class="controls">
-    	<%= f.collection_select :fleet_id, Fleet.all, :id, :make, :promt => true %>
+    	<%= f.collection_select :fleet_id, Fleet.all, :id, :fleet_number, :promt => true %>
 	  </div>
   </div>
   <div class="field">
@@ -15,6 +15,12 @@
     <%= f.label :service_type, :class => 'control-label' %>
     <div class="controls">
       <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], :promt => true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :service_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :service_type_name, ServiceType.all.collect {|s| [s.name, s.id]}, :promt => true %>
     </div>
   </div>
   <div class="field">
@@ -53,13 +59,15 @@
 	        <td><%= f.label :service, :class => 'control-label' %></td>
 	        <td><%= f.check_box :service, :class => 'check_box' %></td>
 	        <td><%= f.check_box :service_done, :class => 'check_box', :disabled => @service.id.nil? %></td>
-	        <td>$ <%= f.text_field :service_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
+	        	<td>
+	        			$ <%= f.text_field :service_price, :class => 'text_field', :disabled => @service.id.nil? %>
+	        	</td>
 	      </tr>
 		  <tr>
 	        <td><%= f.label :warranty, :class => 'control-label' %></td>
 	        <td><%= f.check_box :warranty, :class => 'check_box' %></td>
 	        <td><%= f.check_box :warranty_done, :class => 'check_box', :disabled => @service.id.nil? %></td>
-	        <td>$ <%= f.text_field :service_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
+	        <td>$ <%= f.text_field :warranty_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
 	      </tr>
 		  <tr>
 	        <td><%= f.label :damage, :class => 'control-label' %></td>

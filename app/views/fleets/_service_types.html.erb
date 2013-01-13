@@ -4,6 +4,6 @@
 		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_km_interval]", fleet_service.service_km_interval %> KM <br />
 		OR<br />
 		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_time_interval]", fleet_service.service_time_interval %> 
-		<%= select_tag "fields[#{fleet_service.service_type.id}][service_period]", options_for_select(['Year', 'Month', 'Week', 'Day']) %>
+		<%= select_tag "fields[#{fleet_service.service_type.id}][service_period]", options_for_select(['Year', 'Month', 'Day']) %>
 	</div>
 </div>

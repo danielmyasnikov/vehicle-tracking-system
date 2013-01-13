@@ -36,6 +36,27 @@ class Fleet < ActiveRecord::Base
     else
       return 0
     end
+  end
+  
+  # TODO: refactor and merge with calculated_service_period
+  def calc_next_period_for_services(service_frequency_number, service_frequency_period)
+    if service_frequency_period.present? && service_frequency_number.present?
+      case(service_frequency_period)
+      when 'Year'
+        service_frequency_number.to_i.year
+      when 'Month'
+        puts service_frequency_number.to_i.month
+        service_frequency_number.to_i.month
+      when 'Week'
+        puts service_frequency_number.to_i.day * 7
+        service_frequency_number.to_i.day * 7
+      when 'Day'
+        puts service_frequency_number.to_i.day
+        service_frequency_number.to_i.day
+      end
+    else
+      return 0
+  end
     
   end
   
@@ -60,6 +81,9 @@ class Fleet < ActiveRecord::Base
       params.each do |key, value|
         s = serviceables.find_by_service_type_id(key)
         s.update_attributes(value)
+        next_service = calc_next_period_for_services(value["service_time_interval"], value["service_period"])
+        s.next_service_date = Date.today + next_service
+        s.save
       end
     end
   end

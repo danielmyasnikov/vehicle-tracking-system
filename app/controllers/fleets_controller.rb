@@ -43,7 +43,7 @@ class FleetsController < ApplicationController
   # POST /fleets.json
   def create
     @fleet = Fleet.new(params[:fleet])
-
+    
     respond_to do |format|
       if @fleet.save
         format.html { redirect_to @fleet, notice: 'Fleet was successfully created.' }
