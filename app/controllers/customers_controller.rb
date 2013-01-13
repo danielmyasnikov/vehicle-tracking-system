@@ -13,13 +13,13 @@ class CustomersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @user.to_approve
-    redirect_to users_path
+    redirect_to customers_path
   end
   
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to users_path
+    redirect_to customers_path
   end
 
 end
