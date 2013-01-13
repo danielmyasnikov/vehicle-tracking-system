@@ -90,7 +90,6 @@
 			        		:hours =>  Time.now.hour
 			        	),
                       	  :class => 'btn btn-mini btn-success' %>
-                      	  <%= puts overdue %>
                       	<%= link_to 'Postpone', services_postpone_path(
                       		:model => overdue.model, 
                       		:next_service => overdue.next_service_date,
@@ -120,11 +119,24 @@
 			        <td class='due'><%= link_to due.make, fleet_path(due) %></td>
 			        <td class='due'><%= due.model %></td>
 			        <td class='due'><%= due.next_service_date %></td>
+			        <td class=''>
+			        	<%= link_to 'Book', new_service_path(
+			        		:year => Date.today.year,
+			        		:month => Date.today.month,
+			        		:day => Date.today.day,
+			        		:hours =>  Time.now.hour
+			        	),
+                      	  :class => 'btn btn-mini btn-success' %>
+                      	<%= link_to 'Postpone', services_postpone_path(
+                      		:model => due.model, 
+                      		:next_service => due.next_service_date,
+                      		:fleet => due),
+		                  	:class => 'btn btn-mini btn-warning' %>
+			        </td>
 			      </tr>
 			    <% end if @due.present? %>
 			  </tbody>
 			</table>
-			<%= puts @due.blank? %>
 		<b><%= 'No items to display' if @due.nil? || @due.empty? %></b>
 		</div>
 	</div>
