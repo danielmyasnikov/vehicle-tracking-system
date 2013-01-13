@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me,
-                  :approved, :subscribtion_ids
+                  :approved, :subscribtion_ids, :truck_fleet_id
 
   def active_for_authentication? 
     super && approved? 

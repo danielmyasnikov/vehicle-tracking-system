@@ -15,7 +15,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= user.truck_fleet_id %></td>
+        <td><%= user.truck_fleet.trading_name_of_business if user.truck_fleet.present? %></td>
         <td>
           <%= link_to 'Approve', edit_customer_path(user.id), :class => 'btn btn-mini btn-primary' %>
           <%#= link_to 'Delete', :controller => :customer, :actoin => :delete, :id => user.id, :class => 'btn btn-mini btn-danger' %>
