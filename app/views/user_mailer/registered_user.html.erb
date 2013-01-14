@@ -9,12 +9,6 @@
       You have successfully signed up to mytruckfleet.com,
       your username is: <%= @user.email %>.<br/>
     </p>
-    <p>
-      You will get the following updates:</br> 
-		<% @subscribtions.each do |s| %>
-			<%= s.name %>,</br>
-		<% end %>
-    </p>
     <p>Thanks for joining and have a great day!</p>
   </body>
 </html>
