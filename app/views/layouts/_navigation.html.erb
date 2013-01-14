@@ -8,7 +8,7 @@
 		<% end %>
 		<% if user_signed_in? %>
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => edit_user_registration_path, :name => "Edit Account" }%>
-			<%= render :partial => 'layouts/menu_item', :locals => {:link => edit_setting_path(current_user.truck_fleet.setting), :name => "Settings", :icon => 'icons/settings-3.png' if !current_user.admin? }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => edit_setting_path(current_user.truck_fleet.setting), :name => "Settings", :icon => 'icons/settings-3.png' } if !current_user.admin? %>
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => truck_fleets_path, :name => "Truck Fleets" }%>
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => calendar_index_path, :name => "MyCalendar", :icon => 'icons/calendar.png' }%>
 		<% if current_user.admin? %>
