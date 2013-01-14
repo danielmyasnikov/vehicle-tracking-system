@@ -62,6 +62,7 @@ class FleetsController < ApplicationController
 
     respond_to do |format|
       if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields])
+        UserMailer.update_vehicle_info(current_user, @fleet).deliver
         format.html { redirect_to @fleet, notice: 'Fleet was successfully updated.' }
         format.json { head :no_content }
       else

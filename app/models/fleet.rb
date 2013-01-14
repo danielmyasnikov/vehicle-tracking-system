@@ -61,8 +61,7 @@ class Fleet < ActiveRecord::Base
       end
     else
       return 0
-  end
-    
+    end
   end
   
   def prepare_services

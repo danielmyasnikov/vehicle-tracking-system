@@ -27,6 +27,7 @@ class SettingsController < ApplicationController
   def new
     @setting = Setting.new(:truck_fleet_id => current_user.truck_fleet.id) if !current_user.admin?
     @setting = Setting.new(:truck_fleet_id => 3) if current_user.admin
+    @setting.build_email_notifications
     @notifications = Notification.all
 
     respond_to do |format|
@@ -38,6 +39,7 @@ class SettingsController < ApplicationController
   # GET /settings/1/edit
   def edit
     @setting = Setting.find(params[:id])
+    @setting.prepare_email_notifications
     @notifications = Notification.all
     @notifications.each do |n|
       @setting.email_notifications.build(:notification_id => n.id)
@@ -51,14 +53,7 @@ class SettingsController < ApplicationController
     @notifications = Notification.all
     respond_to do |format|
       if @setting.save
-        @notifications.each do |n|
-          puts params[:fields][n.id.to_s].inspect
-          if params[:fields][n.id.to_s].nil?
-            @setting.email_notifications.create!(:notification_id => n.id.to_s, :primary => false, :secondary => false)
-          else
-            @setting.email_notifications.create!(:notification_id => n.id.to_s, :primary => params[:fields][n.id.to_s][:primary] ||= false, :secondary => params[:fields][n.id.to_s][:secondary] ||= false)
-          end
-        end
+        # @setting.update_notifications(params[:fields])
         format.html { redirect_to @setting, notice: 'Setting was successfully created.' }
         format.json { render json: @setting, status: :created, location: @setting }
       else
@@ -75,15 +70,7 @@ class SettingsController < ApplicationController
     @setting = Setting.find(params[:id])
     @notifications = Notification.all
     respond_to do |format|
-      if @setting.update_attributes(params[:setting])
-        @notifications.each do |n|
-          em = @setting.email_notifications.where(:notification_id => n.id).first
-          if params[:fields][n.id.to_s].nil?
-            em.update_attributes(:notification_id => n.id.to_s, :primary => false, :secondary => false)
-          else
-            em.update_attributes(:notification_id => n.id.to_s, :primary => params[:fields][n.id.to_s][:primary] ||= false, :secondary => params[:fields][n.id.to_s][:secondary] ||= false)
-          end
-        end
+      if @setting.update_attributes(params[:setting]) && @setting.update_notifications(params[:fields])
         format.html { redirect_to @setting, notice: 'Setting was successfully updated.' }
         format.json { head :no_content }
       else

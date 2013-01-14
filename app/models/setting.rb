@@ -11,4 +11,31 @@ class Setting < ActiveRecord::Base
   has_many :email_notifications
   validates_uniqueness_of :truck_fleet_id 
   # validates :email, :email_format => true
+  
+  def prepare_email_notifications
+    Notification.all.each do |notification|
+      notifications << notification if does_not_include notification
+    end
+  end
+  
+  def build_email_notifications
+    Notification.all.each do |nofitication|
+      email_notifications.new(:service_type => nofitication)
+    end
+  end
+  
+  def does_not_include(item)
+    !notifications.include?(item)
+  end
+  
+  def update_notifications(params)
+     if params.present?
+      params.each do |key, value|
+        puts email_notifications.find_by_notification_id(key)
+        s = email_notifications.find_by_notification_id(key)
+        s.update_attributes(value)
+      end
+    end
+  end
+  
 end
