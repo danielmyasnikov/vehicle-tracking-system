@@ -20,7 +20,7 @@ class TruckFleet < ActiveRecord::Base
   def self.scoped_by_vehicle
     @truck_fleets = {}
     scoped.each do |tf|
-      @truck_fleets.merge!({tf => tf.fleets.order("#{tf.setting.truck_identification} ASC")})
+      @truck_fleets.merge!({tf => tf.fleets.order("fleet_number ASC")})
     end
     return @truck_fleets
   end
