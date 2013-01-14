@@ -20,6 +20,11 @@ class Fleet < ActiveRecord::Base
   def self.overdue
     where('next_service_date < ?', Date.today).order("next_service_date ASC")
   end
+  
+  def name
+    id = truck_fleet.setting.truck_identification
+    send(id)
+  end
 
   def calculated_service_period
     if service_frequency_period.present? && service_frequency_number.present?
