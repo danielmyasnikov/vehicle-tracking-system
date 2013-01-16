@@ -49,6 +49,8 @@ class TruckFleetsController < ApplicationController
 
     respond_to do |format|
       if @truck_fleet.save
+        @setting = Setting.new(:truck_fleet_id => @truck_fleet.id, :truck_identification => 'fleet_number')
+        @setting.save
         format.html { redirect_to @truck_fleet, notice: 'Truck fleet was successfully created.' }
         format.json { render json: @truck_fleet, status: :created, location: @truck_fleet }
       else

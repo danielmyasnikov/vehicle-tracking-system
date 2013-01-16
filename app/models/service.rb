@@ -9,5 +9,6 @@ class Service < ActiveRecord::Base
                   :service_type_name
                   
   belongs_to :fleet
+  belongs_to :truck_fleet
   has_many :fleet_service_infos
 end

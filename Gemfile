@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,6 +12,8 @@ gem 'whenever', :require => false
 gem "paperclip", "~> 3.0"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'rufus-scheduler'
+gem 'therubyracer' , '= 0.10.2'
+gem 'libv8'
 
 # geo location
 gem 'geocoder'
@@ -30,6 +32,7 @@ group :assets do
   gem 'client_side_validations'
   gem 'bootstrap-datepicker-rails'
   gem 'bootstrap-timepicker-rails'
+  gem 'less-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

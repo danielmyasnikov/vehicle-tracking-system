@@ -57,7 +57,7 @@
 			        <td><%= driver.phone_no %></td>
 			        <td><%= driver.dl_expiry %></td>
 			      </tr>
-			    <% end %>
+			    <% end if @drivers.present? %>
 			  </tbody>
 			</table>
 		</div>
@@ -276,7 +276,7 @@ $(document).ready(function() {
 			end: '<%= s.start_service_date %> <%= s.finish_service_time.hour.to_s + ':00:00' if !s.finish_service_time.nil? %>',
 			allDay: false
 		},
-	<% end %>
+	<% end if @services.present? %>
 	],
 	eventClick: function(event, jsEvent, view){
 		cuteLittleWindow = window.open("/services/" + event.id + "/edit",

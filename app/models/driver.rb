@@ -2,6 +2,7 @@ class Driver < ActiveRecord::Base
   attr_accessible :dl_expiry, :dl_number, :name, :phone_no, :pic, :training_documents, :training_schedule, :fleet_id
   
   belongs_to :fleet
+  belongs_to :truck_fleet
   
   MAX_DUE_DATE = 3.days.since(Time.now).to_date
   MIN_DUE_DATE = Date.today
