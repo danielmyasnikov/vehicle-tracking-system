@@ -17,8 +17,8 @@ development:
   encoding: unicode
   database: mtf_development
   pool: 5
-  username: mtf_admin
-  password: pa$$w0rd
+  username: postgres
+  password: spartak
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -43,13 +43,13 @@ test:
   encoding: unicode
   database: mtf_test
   pool: 5
-  username: mtf_admin
-  password: pa$$w0rd
+  username: postgres
+  password: spartak
 
 production:
   adapter: postgresql
   encoding: unicode
   database: mtf_production
   pool: 5
-  username: mtf_admin
-  password: pa$$w0rd
+  username: postgres
+  password: spartak
