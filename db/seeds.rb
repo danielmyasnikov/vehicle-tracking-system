@@ -9,10 +9,10 @@ Notification.create! :name => 'Update vehicle info except milage'
 Notification.create! :name => 'Cancel service'
 Notification.create! :name => 'Postponed service'
 Notification.create! :name => 'Due service'
-Notification.create! :name => 'Overdue service', :required_interval => true
+Notification.create! :name => 'Overdue service', :required_intervals => true
 Notification.create! :name => 'Completed booking'
 Notification.create! :name => 'Date of booking'
-Notification.create! :name => 'Pre booking reminder', :required_interval => true
+Notification.create! :name => 'Pre booking reminder', :required_intervals => true
 Notification.create! :name => 'Service date'
 Notification.create! :name => 'Service information incomplete'
 Notification.create! :name => 'Service done'
