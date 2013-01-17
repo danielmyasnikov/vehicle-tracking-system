@@ -22,16 +22,17 @@ gem 'geocoder'
 gem "squeel"
 gem 'pg'
 gem 'seed_dump', "~> 0.4.2"
+gem 'twitter-bootstrap-rails'
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-timepicker-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'twitter-bootstrap-rails'
+  
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'client_side_validations'
-  gem 'bootstrap-datepicker-rails'
-  gem 'bootstrap-timepicker-rails'
   gem 'less-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
