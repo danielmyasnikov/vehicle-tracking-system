@@ -5,6 +5,7 @@
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => truck_fleets_path, :name => "Truck Fleets" }%>
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => customers_path, :name => "Customers" }%>
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => repairers_path, :name => "MyRepairers", :icon => 'icons/outgoing.png' }%>
+                        <%= render :partial => 'layouts/menu_itme', :locals => {:link => edit_user_registration_path, :name => "Edit Account" }%>
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => destroy_user_session_path, :optional => 'delete', :name => "Logout", :icon => 'icons/outgoing.png' }%>
 		<% elsif user_signed_in? %>
 			<%= render :partial => 'layouts/menu_item', :locals => {:link => edit_user_registration_path, :name => "Edit Account" }%>
