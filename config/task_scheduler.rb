@@ -4,6 +4,6 @@ scheduler = Rufus::Scheduler.start_new
 scheduler.every '10m' do
    require "net/http"
    require "uri"
-   url = 'http://truck-cms.herokuapp.com/'
+   url = 'http://www.mytruckfleet.com.au'
    Net::HTTP.get_response(URI.parse(url))
 end
