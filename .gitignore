@@ -20,3 +20,6 @@
 .DS_Store
 app/assets/.DS_Store
 .project
+
+# Ignore public asssets
+/public/assets/*
