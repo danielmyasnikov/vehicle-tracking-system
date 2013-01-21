@@ -1,6 +1,6 @@
 working_directory "/home/dan/www/mytruckfleet"
 pid "/home/dan/www/mytruckfleet/tmp/pids/unicorn.pid"
-stperr_path "/home/dan/www/mytruckfleet/log/unicorn.log"
+stderr_path "/home/dan/www/mytruckfleet/log/unicorn.log"
 stdout_path "/home/dan/www/mytruckfleet/log/unicorn.log"
 
 listen "/tmp/unicorn.todo.sock"
