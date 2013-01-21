@@ -21,5 +21,5 @@
 app/assets/.DS_Store
 .project
 
-# Ignore public asssets
-/public/assets/*
+# Ignore assets pipeline
+public/assets/*
