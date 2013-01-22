@@ -14,8 +14,8 @@ Mytruckfleet::Application.routes.draw do
   get "calendar/destroy"
   get "report/index"
   get "report/show"
-  get "services/postpone"
-  post "services/postpone"
+  get "fleets/postpone"
+  post "fleets/postpone"
 
   resources :services
   resources :customers, :except => [:show]

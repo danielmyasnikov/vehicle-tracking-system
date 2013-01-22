@@ -1,9 +1,10 @@
+<% @postponing = true %>
+	
 <div id="postpone"><%- model_class = Fleet -%>
-	<% @fleet = Fleet.find(params[:fleet]) %>
 	<%= form_for @fleet, :html => { :class => 'form-horizontal' }  do |f| %>
 	  <div class="control-group">
       	<div class="controls">
-      	  <%= f.label "Due or overdue date: #{@fleet.next_service_date}" %>
+      	  <%#= "Due or overdue date: #{@fleet.next_service_date}" %>
           <%= f.label 'Postpone until: ' %><%= f.date_select :next_service_date, :placeholder => params[:next_service], :class => 'text_field' %>
         </div>
   	  </div>

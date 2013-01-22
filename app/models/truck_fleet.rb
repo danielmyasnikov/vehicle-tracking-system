@@ -13,6 +13,35 @@ class TruckFleet < ActiveRecord::Base
   has_one :setting
   has_many :users
   
+  def collect_emails_for_notification(notification)
+    emails = []
+    if send_to_primaries?(notification) && send_to_secondaries?(notification)
+      emails       << find_primary_contacts
+      emails       << find_secondary_contacts
+    elsif send_to_primaries?(notification) && !send_to_secondaries?(notification)
+      emails       << find_primary_contacts
+    elsif send_to_secondaries?(notification) && !send_to_primaries?(notification)
+      emails       << find_secondary_contacts
+    end
+    emails.flatten if emails.present?
+  end
+  
+  def send_to_primaries?(notification)
+    setting.email_notifications.where(:notification_id => notification.id).first.primary
+  end
+  
+  def send_to_secondaries?(notification)
+    setting.email_notifications.where(:notification_id => notification.id).first.secondary
+  end
+  
+  def find_primary_contacts
+    contact_truck_fleets.where(:main => true).pluck(:email) if contact_truck_fleets.present?
+  end
+  
+  def find_secondary_contacts
+    contact_truck_fleets.where(:main => false).pluck(:email) if contact_truck_fleets.present?
+  end
+  
   def self.find_contacts_by_fleet_id(fleet_id)
     fleet = Fleet.find(fleet_id)
     fleet.truck_fleet.contact_truck_fleets.pluck(:email)
@@ -24,5 +53,5 @@ class TruckFleet < ActiveRecord::Base
       @truck_fleets.merge!({tf => tf.fleets.order("fleet_number ASC")})
     end
     return @truck_fleets
-  end
+  end 
 end

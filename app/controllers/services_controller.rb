@@ -51,10 +51,6 @@ class ServicesController < ApplicationController
       }
     end
   end
-  
-  def postpone
-    
-  end
 
   # GET /services/1/edit
   def edit
@@ -70,14 +66,12 @@ class ServicesController < ApplicationController
     @fleet_email_contacts     = TruckFleet.find_contacts_by_fleet_id(@service.fleet_id)
     @repairer_email_contacts  = Repairer.find_contacts_by_repairer_id(@service.repairer_id) 
     
-    emails = @fleet_email_contacts.
-      concat(@repairer_email_contacts).
-      push(current_user.email).
-      uniq
+    
     
     respond_to do |format|
       if @service.save
-        UserMailer.service(@service, emails).deliver
+        UserMailer.completed_booking(current_user, @service).deliver
+        # TODO: changed completed
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render json: @service, status: :created, location: @service }
       else
@@ -94,6 +88,8 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       if @service.update_attributes(params[:service])
+        # TODO: get all changed attributes and shoot an email to the PC or SC with the person who updated the details and the details themselfs
+        UserMailer.update_service(current_user, @service).deliver
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { head :no_content }
       else
@@ -101,12 +97,13 @@ class ServicesController < ApplicationController
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
-    # TODO: fucking refactor that shit
     services = ['service', 'warranty', 'damage', 'repair', 'breakdown']
     services.each do |s| 
       if @service.send(s) == true && @service.send(s + '_done') == true
         serviceable = @service.fleet.serviceables.where(:service_type_id => params[:service][:service_type_name]).first
         serviceable.update_attributes(:next_service_date => Date.today + @service.fleet.calc_next_period_for_services(serviceable.service_time_interval, serviceable.service_period))
+        # TODO: who updaetd the service + send to the primary and secondary contact details of the fleet 
+        @service.destroy
       end
     end
   end
@@ -116,6 +113,9 @@ class ServicesController < ApplicationController
   def destroy
     @service = Service.find(params[:id])
     @service.destroy
+    
+    # TODO: put proper values, customize DB if needed
+    UserMailer.cancel_service(current_user, @service.fleet, '', '', '').deliver
 
     respond_to do |format|
       format.html { redirect_to services_url }

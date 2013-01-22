@@ -13,13 +13,6 @@ class Fleet < ActiveRecord::Base
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
   before_save :calc_next_service_date
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
-  def self.due
-    where('next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today).order("fleet_number ASC")
-  end
-
-  def self.overdue
-    where('next_service_date < ?', Date.today).order("next_service_date ASC")
-  end
   
   def name
     id = truck_fleet.setting.truck_identification

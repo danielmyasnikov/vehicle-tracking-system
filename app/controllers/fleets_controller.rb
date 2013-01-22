@@ -38,6 +38,10 @@ class FleetsController < ApplicationController
     @fleet = Fleet.find(params[:id])
     @fleet.prepare_services
   end
+  
+  def postpone
+    @fleet = Fleet.find(params[:id])
+  end
 
   # POST /fleets
   # POST /fleets.json
@@ -62,6 +66,7 @@ class FleetsController < ApplicationController
 
     respond_to do |format|
       if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields])
+        # TODO: test it!
         UserMailer.update_vehicle_info(current_user, @fleet).deliver
         format.html { redirect_to @fleet, notice: 'Fleet was successfully updated.' }
         format.json { head :no_content }

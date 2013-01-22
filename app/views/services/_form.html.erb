@@ -116,7 +116,12 @@
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary', :id => 'id-create' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                services_path, :id => 'id-cancel', :class => 'btn' %>
+                services_path, :id => 'id-cancel', :class => 'btn' %> 
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      service_path(@service),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-danger' if @service.id.present? %>
   </div>
 <% end %>
 <script>

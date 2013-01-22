@@ -9,6 +9,7 @@ class Serviceable < ActiveRecord::Base
     if params.present? && fleet.present?
       fleet.serviceables.each do |fs|
         fs.update_attributes(params[fs.service_type.id.to_s])
+        UserMailer.postponed_service(fleet).deliver
       end
     end
   end
