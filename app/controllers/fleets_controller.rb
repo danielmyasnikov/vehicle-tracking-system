@@ -2,7 +2,7 @@ class FleetsController < ApplicationController
   # GET /fleets
   # GET /fleets.json
   def index
-    @fleets = Fleet.all
+    @fleets = current_user.truck_fleet.fleets
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,6 @@ class FleetsController < ApplicationController
   def show
     @fleet = Fleet.find(params[:id])
     
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @fleet }
@@ -27,6 +26,7 @@ class FleetsController < ApplicationController
   def new
     @fleet = Fleet.new
     @fleet.build_fleet_services
+    @assets = @fleet.assets.build
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @fleet }
@@ -37,6 +37,7 @@ class FleetsController < ApplicationController
   def edit
     @fleet = Fleet.find(params[:id])
     @fleet.prepare_services
+    @assets = @fleet.assets.new
   end
   
   def postpone
@@ -47,9 +48,9 @@ class FleetsController < ApplicationController
   # POST /fleets.json
   def create
     @fleet = Fleet.new(params[:fleet])
-    
+    @assets = Asset.new(params[:asset][:invoice]) 
     respond_to do |format|
-      if @fleet.save
+      if @fleet.save && @assets.save
         format.html { redirect_to @fleet, notice: 'Fleet was successfully created.' }
         format.json { render json: @fleet, status: :created, location: @fleet }
       else
@@ -63,9 +64,11 @@ class FleetsController < ApplicationController
   # PUT /fleets/1.json
   def update
     @fleet = Fleet.find(params[:id])
+    @asset = Asset.new(params[:asset])
+    @asset.fleet = @fleet
 
     respond_to do |format|
-      if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields])
+      if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields]) && @asset.save
         # TODO: test it!
         UserMailer.update_vehicle_info(current_user, @fleet).deliver
         format.html { redirect_to @fleet, notice: 'Fleet was successfully updated.' }
