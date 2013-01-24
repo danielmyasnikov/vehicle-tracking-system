@@ -13,6 +13,10 @@ class TruckFleet < ActiveRecord::Base
   has_one :setting
   has_many :users
   
+  def name
+    trading_name_of_business
+  end
+  
   def collect_emails_for_notification(notification)
     emails = []
     if send_to_primaries?(notification) && send_to_secondaries?(notification)

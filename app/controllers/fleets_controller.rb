@@ -41,16 +41,28 @@ class FleetsController < ApplicationController
   end
   
   def postpone
-    @fleet = Fleet.find(params[:id])
+    @serviceable = Serviceable.where(:service_type_id => params[:service_id], :fleet_id => params[:id]).first
+    puts @serviceable.to_yaml
+  end
+  
+  def postponed
+    @serviceable = Serviceable.find(params[:id])
+    @serviceable.update_attributes(params[:serviceable])
+    # puts @serviceable.inspect
+    
+    redirect_to controller: :calendar, action: :index
   end
 
   # POST /fleets
   # POST /fleets.json
   def create
     @fleet = Fleet.new(params[:fleet])
-    @assets = Asset.new(params[:asset][:invoice]) 
+    @assets = Asset.new(params[:asset]) 
+    @fleet.truck_fleet = current_user.truck_fleet
+    
     respond_to do |format|
       if @fleet.save && @assets.save
+        @fleet.update_serviceables(params[:fields]) 
         format.html { redirect_to @fleet, notice: 'Fleet was successfully created.' }
         format.json { render json: @fleet, status: :created, location: @fleet }
       else
@@ -64,11 +76,11 @@ class FleetsController < ApplicationController
   # PUT /fleets/1.json
   def update
     @fleet = Fleet.find(params[:id])
-    @asset = Asset.new(params[:asset])
-    @asset.fleet = @fleet
+    @assets = Asset.new(params[:asset])
+    @assets.fleet = @fleet
 
     respond_to do |format|
-      if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields]) && @asset.save
+      if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields]) && @assets.save
         # TODO: test it!
         UserMailer.update_vehicle_info(current_user, @fleet).deliver
         format.html { redirect_to @fleet, notice: 'Fleet was successfully updated.' }

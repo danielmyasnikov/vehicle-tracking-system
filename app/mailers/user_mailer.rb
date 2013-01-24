@@ -1,6 +1,13 @@
 class UserMailer < ActionMailer::Base
   default :from => "info.mytruckfleet@gmail.com"
   
+  def due_services(due_fleets, emails)
+    @due_fleets = due_fleets
+    emails = emails.join(",")
+    mail :to => emails,
+         :subject => "Vehicles due for service"
+  end
+  
   def registered_user(user)
     @user = user
     mail(

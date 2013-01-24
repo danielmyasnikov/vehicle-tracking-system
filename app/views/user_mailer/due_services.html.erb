@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Services due</h1>
+    <p>
+      Hello, you have got email because following vehicles are due to services. 
+    </p>
+    <p>
+    	<% @due_fleets.each do |d| %>
+    		Vehicle: <%= d.fleet_name %> 
+    		should be serviced for <% d.next_service_date %>
+    		for service: <%= d.service_name %><br/>
+    	<% end %>
+    </p>
+  </body>
+</html>

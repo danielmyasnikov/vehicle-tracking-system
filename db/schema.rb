@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116035413) do
+ActiveRecord::Schema.define(:version => 20130122044402) do
+
+  create_table "assets", :force => true do |t|
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.string   "invoice_file_name"
+    t.string   "invoice_content_type"
+    t.integer  "invoice_file_size"
+    t.datetime "invoice_updated_at"
+    t.integer  "fleet_id"
+  end
 
   create_table "contact_repairers", :force => true do |t|
     t.string   "name"
@@ -90,6 +100,10 @@ ActiveRecord::Schema.define(:version => 20130116035413) do
     t.text     "other"
     t.float    "actual_km"
     t.float    "km"
+    t.string   "invoice_file_name"
+    t.string   "invoice_content_type"
+    t.integer  "invoice_file_size"
+    t.datetime "invoice_updated_at"
   end
 
   create_table "notifications", :force => true do |t|

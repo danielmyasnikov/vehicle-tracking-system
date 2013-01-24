@@ -1,12 +1,5 @@
 <%= form_for @setting, :html => { :class => 'form-horizontal' } do |f| %>
 <div class="control-group">
-	<%= f.label :for_truck_fleet_number, :class => 'control-label' %>
-	<div class="controls">
-		<%= f.collection_select 	:truck_fleet_id, TruckFleet.all, :id, :trading_name_of_business,
-    :class => 'text_field' %>
-	</div>
-</div>
-<div class="control-group">
 	<%= f.label :truck_identification, :class => 'control-label' %>
 	<div class="controls">
 		<%= f.collection_select :truck_identification, [["Fleet Number", "fleet_number"], ["Make", "make"], ["Model", "model"], ["VIN", "vin"], ["Registration", "registration"]], :last, :first, :class => 'text_field' %>
@@ -19,7 +12,6 @@
 	</div>
 </div>
 
-<!-- TODO refactor this shit -->
   <% @setting.email_notifications.each do |en| %>
 	<%= f.fields_for en do |builder| %>
 	  <%= render "email_notifications", :f => builder, :email_notification => en %>

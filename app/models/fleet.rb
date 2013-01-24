@@ -3,7 +3,7 @@ class Fleet < ActiveRecord::Base
                   :registration, :year, :truck_fleet_id, :km_estimates, :period,
                   :km_estimates, :period, :avatar, :service_frequency_number,
                   :service_frequency_period, :last_service_date, :next_service_date,
-                  :vehicle_type, :other, :actual_km
+                  :vehicle_type, :other, :actual_km, :assets
   belongs_to :truck_fleet
   has_many :services
   has_many :fleet_services_infos
@@ -11,7 +11,7 @@ class Fleet < ActiveRecord::Base
   has_many :service_types, :through => :serviceables
   has_many :serviceables
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
-  before_save :calc_next_service_date
+  has_many :assets
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   
   def name

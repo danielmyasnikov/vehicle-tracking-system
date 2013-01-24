@@ -1,20 +1,14 @@
 <%= form_for @fleet, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :truck_fleet, :class => 'control-label' %>
+    <%= f.label :vehicle_type, :class => 'control-label' %>
     <div class="controls">
-      <%= collection_select :fleet, :truck_fleet_id, TruckFleet.all, :id, :trading_name_of_business, :promt => true %>
+      <%= f.select :vehicle_type, ['Truck', 'Trailer', 'Forklift', 'Ute', 'Car', 'Other: Machinery'], :promt => true %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :image, :class => 'control-label' %>
     <div class="controls">
       <%= f.file_field :avatar %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :vehicle_type, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select :vehicle_type, ['Truck', 'Trailer', 'Forklift', 'Ute', 'Car', 'Other-Machinery'], :promt => true %>
     </div>
   </div>
   <div class="control-group">
@@ -69,9 +63,11 @@
   <div class="control-group">
     <%= f.label :other, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_area :other, :class => 'text_area' %>
+      <%= f.text_area :other, :rows => 5, :class => 'text_area' %>
     </div>
   </div>
+  <hr>
+  
   <div class="control-group">
     <%= f.label :auto_services, :class => 'control-label' %>
     <div class="controls">
@@ -81,13 +77,23 @@
     <div class="controls">
     	Every:
     	<%= f.text_field :service_frequency_number, :placeholder => "Enter Date Frequency Estimates" %> 
-    	<%= f.select :service_frequency_period, ['Year', 'Month', 'Week', 'Day'] %>
+    	<%= f.select :service_frequency_period, ['Year', 'Month', 'Day'] %>
     </div>
   </div>
   <% @fleet.serviceables.each do |fs| %>
 	<%= f.fields_for fs do |builder| %>
 	  <%= render "service_types", :f => builder, :fleet_service => fs %>
 	<% end %>
+  <% end %>
+  
+  <hr>
+  <%= fields_for @assets do |asset| %>
+    <div class="control-group">
+      <%= asset.label :image, :class => 'control-label' %>
+      <div class="controls">
+        <%= asset.file_field :invoice %>
+      </div>
+    </div>
   <% end %>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

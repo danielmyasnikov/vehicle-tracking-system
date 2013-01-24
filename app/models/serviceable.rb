@@ -21,10 +21,22 @@ class Serviceable < ActiveRecord::Base
     end
   end
   
+  def due?
+    next_service_date <= Date.today + 3 && next_service_date > Date.today if next_service_date.present?
+  end
+  
+  def today?
+    next_service_date == Date.today if next_service_date.present?
+  end
+  
   def self.overdue(fleets_ids)
     if fleets_ids.present?
       serviceables = where(:fleet_id => fleets_ids)
       serviceables.where('next_service_date < ?', Date.today).order("next_service_date ASC")
     end
+  end
+  
+  def overdue?
+    next_service_date < Date.today if next_service_date.present?
   end
 end

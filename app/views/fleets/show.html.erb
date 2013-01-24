@@ -32,6 +32,11 @@
   <dd><%= @fleet.truck_fleet_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:other) %>:</strong></dt>
   <dd><%= @fleet.other %></dd>
+  <hr>
+  <% @fleet.assets.each_with_index do |asset, i| %>
+    <dt><strong>Invoice <%= i + 1 %>:</strong></dt> 
+    <dd><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></dd>
+  <% end %>
 </dl>
 
 <div class="form-actions">

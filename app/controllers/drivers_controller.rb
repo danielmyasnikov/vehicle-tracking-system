@@ -41,6 +41,7 @@ class DriversController < ApplicationController
   # POST /drivers.json
   def create
     @driver = Driver.new(params[:driver])
+    @driver.truck_fleet = current_user.truck_fleet
 
     respond_to do |format|
       if @driver.save

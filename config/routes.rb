@@ -14,14 +14,21 @@ Mytruckfleet::Application.routes.draw do
   get "calendar/destroy"
   get "report/index"
   get "report/show"
-  get "fleets/postpone"
-  post "fleets/postpone"
+  # get "fleets/postpone"
 
   resources :services
   resources :customers, :except => [:show]
   resources :contacts_repaiers
   resources :repairers
-  resources :fleets
+  # match 'fleets/postponed/id', :controller => "fleets", :action => "postponed", :via => :post
+  resources :fleets do 
+    member do
+      get 'postpone'
+      put 'postponed'
+    end
+  end
+  
+  
   resources :contact_truck_fleets
   resources :truck_fleets
 
