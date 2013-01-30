@@ -1,0 +1,33 @@
+<%- model_class = FaultBook -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:fault_type) %>:</strong></dt>
+  <dd><%= @fault_book.fault_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:driver_id) %>:</strong></dt>
+  <dd><%= @fault_book.driver_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
+  <dd><%= @fault_book.fleet_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fault_date) %>:</strong></dt>
+  <dd><%= @fault_book.fault_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:mileage) %>:</strong></dt>
+  <dd><%= @fault_book.mileage %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:contact_no) %>:</strong></dt>
+  <dd><%= @fault_book.contact_no %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:faults) %>:</strong></dt>
+  <dd><%= @fault_book.faults %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              fault_books_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_fault_book_path(@fault_book), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              fault_book_path(@fault_book),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

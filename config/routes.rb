@@ -1,4 +1,5 @@
 Mytruckfleet::Application.routes.draw do
+  resources :fault_books
   resources :service_types
   resources :notifications
   resources :settings
@@ -14,7 +15,6 @@ Mytruckfleet::Application.routes.draw do
   get "calendar/destroy"
   get "report/index"
   get "report/show"
-  # get "fleets/postpone"
 
   resources :services
   resources :customers, :except => [:show]

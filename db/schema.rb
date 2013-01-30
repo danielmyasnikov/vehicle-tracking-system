@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122044402) do
+ActiveRecord::Schema.define(:version => 20130130064441) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -63,6 +63,30 @@ ActiveRecord::Schema.define(:version => 20130122044402) do
     t.boolean "secondary"
     t.integer "frequency"
     t.integer "interval"
+  end
+
+  create_table "fault_books", :force => true do |t|
+    t.string   "fault_type"
+    t.integer  "driver_id"
+    t.integer  "fleet_id"
+    t.date     "fault_date"
+    t.string   "mileage"
+    t.string   "contact_no"
+    t.text     "faults"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "fautl_books", :force => true do |t|
+    t.string   "fault_type"
+    t.integer  "driver_id"
+    t.integer  "fleet_id"
+    t.date     "fault_date"
+    t.string   "mileage"
+    t.string   "contact_no"
+    t.text     "faults"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "fleet_service_infos", :force => true do |t|

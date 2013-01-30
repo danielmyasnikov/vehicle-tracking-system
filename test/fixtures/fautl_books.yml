@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  fault_type: MyString
+  driver_id: 1
+  fleet_id: 1
+  fault_date: 2013-01-30
+  mileage: MyString
+  contact_no: MyString
+  faults: MyText
+
+two:
+  fault_type: MyString
+  driver_id: 1
+  fleet_id: 1
+  fault_date: 2013-01-30
+  mileage: MyString
+  contact_no: MyString
+  faults: MyText
