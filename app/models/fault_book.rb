@@ -4,6 +4,8 @@ class FaultBook < ActiveRecord::Base
   belongs_to :fleet
   belongs_to :driver
   
+  # TODO: validate presence of driver, flet, faults, fault_type, 
+  
   def self.belongs_to_truck_fleet(truck_fleet, fault_books)
     fault_books_to_return = []
     if fault_books.present?

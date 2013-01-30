@@ -5,7 +5,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:fault_type) %></th>
       <th><%= model_class.human_attribute_name(:driver_id) %></th>
       <th><%= model_class.human_attribute_name(:fleet_id) %></th>
@@ -13,14 +12,12 @@
       <th><%= model_class.human_attribute_name(:mileage) %></th>
       <th><%= model_class.human_attribute_name(:contact_no) %></th>
       <th><%= model_class.human_attribute_name(:faults) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @fault_books.each do |fault_book| %>
       <tr>
-        <td><%= link_to fault_book.id, fault_book_path(fault_book) %></td>
         <td><%= fault_book.fault_type %></td>
         <td><%= fault_book.driver_id %></td>
         <td><%= fault_book.fleet_id %></td>
@@ -28,7 +25,6 @@
         <td><%= fault_book.mileage %></td>
         <td><%= fault_book.contact_no %></td>
         <td><%= fault_book.faults %></td>
-        <td><%=l fault_book.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_fault_book_path(fault_book), :class => 'btn btn-mini' %>

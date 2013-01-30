@@ -26,6 +26,8 @@ class FaultBooksController < ApplicationController
   # GET /fault_books/new.json
   def new
     @fault_book = FaultBook.new
+    @drivers = current_user.truck_fleet.drivers
+    @fleets = current_user.truck_fleet.fleets
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,6 +38,8 @@ class FaultBooksController < ApplicationController
   # GET /fault_books/1/edit
   def edit
     @fault_book = FaultBook.find(params[:id])
+    @drivers = current_user.truck_fleet.drivers
+    @fleets = current_user.truck_fleet.fleets
   end
 
   # POST /fault_books
