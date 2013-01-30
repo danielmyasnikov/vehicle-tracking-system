@@ -94,7 +94,7 @@
 			        		:hours =>  Time.now.hour
 			        	),
                       	  :class => 'btn btn-mini btn-success' %>
-                      	<%= link_to 'Postpone', fleets_postpone_path(
+                      	<%= link_to 'Postpone', postpone_fleet_path(
                       		:model => overdue.fleet.model, 
                       		:next_service => overdue.fleet.next_service_date,
                       		:id => overdue.fleet),

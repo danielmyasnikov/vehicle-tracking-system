@@ -1,9 +1,9 @@
 <div class="control-group">
 	<b><%= f.label :main, "#{email_notification.notification.name}", :class => 'control-label' if !email_notification.notification.nil? %></b>
 	<div class="controls">
-		<%= check_box_tag "fields[#{email_notification.notification.id}][primary]", '1', email_notification.primary %> Primary Contacts </br>
-		<%= check_box_tag "fields[#{email_notification.notification.id}][secondary]", '1', email_notification.secondary %> Secondary Contacts
+		<%= check_box_tag "fields[#{email_notification.notification_id}][primary]", '1', email_notification.primary %> Primary Contacts </br>
+		<%= check_box_tag "fields[#{email_notification.notification_id}][secondary]", '1', email_notification.secondary %> Secondary Contacts
 		<% days = [['1 day', 1],['2 days', 2],['3 days', 3],['4 days', 4],['5 days', 5],['6 days', 6],['7 days', 7]]%>
-		<%= collection_select email_notification, "fields[#{email_notification.notification.id}][interval]", days, :last, :first if email_notification.notification.required_intervals %>
+		<%= collection_select email_notification, "fields[#{email_notification.notification_id}][interval]", days, :last, :first if email_notification.notification.required_intervals %>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 <%- model_class = Fleet -%>
 <div class="page-header">
   <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
-                                 :default => "New #{model_class.model_name.human}") %> <br><%= image_tag current_user.truck_fleet.avatar.url, :size => "40x40" %> <%= current_user.truck_fleet.name %> </h1>
+                                 :default => "New #{model_class.model_name.human}") %> <br><%= image_tag current_user.truck_fleet.avatar.url, :size => "40x40" if current_user.truck_fleet.avatar.file?  %> <%= current_user.truck_fleet.name %> </h1>
 </div>
 <%= render :partial => 'form' %>
