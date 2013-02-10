@@ -22,6 +22,8 @@ gem 'geocoder'
 gem "squeel"
 gem 'pg'
 gem 'seed_dump', "~> 0.4.2"
+gem 'less-rails'
+gem 'sass-rails',   '~> 3.2.3'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-timepicker-rails'
@@ -30,10 +32,10 @@ gem 'bootstrap-timepicker-rails'
 # in production environments by default.
 group :assets do
   
-  gem 'sass-rails',   '~> 3.2.3'
+  
   gem 'coffee-rails', '~> 3.2.1'
   gem 'client_side_validations'
-  gem 'less-rails'
+  
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
