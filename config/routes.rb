@@ -26,6 +26,8 @@ Mytruckfleet::Application.routes.draw do
     member do
       get 'postpone'
       put 'postponed'
+      get 'cancel'
+      put 'cancel'
     end
   end
   

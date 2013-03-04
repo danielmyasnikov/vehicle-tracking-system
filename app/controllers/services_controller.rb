@@ -29,7 +29,7 @@ class ServicesController < ApplicationController
     @service = Service.new
     @service.warranty = true
     @date = params
-    
+    @fleets = current_user.truck_fleet.fleets
     @trucks = Fleet.where(:auto_services => false).pluck(:id)
     
     start_service_time = params[:hours]
@@ -55,11 +55,13 @@ class ServicesController < ApplicationController
   # GET /services/1/edit
   def edit
     @service = Service.find(params[:id])
+    @fleets = current_user.truck_fleet.fleets
   end
 
   # POST /services
   # POST /services.json
   def create
+    puts params.to_yaml
     @service = Service.new(params[:service])
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     

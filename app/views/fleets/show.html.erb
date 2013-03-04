@@ -2,15 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
-
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
-  <dd>
-  	<% aws_name = 'https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet'%>
-    <%= image_tag @fleet.avatar.url, :size => '24x24' if @fleet.avatar.present? %>
-    <%= image_tag "#{aws_name}/#{@fleet.vehicle_type}-MONO.png", :size => '16x16' if @fleet.vehicle_type.present? %>
-    <%= image_tag "#{aws_name}/Truck-MONO.png", :size => '16x16' if @fleet.vehicle_type.nil? %>
-  </dd>
   <dt><strong><%= model_class.human_attribute_name(:make) %>:</strong></dt>
   <dd><%= @fleet.make %></dd>
   <dt><strong><%= model_class.human_attribute_name(:model) %>:</strong></dt>
@@ -24,20 +16,20 @@
   <dt><strong><%= model_class.human_attribute_name(:fleet_number) %>:</strong></dt>
   <dd><%= @fleet.fleet_number %></dd>
   <dt><strong><%= model_class.human_attribute_name(:auto_services) %>:</strong></dt>
-  <dd><%= @fleet.auto_services %></dd>
+  <dd><%= @fleet.auto_services ? "Yes" : "No" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:actual_km) %>:</strong></dt>
-  <dd><%= @fleet.actual_km %> 10, 000 KM. Is it correct? <%= link_to t('.edit mileage', :default => t("helpers.links.edit")),
+  <dd><%= @fleet.actual_km.present? ? @fleet.actual_km.round(2) : '0.0 ' %>KM <!-- Is it correct? --> <%#= link_to t('.edit mileage', :default => t("helpers.links.edit")),
               												edit_fleet_path(@fleet) + "#fleet_km_estimates", :class => 'btn btn-primary' %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:truck_fleet_id) %>:</strong></dt>
-  <dd><%= @fleet.truck_fleet_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:other) %>:</strong></dt>
-  <dd><%= @fleet.other %></dd>
+  <dd><%= @fleet.other ||= ' ' %></dd>
+</dl>
   <hr>
+  <dl class="dl-horizontal">
   <% @fleet.assets.each_with_index do |asset, i| %>
     <dt><strong>Invoice <%= i + 1 %>:</strong></dt> 
     <dd><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></dd>
   <% end %>
-</dl>
+  </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

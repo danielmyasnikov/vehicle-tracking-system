@@ -37,20 +37,28 @@ class FleetsController < ApplicationController
   def edit
     @fleet = Fleet.find(params[:id])
     @fleet.prepare_services
-    @assets = @fleet.assets.new
+    @assets = @fleet.assets.build
   end
   
   def postpone
     @serviceable = Serviceable.where(:service_type_id => params[:service_id], :fleet_id => params[:id]).first
-    puts @serviceable.to_yaml
   end
   
   def postponed
     @serviceable = Serviceable.find(params[:id])
     @serviceable.update_attributes(params[:serviceable])
-    # puts @serviceable.inspect
     
     redirect_to controller: :calendar, action: :index
+  end
+  
+  def cancel
+    @serviceable = Serviceable.where(:service_type_id => params[:service_id], :fleet_id => params[:id]).first
+    @serviceable.cancel_service # TODO if !@serviceable.set_date
+    redirect_to controller: :calendar, action: :index
+  end
+  
+  def canceled
+    
   end
 
   # POST /fleets
@@ -58,10 +66,13 @@ class FleetsController < ApplicationController
   def create
     @fleet = Fleet.new(params[:fleet])
     @assets = Asset.new(params[:asset]) 
+    @assets.fleet = @fleet
     @fleet.truck_fleet = current_user.truck_fleet
     
     respond_to do |format|
-      if @fleet.save && @assets.save
+      if @fleet.save
+        @assets.save
+        @fleet.prepare_services
         @fleet.update_serviceables(params[:fields]) 
         format.html { redirect_to @fleet, notice: 'Fleet was successfully created.' }
         format.json { render json: @fleet, status: :created, location: @fleet }
@@ -80,7 +91,9 @@ class FleetsController < ApplicationController
     @assets.fleet = @fleet
 
     respond_to do |format|
-      if @fleet.update_attributes(params[:fleet]) && @fleet.update_serviceables(params[:fields]) && @assets.save
+      if @fleet.update_attributes(params[:fleet])
+        @fleet.update_serviceables(params[:fields]) 
+        @assets.save
         # TODO: test it!
         UserMailer.update_vehicle_info(current_user, @fleet).deliver
         format.html { redirect_to @fleet, notice: 'Fleet was successfully updated.' }

@@ -10,6 +10,7 @@ class Service < ActiveRecord::Base
                   :breakdown_price, :warranty_price, :service_type_name
                   
   belongs_to :fleet
+  
   belongs_to :truck_fleet
   has_many :fleet_service_infos
   

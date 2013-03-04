@@ -5,6 +5,25 @@ class Serviceable < ActiveRecord::Base
   belongs_to :service_type
   belongs_to :fleet
   
+  def cancel_service
+    puts serviceable_period != 0 && next_service_date.present?
+    self.next_service_date = next_service_date + service_time_interval * serviceable_period if serviceable_period != 0 && next_service_date.present?
+    self.save
+  end
+  
+  def serviceable_period
+    case (service_period)
+    when 'Year'
+      365
+    when 'Month'
+      30
+    when 'Day'
+      1
+    else 
+      return 0
+    end  
+  end
+  
   def self.update_services(fleet, params)
     if params.present? && fleet.present?
       fleet.serviceables.each do |fs|

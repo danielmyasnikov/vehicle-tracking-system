@@ -11,6 +11,7 @@ class Fleet < ActiveRecord::Base
   has_many :service_types, :through => :serviceables
   has_many :serviceables
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
+  has_attached_file :asset
   has_many :assets
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   
@@ -20,7 +21,7 @@ class Fleet < ActiveRecord::Base
   end
   
   def milage_sum
-    actual_km + km_estimates / calc_days_for_milage_sum if calc_days_for_milage_sum != 0
+    actual_km.to_f + km_estimates.to_f / calc_days_for_milage_sum if calc_days_for_milage_sum != 0
   end
   
   def calc_days_for_milage_sum
@@ -82,7 +83,7 @@ class Fleet < ActiveRecord::Base
     end
   end
   
-  # TODO: refactor and merge with calculated_service_period
+  # TODO: refactor and merge with calculated_service_period and move it to serviceables
   def calc_next_period_for_services(service_frequency_number, service_frequency_period)
     if service_frequency_period.present? && service_frequency_number.present?
       case(service_frequency_period)
@@ -111,7 +112,7 @@ class Fleet < ActiveRecord::Base
   
   def build_fleet_services
     ServiceType.all.each do |service_type|
-      serviceables.new(:service_type => service_type)
+      self.serviceables.new(:service_type => service_type).save
     end
   end
   
@@ -123,6 +124,9 @@ class Fleet < ActiveRecord::Base
     if params.present?
       params.each do |key, value|
         s = serviceables.find_by_service_type_id(key)
+        puts key.inspect
+        puts value.inspect
+        puts s.to_yaml
         s.update_attributes(value)
         next_service = calc_next_period_for_services(value["service_time_interval"], value["service_period"])
         s.next_service_date = Date.today + next_service

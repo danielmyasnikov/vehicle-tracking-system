@@ -99,6 +99,10 @@
                       		:next_service => overdue.fleet.next_service_date,
                       		:id => overdue.fleet),
 		                  :class => 'btn btn-mini btn-warning' %>
+		                  <%= link_to 'Cancel', cancel_fleet_path(
+                      		overdue.fleet,
+                      		:service_id => overdue.service_type.id),
+		                  	:class => 'btn btn-mini btn-danger' %>
 			        </td>
 			      </tr>
 			    <% end if @overdue.present? %>
@@ -140,6 +144,10 @@
                       		due.fleet,
                       		:service_id => due.service_type.id),
 		                  	:class => 'btn btn-mini btn-warning' %>
+		                <%= link_to 'Cancel', cancel_fleet_path(
+                      		due.fleet,
+                      		:service_id => due.service_type.id),
+		                  	:class => 'btn btn-mini btn-danger' %>
 			        </td>
 			      </tr>
 			    <% end if @due.present? %>

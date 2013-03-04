@@ -5,33 +5,17 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
-  <dd><%= @service.fleet_id %></dd>
+  <dd><%= @service.fleet.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:repairer_id) %>:</strong></dt>
-  <dd><%= @service.repairer_id %></dd>
+  <dd><%= Repairer.find(@service.repairer_id).business_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:service_type) %>:</strong></dt>
-  <dd><%= @service.service_type %></dd>
+  <dd><%= @service.service_type ? "Needs to be done" : "No" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:warranty) %>:</strong></dt>
-  <dd><%= @service.warranty %></dd>
+  <dd><%= @service.warranty ? "Needs to be done" : "No"  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:damage) %>:</strong></dt>
-  <dd><%= @service.damage %></dd>
+  <dd><%= @service.damage ? "Needs to be done" : "No"  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:repair) %>:</strong></dt>
-  <dd><%= @service.repair %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:self_service) %>:</strong></dt>
-  <dd><%= @service.self_service %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:KM_since_last_service) %>:</strong></dt>
-  <dd><%= @service.KM_since_last_service %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:time_since_last_service) %>:</strong></dt>
-  <dd><%= @service.time_since_last_service %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:start_service_date) %>:</strong></dt>
-  <dd><%= @service.start_service_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:finish_service_date) %>:</strong></dt>
-  <dd><%= @service.finish_service_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:start_service_time) %>:</strong></dt>
-  <dd><%= @service.start_service_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:finish_service_time) %>:</strong></dt>
-  <dd><%= @service.finish_service_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @service.name %></dd>
+  <dd><%= @service.repair ? "Needs to be done" : "No"  %></dd>
 </dl>
 
 <div class="form-actions">
