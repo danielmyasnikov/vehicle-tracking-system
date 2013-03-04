@@ -49,6 +49,11 @@ class FaultBooksController < ApplicationController
 
     respond_to do |format|
       if @fault_book.save
+        s = Serviceable.find_by_fleet_id(params['fault_book']['fleet_id'])
+        puts 'Fault book date'
+        puts @fault_book.fault_date.inspect
+        s.next_service_date = @fault_book.fault_date 
+        s.save
         format.html { redirect_to @fault_book, notice: 'Fault book was successfully created.' }
         format.json { render json: @fault_book, status: :created, location: @fault_book }
       else

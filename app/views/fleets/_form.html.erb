@@ -74,11 +74,6 @@
       <%= f.check_box :auto_services, :class => 'check_box' %>  <i><font size="2">If unticked kilometres will be entered on service page</font></i>
 	  </br></br>
     </div>
-    <div class="controls">
-    	Every:
-    	<%= f.text_field :service_frequency_number, :placeholder => "Enter Date Frequency Estimates" %> 
-    	<%= f.select :service_frequency_period, ['Year', 'Month', 'Day'] %>
-    </div>
   </div>
   <% @fleet.serviceables.each do |fs| %>
 	<%= f.fields_for fs do |builder| %>
@@ -89,7 +84,7 @@
   <hr>
   <%= fields_for @assets do |asset| %>
     <div class="control-group">
-      <%= asset.label :image, :class => 'control-label' %>
+      <%= asset.label 'Invoices', :class => 'control-label' %>
       <div class="controls">
         <%= asset.file_field :invoice %>
       </div>

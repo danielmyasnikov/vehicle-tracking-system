@@ -10,46 +10,70 @@
 <div class="page-header">
   
 </div>
+
+<%= high_chart("my_id", @h) %>
+
+<%= high_chart("my_id4", @chart) do |c| %>
+	<%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: $'+ this.y +'.00 ';}"  %>
+	<%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
+<% end %>
+<%= form_tag report_index_path do %>
+<div class="btn-group">
+  <button class="btn"><%= submit_tag "Vehicle ID", :name => 'truck' %></button>
+  <button class="btn"><%= submit_tag "By model", :name => 'model' %></button>
+  <button class="btn"><%= submit_tag "By make", :name => 'make' %></button>
+</div>
+<% end %>
 <% @fleets.each do |fleet| %>
 <h2><%= fleet.name %></h2>
-<% if !fleet.services.blank? %>
-	<table class="table table-striped">
-	  <thead>
-	    <tr>
-	      <th>Service name</th>
-		  <th>Service type</th>
-		  <th>Service</th>
-		  <th>Warranty</th>
-		  <th>Damage</th>
-		  <th>Repair</th>
-		  <th>Self Service</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  	<% warranty_total = 0 %> <% damage_total = 0 %>, <% repair_total = 0 %> <% service_total = 0 %>
-	  	<% fleet.services.each do |service| %>
-	      <tr>
-	        <td><%= ServiceType.find(service.service_type_name).name if service.service_type_name %></td>
-	        <td><%= service.service_type %></td>
-	 		<td><% if service.repair %><%= number_to_currency(service.service_price) if service.service_type %></td><% service_total += service.service_price ||= 0 %><% end %>
-			<td><% if service.warranty%><%= number_to_currency(service.warranty_price) %></td><% warranty_total += service.warranty_price ||= 0 %><% end %>
-			<td><% if service.damage %><%= number_to_currency(service.damage_price) %></td><% damage_total += service.damage_price ||= 0 %><% end %>
-			<td><% if service.repair %><%= number_to_currency(service.repair_price) %></td><% repair_total += service.repair_price ||= 0 %><% end %>
-			<td><%= service.self_service ? "Yes" : "No" %></td>
-	      </tr>
-	     <% end %>
-	    <tr>
-	    	<td></td>
-	    	<td><b>Total per service:</b></td>
-	    	<td><b><%= number_to_currency(service_total) %></b></td>
-	    	<td><b><%= number_to_currency(warranty_total) %></b></td>
-	    	<td><b><%= number_to_currency(damage_total) %></b></td>
-	    	<td><b><%= number_to_currency(repair_total) %></b></td>
-	    	<td><b>Sum: <%= number_to_currency( service_total + warranty_total + damage_total + repair_total ) %></b></td>
-	    </tr> 
-	  </tbody>
-	</table>
+	<% if !fleet.services.blank? %>
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th>Service name</th>
+			  <th>Service type</th>
+			  <th>Service</th>
+			  <th>Warranty</th>
+			  <th>Damage</th>
+			  <th>Repair</th>
+			  <th>Self Service</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<% warranty_total = 0 %> <% damage_total = 0 %> <% repair_total = 0 %> <% service_total = 0 %>
+		  	<% fleet.services.each do |service| %>
+		      <tr>
+		        <td><%= ServiceType.find(service.service_type_name).name if service.service_type_name %></td>
+		        <td><%= service.service_type %></td>
+		 		<td><%# if service.repair %>
+		 			<%= number_to_currency(service.service_price) if service.service_type %></td><% service_total += service.service_price ||= 0 %>
+		 			<%# end %>
+				<td><%# if service.warranty%>
+					<%= number_to_currency(service.warranty_price) %>
+				</td><% warranty_total += service.warranty_price ||= 0 %>
+				<%# end %>
+				<td><%# if service.damage %>
+					<%= number_to_currency(service.damage_price) %></td>
+				<% damage_total += service.damage_price ||= 0 %>
+				<%# end %>
+				<td><%# if service.repair %>
+					<%= number_to_currency(service.repair_price) %></td><% repair_total += service.repair_price ||= 0 %>
+				<%#end %>
+				<td><%= service.self_service ? "Yes" : "No" %></td>
+		      </tr>
+		     <% end %>
+		    <tr>
+		    	<td></td>
+		    	<td><b>Total per service:</b></td>
+		    	<td><b><%= number_to_currency(service_total) %></b></td>
+		    	<td><b><%= number_to_currency(warranty_total) %></b></td>
+		    	<td><b><%= number_to_currency(damage_total) %></b></td>
+		    	<td><b><%= number_to_currency(repair_total) %></b></td>
+		    	<td><b>Sum: <%= number_to_currency( service_total + warranty_total + damage_total + repair_total ) %></b></td>
+		    </tr> 
+		  </tbody>
+		</table>
 	<% else %>
-	Hadn't have any done services!
-<% end %>
+		No services
+	<% end %>
 <% end %>

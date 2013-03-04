@@ -15,6 +15,9 @@ gem 'rufus-scheduler'
 gem 'therubyracer' , '= 0.10.2'
 gem 'libv8'
 
+gem 'lazy_high_charts'
+
+
 # geo location
 gem 'geocoder'
 
@@ -22,11 +25,7 @@ gem 'geocoder'
 gem "squeel"
 gem 'pg'
 gem 'seed_dump', "~> 0.4.2"
-gem 'less-rails'
-gem 'sass-rails',   '~> 3.2.3'
-gem 'twitter-bootstrap-rails'
-gem 'bootstrap-datepicker-rails'
-gem 'bootstrap-timepicker-rails'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -35,6 +34,11 @@ group :assets do
   
   gem 'coffee-rails', '~> 3.2.1'
   gem 'client_side_validations'
+  gem 'less-rails'
+gem 'sass-rails',   '~> 3.2.3'
+gem 'twitter-bootstrap-rails'
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-timepicker-rails'
   
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes

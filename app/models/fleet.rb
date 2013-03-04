@@ -14,9 +14,55 @@ class Fleet < ActiveRecord::Base
   has_many :assets
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   
+  def cron_calc_milage
+    self.actual_km = milage_sum
+    self.save
+  end
+  
+  def milage_sum
+    actual_km + km_estimates / calc_days_for_milage_sum if calc_days_for_milage_sum != 0
+  end
+  
+  def calc_days_for_milage_sum
+    case period
+    when 'Year'
+      365
+    when 'Month'
+      30
+    when 'Day'
+      1
+    else 
+      return 0
+    end
+  end
+  
   def name
     id = truck_fleet.setting.truck_identification
     send(id)
+  end
+  
+  def service_price_by_months_array
+    array_to_return = []
+    services.each_with_index do |s, i|
+      date2 = Date.today 
+      date1 = s.finish_service_date
+      date = (date2.year * 12 + date2.month) - (date1.year * 12 + date1.month)
+      if date <= 10
+        total_price = s.warranty_price.to_f + s.damage_price.to_f + s.service_price.to_f + s.repair_price.to_f + s.breakdown_price.to_f
+        position = 12 - date
+        array_to_return[position] = array_to_return[position] + total_price.to_f if !array_to_return[position].nil?
+        array_to_return[position] = total_price.to_f if array_to_return[position].nil?
+      end
+    end
+    array_to_return
+  end
+  
+  def services_total
+    total_price = 0
+    services.each do |s|
+      total_price += s.warranty_price.to_f + s.damage_price.to_f + s.service_price.to_f + s.repair_price.to_f + s.breakdown_price.to_f
+    end
+    total_price
   end
 
   def calculated_service_period

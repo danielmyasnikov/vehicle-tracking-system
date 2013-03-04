@@ -16,6 +16,7 @@
 //= require_tree .
 //= require bootstrap-datepicker
 //= require bootstrap-timepicker
+//= require highcharts
 
 //http://james.padolsey.com/javascript/regex-selector-for-jquery/
 /*

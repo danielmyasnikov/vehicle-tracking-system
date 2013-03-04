@@ -31,11 +31,13 @@ class TruckFleet < ActiveRecord::Base
   end
   
   def send_to_primaries?(notification)
-    setting.email_notifications.where(:notification_id => notification.id).first.primary
+    # TODO: work on it!!! There was a nil class for primary
+    setting.email_notifications.where(:notification_id => notification.id).first.primary if setting.email_notifications.where(:notification_id => notification.id).first.present? 
   end
   
   def send_to_secondaries?(notification)
-    setting.email_notifications.where(:notification_id => notification.id).first.secondary
+    # TODO: work on it!!! There was a nil class for secondary
+    setting.email_notifications.where(:notification_id => notification.id).first.secondary if setting.email_notifications.where(:notification_id => notification.id).first.present?
   end
   
   def find_primary_contacts

@@ -91,21 +91,9 @@
 	</table>
 
   <div class="control-group">
-    <%= f.label :KM_since_last_service, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :KM_since_last_service, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :time_since_last_service, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :time_since_last_service, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
     <%= f.label :other, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_area :other, :class => 'text_area' %>
+      <%= f.text_area :other, :rows => 5, :class => 'text_area' %>
     </div>
   </div>
   <!-- gets data from new to populate the model -->
