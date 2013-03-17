@@ -1,4 +1,6 @@
 class CalendarController < ApplicationController
+  before_filter :menu_activization
+  
   def index
     if !current_user.admin?
       @trucks = current_user.truck_fleet.fleets.order("#{current_user.truck_fleet.setting.truck_identification} ASC")
@@ -11,6 +13,11 @@ class CalendarController < ApplicationController
     @due = Serviceable.due(@trucks.pluck(:id)) if @trucks.present?
     @overdue = Serviceable.overdue(@trucks.pluck(:id)) if @trucks.present?
     @trucks = TruckFleet.scoped_by_vehicle if current_user.admin?
+  end
+  
+  def menu_activization
+    session[:active_menu] = "MyCalendar"
+    session[:module_logo] = "MyCalendar/MyCalendar.jpg" 
   end
 
   def view

@@ -1,91 +1,23 @@
 <% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
 <div class='row'>
-	<div id='id-repairers-list' class='span2'>
-		<div id='wrap'>
-			<div style='margin-bottom:74px'>
-				<%= image_tag('MyTruckFleet/MyTruckFleet.png', :size => "128x64") %>	
-			</div>
-			<div id='external-events'>
-				<% @trucks.each do |k, tf| %>
-				<div class='dropable-truck-fleet-class'>
-					<%= k.trading_name_of_business.first(20) %><%= ".." if k.trading_name_of_business.size > 20 %> <span id='id-arrow-down-truck-fleet'>&#x25BC;</span>
-				<div class="truck-fleet-elements open">
-					<% tf.each do |t| %>
-						<%= link_to fleet_path(t) do %>
-							<div class='external-event'>
-								<% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
-						  		<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
-						  		<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
-						  		<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
-						  		<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
-							</div>
-						<% end %>
-					<% end %>
-					</div>
-				</div>
-				<% end if current_user.admin? %>
-				<% @trucks.each do |t| %>
-					<%= link_to fleet_path(t) do %>
-				  		<div class='external-event'>
-				  			<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
-				  			<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
-				  			<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
-				  			<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
-				  		</div>
-					<% end %>
-				<% end if @trucks.present? if !current_user.admin? %>
-			</div>
-		</div>
-	</div>
-	<div class='span8'>
-		<a href='#' id='id-my-team-link'>Display MyTeam <span id='id-my-team-arrow' class='closed'></span></a>
-		<div id='id-my-team'>
-			<%= image_tag('MyTeam/MyTeam.jpg', :size => "95x64") %>
-			<%- model_class = Driver -%>
-			<table class="table table-striped">
-			  <thead>
-			    <tr>
-			      <th><%= model_class.human_attribute_name(:name) %></th>
-			      <th><%= model_class.human_attribute_name(:phone_no) %></th>
-			      <th><%= model_class.human_attribute_name(:license_expiry_date) %></th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <% @drivers.each do |driver| %>
-			      <tr>
-			        <td><%= link_to driver.name, driver_path(driver) %></td>
-			        <td><%= driver.phone_no %></td>
-			        <td><%= driver.dl_expiry %></td>
-			      </tr>
-			    <% end if @drivers.present? %>
-			  </tbody>
-			</table>
-		</div>
-		<br>
-		<%= image_tag('MyCalendar/MyCalendar.jpg', :size => "128x64", :class => '') %>
-		<br><br>
-		<div id='id-calendar'></div><br /><br />
+	<div class='span4'>
 		<h4 id='id-overdue-open'>Overdue vehicles</h4>
 		<div id="id-overdue-items">
 			<table class="table table-striped highlight-red open <%= 'hidden' if @overdue.nil? || @overdue.empty? %>">
 			  <thead>
 			    <tr>
-			      <th>Make</th>
-			      <th>Model</th>
-			      <th>Next Service</th>
-			      <th>Service Type</th>
-			      <th>Vehicle Mileage</th>
+			      <th>TruckID</th>
+			      <th>Service</th>
+			      <th>Type</th>
 			      <th>Actions</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <% @overdue.each do |overdue| %>
 			      <tr class=''>
-			        <td class=''><%= link_to overdue.fleet.make, fleet_path(overdue.fleet) %></td>
-			        <td class=''><%= overdue.fleet.model %></td>
+			        <td class=''><%= link_to overdue.fleet.name, fleet_path(overdue.fleet) %></td>
 			        <td class=''><%= overdue.fleet.next_service_date %></td>
 			        <td class=''><%= overdue.service_type.name %></td>
-			        <td class=''><%= overdue.fleet.km %></td>
 			        <td class=''>
 			        	<%= link_to 'Book', new_service_path(
 			        		:year => Date.today.year,
@@ -93,12 +25,12 @@
 			        		:day => Date.today.day,
 			        		:hours =>  Time.now.hour
 			        	),
-                      	  :class => 'btn btn-mini btn-success' %>
+                      	  :class => 'btn btn-mini btn-success' %><br>
                       	<%= link_to 'Postpone', postpone_fleet_path(
                       		:model => overdue.fleet.model, 
                       		:next_service => overdue.fleet.next_service_date,
                       		:id => overdue.fleet),
-		                  :class => 'btn btn-mini btn-warning' %>
+		                  :class => 'btn btn-mini btn-warning' %><br>
 		                  <%= link_to 'Cancel', cancel_fleet_path(
                       		overdue.fleet,
                       		:service_id => overdue.service_type.id),
@@ -156,11 +88,12 @@
 		<b><%= 'No items to display' if @due.nil? || @due.empty? %></b>
 		</div>
 	</div>
+	<div class='span8'>
+		<div id='id-calendar'></div><br /><br />
+		
+	</div>
 	<div id='id-trucks-list' class='span2'>
 		<div id='wrap'>
-			<div style='margin-bottom:46px'>
-				<%= image_tag('MyRepairer/MyRepairer.jpg', :size => "128x64", :class => '') %>
-			</div>
 			<div id='external-events'>
 				<% @repairers.each do |r| %>
 					<%= link_to repairer_path(r) do %>
@@ -177,6 +110,41 @@
 			</div>
 		</div>
 	</div>
+	<div id='id-repairers-list'>
+		<div id='wrap'>
+			<div id='external-events'>
+				<% @trucks.each do |k, tf| %>
+				<div class='dropable-truck-fleet-class'>
+					<%= k.trading_name_of_business.first(20) %><%= ".." if k.trading_name_of_business.size > 20 %> <span id='id-arrow-down-truck-fleet'>&#x25BC;</span>
+				<div class="truck-fleet-elements open">
+					<% tf.each do |t| %>
+						<%= link_to fleet_path(t) do %>
+							<div class='external-event'>
+								<% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
+						  		<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
+						  		<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
+						  		<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
+						  		<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
+							</div>
+						<% end %>
+					<% end %>
+					</div>
+				</div>
+				<% end if current_user.admin? %>
+				<% @trucks.each do |t| %>
+					<%= link_to fleet_path(t) do %>
+				  		<div class='external-event'>
+				  			<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
+				  			<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
+				  			<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
+				  			<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
+				  		</div>
+					<% end %>
+				<% end if @trucks.present? if !current_user.admin? %>
+			</div>
+		</div>
+	</div>
+
 </div>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
@@ -250,6 +218,7 @@ $(document).ready(function() {
     aspectRatio: 0.5,
     defaultView: 'agendaWeek',
     slotMinutes: 120,
+    height: 650,
     columnFormat: {
     	week: 'ddd d/M',
     	day: 'dddd d/M',

@@ -1,4 +1,11 @@
 class ReportController < ApplicationController
+  before_filter :menu_activization
+  
+  def menu_activization
+    session[:active_menu] = "MyReports"
+    session[:module_logo] = 'MyReports/MyReports.jpg' 
+  end
+  
   def index
     #@fleets = current_user.truck_fleet.fleets                                   if @params['type'] == 'fleet_number'
     #@fleets = current_user.truck_fleet.fleets.where(:model => @params['model']) if @params['type'] == 'model'

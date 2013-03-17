@@ -1,4 +1,11 @@
 class DriversController < ApplicationController
+  before_filter :menu_activization
+  
+  def menu_activization
+    session[:active_menu] = "MyTeam"
+    session[:module_logo] = "MyTeam/MyTeam.jpg" 
+  end
+  
   # GET /drivers
   # GET /drivers.json
   def index

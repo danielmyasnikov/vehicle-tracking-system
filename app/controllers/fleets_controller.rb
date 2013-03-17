@@ -1,4 +1,11 @@
 class FleetsController < ApplicationController
+  before_filter :menu_activization
+  
+  def menu_activization
+    session[:active_menu] = "MyFleet"
+    session[:module_logo] = "MyTruckFleet/MyTruckFleet.png"
+  end
+  
   # GET /fleets
   # GET /fleets.json
   def index

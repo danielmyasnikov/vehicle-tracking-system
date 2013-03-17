@@ -1,0 +1,29 @@
+<%= image_tag('MyTruckFleet/MyTruckFleet.png', :size => "10x10", :class => 'brand')  %>
+<div class="right bottom">
+	<ul class="nav nav-tabs">
+		<% if user_signed_in? && current_user.admin? %>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => truck_fleets_path, :name => "Truck Fleets" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => customers_path, :name => "Customers" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => repairers_path, :name => "MyRepairers", :icon => 'icons/outgoing.png' }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => edit_user_registration_path, :name => "Edit Account" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => destroy_user_session_path, :optional => 'delete', :name => "Logout", :icon => 'icons/outgoing.png' }%>
+		<% elsif user_signed_in? %>
+		
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => edit_user_registration_path, :name => "Edit Account" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => edit_setting_path(current_user.truck_fleet.setting), :name => "Settings" } %>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => destroy_user_session_path, :optional => 'delete', :name => "Logout" }%>
+		
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => calendar_index_path, :name => "MyCalendar" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => fleets_path, :name => "MyFleet" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => report_index_path, :name => "MyReports" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => fault_books_path, :name => "FB" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => repairers_path, :name => "MyRepairers" }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => drivers_path, :name => "MyTeam" }%>
+			
+			<% end %>
+		<% if !user_signed_in? %>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => new_user_registration_path, :name => "Sign up", :icon => 'icons/inbox-2.png', :classs => 'btn-success' }%>
+			<%= render :partial => 'layouts/menu_item', :locals => {:link => new_user_session_path, :name => "Login" }%>
+		<% end %>
+	</ul>
+</div>

@@ -1,4 +1,11 @@
 class RepairersController < ApplicationController
+  before_filter :menu_activization
+  
+  def menu_activization
+    session[:active_menu] = "MyRepairer"
+    session[:module_logo] = "MyRepairer/MyRepairer.png" 
+  end
+  
   # GET /repairers
   # GET /repairers.json
   def index

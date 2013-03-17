@@ -25,3 +25,22 @@
 .navbar .nav > li > a {
     padding: 0 !important;
 }
+.top-menu-box{
+	width: 790px;
+	padding-right: 210px;
+	
+}
+.navigational {
+	background-image:url('level-2-background.png');
+}
+.module_info {
+	height: 106px;
+	padding-left: 320px;
+	background-image:url('level-2-background.png');
+}
+.module_logo {
+	width: 270px;
+	position: absolute; 
+	top: 47px; 
+	right: 50px;
+}
