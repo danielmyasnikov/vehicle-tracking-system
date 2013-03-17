@@ -44,3 +44,16 @@
 	top: 47px; 
 	right: 50px;
 }
+.due-header {
+	background-image:url('due-header.png');
+}
+.due-count {
+	background-image:url('due-count.png');
+}
+.overdue-header {
+	background-image:url('overdue-header.png');
+}
+.table-header {
+	width: 100%;
+	background-image:url('common-header.png');
+}

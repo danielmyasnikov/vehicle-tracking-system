@@ -8,12 +8,11 @@
 	
 #external-events {
 	float: left;
-	width: 150px;
-	padding: 0 10px;
+	width: 100%;
 	border: 1px solid #ccc;
 	background: #eee;
 	text-align: left;
-	height: 400px;
+	height: 195px;
 	overflow-y: auto;
 	}
 	
@@ -24,10 +23,11 @@
 	}
 	
 .external-event { /* try to mimick the look of a real event */
+	
 	margin: 10px 0;
 	padding: 2px 4px;
-	background: #3366CC;
-	color: #fff;
+	background-image:url("table-row.png");
+	color: black;
 	font-size: .85em;
 	cursor: pointer;
 	}
@@ -52,8 +52,7 @@
 	background-color: yellow;
 }
 .overdue{
-	background-color: red;
-	background-color: red;
+	background-color: '#B62C2C';
 }
 #id-due-open, #id-overdue-open {
 	cursor: pointer

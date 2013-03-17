@@ -1,10 +1,10 @@
 <% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
 <div class='row'>
 	<div class='span4'>
-		<h4 id='id-overdue-open'>Overdue vehicles</h4>
+		<h4 id='id-overdue-open'><%= @overdue.count %> Overdue vehicles</h4>
 		<div id="id-overdue-items">
 			<table class="table table-striped highlight-red open <%= 'hidden' if @overdue.nil? || @overdue.empty? %>">
-			  <thead>
+			  <thead class='overdue-header'>
 			    <tr>
 			      <th>TruckID</th>
 			      <th>Service</th>
@@ -19,19 +19,19 @@
 			        <td class=''><%= overdue.fleet.next_service_date %></td>
 			        <td class=''><%= overdue.service_type.name %></td>
 			        <td class=''>
-			        	<%= link_to 'Book', new_service_path(
+			        	<%= link_to 'B', new_service_path(
 			        		:year => Date.today.year,
 			        		:month => Date.today.month,
 			        		:day => Date.today.day,
 			        		:hours =>  Time.now.hour
 			        	),
-                      	  :class => 'btn btn-mini btn-success' %><br>
-                      	<%= link_to 'Postpone', postpone_fleet_path(
+                      	  :class => 'btn btn-mini btn-success' %>
+                      	<%= link_to 'P', postpone_fleet_path(
                       		:model => overdue.fleet.model, 
                       		:next_service => overdue.fleet.next_service_date,
                       		:id => overdue.fleet),
-		                  :class => 'btn btn-mini btn-warning' %><br>
-		                  <%= link_to 'Cancel', cancel_fleet_path(
+		                  :class => 'btn btn-mini btn-warning' %>
+		                  <%= link_to 'C', cancel_fleet_path(
                       		overdue.fleet,
                       		:service_id => overdue.service_type.id),
 		                  	:class => 'btn btn-mini btn-danger' %>
@@ -39,44 +39,39 @@
 			      </tr>
 			    <% end if @overdue.present? %>
 			  </tbody>
-			  
 			</table>
 			<b><%= 'No items to display' if @overdue.nil? || @overdue.empty? %></b>
 		</div>
-		<h4 id="id-due-open">Due vehicles</h4>
+		<h4 id="id-due-open"><%= @due.count %> Due vehicles</h4>
 		<div id="id-due-items">
-			<table class="table table-striped <%= 'hidden' if @due.nil? || @due.empty? %>"">
-				<thead>
+			<table class="table highlight-yellow <%= 'hidden' if @due.nil? || @due.empty? %>"">
+				<thead class="due-header">
 				  <tr>
-				      <th>Make</th>
-				      <th>Model</th>
-				      <th>Next Service</th>
-				      <th>Service Type</th>
-				      <th>Vehicle Mileage</th>
+				      <th>TruckID</th>
+				      <th>Service</th>
+				      <th>Type</th>
 				      <th>Actions</th>
 				  </tr>
 				</thead>
 			  <tbody>
 			    <% @due.each_with_index do |due, index| %>
-			      <tr class='highlight-yellow'>
-			        <td class='due'><%= link_to due.fleet.make, fleet_path(due.fleet) %></td>
-			        <td class='due'><%= due.fleet.model %></td>
-			        <td class='due'><%= due.next_service_date %></td>
-			        <td class='due'><%= due.service_type.name %></td>
-			        <td class='due'><%= due.fleet.km %></td>
+			      <tr class=''>
+			        <td class=''><%= link_to due.fleet.name, fleet_path(due.fleet) %></td>
+			        <td class=''><%= due.next_service_date %></td>
+			        <td class=''><%= due.service_type.name %></td>
 			        <td class=''>
-			        	<%= link_to 'Book', new_service_path(
+			        	<%= link_to 'B', new_service_path(
 			        		:year => Date.today.year,
 			        		:month => Date.today.month,
 			        		:day => Date.today.day,
 			        		:hours =>  Time.now.hour
 			        	),
                       	  :class => 'btn btn-mini btn-success' %>
-                      	<%= link_to 'Postpone', postpone_fleet_path(
+                      	<%= link_to 'P', postpone_fleet_path(
                       		due.fleet,
                       		:service_id => due.service_type.id),
 		                  	:class => 'btn btn-mini btn-warning' %>
-		                <%= link_to 'Cancel', cancel_fleet_path(
+		                <%= link_to 'C', cancel_fleet_path(
                       		due.fleet,
                       		:service_id => due.service_type.id),
 		                  	:class => 'btn btn-mini btn-danger' %>
@@ -90,29 +85,14 @@
 	</div>
 	<div class='span8'>
 		<div id='id-calendar'></div><br /><br />
-		
 	</div>
-	<div id='id-trucks-list' class='span2'>
+</div>
+<div class='row'>
+	<div id='id-repairers-list' class='span8'>
 		<div id='wrap'>
+			
 			<div id='external-events'>
-				<% @repairers.each do |r| %>
-					<%= link_to repairer_path(r) do %>
-						<div class='external-event'>
-							<% if r.avatar.file? %>
-							  <%= image_tag r.avatar.url, :size => '16x16' %>
-							<% else %> 
-							  <%= image_tag "#{aws_name}/pin-2.png", :size => '16x16' %>
-							<% end %>
-					  		| <%= r.business_name %>
-					  	</div>
-					<% end %>
-				<% end %>
-			</div>
-		</div>
-	</div>
-	<div id='id-repairers-list'>
-		<div id='wrap'>
-			<div id='external-events'>
+				<div class='table-header'>someshit</div>
 				<% @trucks.each do |k, tf| %>
 				<div class='dropable-truck-fleet-class'>
 					<%= k.trading_name_of_business.first(20) %><%= ".." if k.trading_name_of_business.size > 20 %> <span id='id-arrow-down-truck-fleet'>&#x25BC;</span>
@@ -144,7 +124,25 @@
 			</div>
 		</div>
 	</div>
-
+	<div id='id-trucks-list' class='span4'>
+		<div id='wrap'>
+			<div id='external-events'>
+				<div class='table-header'>someshit</div>
+				<% @repairers.each do |r| %>
+					<%= link_to repairer_path(r) do %>
+						<div class='external-event'>
+							<% if r.avatar.file? %>
+							  <%= image_tag r.avatar.url, :size => '16x16' %>
+							<% else %> 
+							  <%= image_tag "#{aws_name}/pin-2.png", :size => '16x16' %>
+							<% end %>
+					  		| <%= r.business_name %>
+					  	</div>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
 </div>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
