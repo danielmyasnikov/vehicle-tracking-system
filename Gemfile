@@ -12,7 +12,6 @@ gem 'whenever', :require => false
 gem "paperclip", "~> 3.0"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'rufus-scheduler'
-gem 'therubyracer' , '= 0.10.2'
 gem 'libv8'
 
 gem 'lazy_high_charts'
@@ -26,7 +25,7 @@ gem "squeel"
 gem 'pg'
 gem 'seed_dump', "~> 0.4.2"
 
-
+gem 'twitter-bootstrap-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -35,14 +34,14 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'client_side_validations'
   gem 'less-rails'
-gem 'sass-rails',   '~> 3.2.3'
-gem 'twitter-bootstrap-rails'
-gem 'bootstrap-datepicker-rails'
-gem 'bootstrap-timepicker-rails'
+  gem 'sass-rails',   '~> 3.2.3'
+  
+  gem 'bootstrap-datepicker-rails'
+  gem 'bootstrap-timepicker-rails'
   
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end

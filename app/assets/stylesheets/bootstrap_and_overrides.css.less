@@ -1,14 +1,26 @@
 @import "twitter/bootstrap/bootstrap";
 
-.nav-tabs > .active > a {
-  background-color: red;
-  background-image:url('level-2-background.png');
+.nav-tabs { margin-bottom: 0px; border-bottom: 0px;}
+.nav-tabs > li > a { padding-top: 25px; padding-bottom: 0px; padding-left: 24px; padding-right: 24px; dislplay:default; color:white;}
+.nav-tabs > .active > a { background-color: #216FC2 }
+.nav-tabs > li > a:hover { border-color: transparent }  
+.nav > li > a:hover { background-color: #216FC2 }
+.nav-tabs > li > a, .nav-tabs > .active > a:hover { background-color: transparent; border-color: transparent } 
+.nav-tabs > li { margin-bottom: 0px; }  
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover { border-color: transparent; }
+//TODO add twitter like tables in here
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
 }
-.nav-tabs { 
+.border-color { background-color: #006DCC; background-image: linear-gradient(to bottom, #0088CC, #0044CC); margin-bottom: 5px;
+  border-radius:10px 0 0 10px; }
+table tr {
+  float:left;
+  margin-bottom: 10px;
   
-  
-  margin-bottom: 0px; border-bottom: 0px;}
-
+}
 @import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths

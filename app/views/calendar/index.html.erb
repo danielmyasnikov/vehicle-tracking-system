@@ -92,7 +92,7 @@
 		<div id='wrap'>
 			
 			<div id='external-events'>
-				<div class='table-header'>someshit</div>
+				<div class='table-header'>Some header</div>
 				<% @trucks.each do |k, tf| %>
 				<div class='dropable-truck-fleet-class'>
 					<%= k.trading_name_of_business.first(20) %><%= ".." if k.trading_name_of_business.size > 20 %> <span id='id-arrow-down-truck-fleet'>&#x25BC;</span>
@@ -127,7 +127,7 @@
 	<div id='id-trucks-list' class='span4'>
 		<div id='wrap'>
 			<div id='external-events'>
-				<div class='table-header'>someshit</div>
+				<div class='table-header'>Some header</div>
 				<% @repairers.each do |r| %>
 					<%= link_to repairer_path(r) do %>
 						<div class='external-event'>
