@@ -273,6 +273,16 @@ $(document).ready(function() {
   	$fcRightButtons.click(function(el){
   		$fcRightButtons.addClass('btn-primary').removeClass('btn-warning');
   		$(this).addClass('btn-warning').removeClass('btn-primary');
+  		var $fcAgendaAxis  = $('#id-calendar .fc-view-agendaDay .fc-agenda-axis')
+  		var $fcDaysOfMonth = $('#id-calendar .fc-view-month .fc-widget-content')
+  		
+  		$fcAgendaAxis.each (function(i, time){
+  			i > 0 ? $(time).addClass("bg-white") : undefined;
+  		});
+  		$fcDaysOfMonth.each (function(i, dayOfMonth){
+  			console.log($(dayOfMonth));
+  			$(dayOfMonth).hasClass('fc-other-month') ? $(dayOfMonth).addClass("bg-white") : $(dayOfMonth).addClass("current-month")
+  		});
   	})
   
   var $oldRightTable = $('.fc-header-right > table');
@@ -292,6 +302,7 @@ $(document).ready(function() {
 	
   var $fcCalendarBody = $('#id-calendar .fc-border-separate tbody');
   $fcCalendarBody.addClass("bg-white");
+  
 	
 });
 </script>
