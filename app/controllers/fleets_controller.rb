@@ -10,7 +10,7 @@ class FleetsController < ApplicationController
   # GET /fleets.json
   def index
     @fleets = current_user.truck_fleet.fleets
-
+    @columns_to_sort = ["make", "model", "year", "vin", "registration", "fleet_number"]
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @fleets }

@@ -14,12 +14,28 @@
      -moz-border-radius: @radius;
           border-radius: @radius;
 }
-.border-color { background-color: #006DCC; background-image: linear-gradient(to bottom, #0088CC, #0044CC); margin-bottom: 5px;
-  border-radius:10px 0 0 10px; }
-table tr {
-  float:left;
-  margin-bottom: 10px;
-  
+.mtf-table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+
+.mtf-table thead tr {
+    background-color: #006DCC;
+    background-image: linear-gradient(to bottom, #0088CC, #0044CC);
+    color: white;
+}
+.mtf-table tbody tr {
+    background-color: #EEEEEE;
+}
+
+.mtf-table tbody tr td:first-child,
+.mtf-table thead tr th:first-child {
+    border-radius: 6px 0 0 6px;
+}
+
+.mtf-table tbody tr td:last-child,
+.mtf-table thead tr th:last-child {
+    border-radius: 0 6px 6px 0;
 }
 @import "twitter/bootstrap/responsive";
 

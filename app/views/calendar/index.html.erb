@@ -267,5 +267,31 @@ $(document).ready(function() {
 		'hours=' + date.getHours(), "littleWindow", "location=no,width=640,height=400,top=250,left=300"); 
 	}
   });
+  var $fcRightButtons = $('.fc-header-right [class*="fc-button"]').addClass('btn btn-primary').removeClass('fc-button-basicDay fc-state-default fc-corner-right')
+  var $fcLeftButtons = $('.fc-header-left [class*="fc-button"]').addClass('btn btn-primary').removeClass('fc-button-basicDay fc-state-default fc-corner-right')
+  
+  	$fcRightButtons.click(function(el){
+  		$fcRightButtons.addClass('btn-primary').removeClass('btn-warning');
+  		$(this).addClass('btn-warning').removeClass('btn-primary');
+  	})
+  
+  var $oldRightTable = $('.fc-header-right > table');
+  var $oldLeftTable = $('.fc-header-left > table');
+	$('<div>')
+	  .addClass('btn-group')
+	  .attr("data-toggle", "buttons-radio")
+	  .appendTo('.fc-header-right')
+	  .append($fcRightButtons);
+	$('<div>')
+	  .addClass('btn-group')
+	  .appendTo('.fc-header-left')
+	  .append($fcLeftButtons);
+	
+	$oldRightTable.remove();
+	$oldLeftTable.remove();
+	
+  var $fcCalendarBody = $('#id-calendar .fc-border-separate tbody');
+  $fcCalendarBody.addClass("bg-white");
+	
 });
 </script>

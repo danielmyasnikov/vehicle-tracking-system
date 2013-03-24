@@ -704,7 +704,7 @@ function Header(calendar, options) {
 						.append(renderSection('left'))
 						.append(renderSection('center'))
 						.append(renderSection('right'))
-				);
+				)
 			return element;
 		}
 	}
@@ -721,7 +721,7 @@ function Header(calendar, options) {
 		if (buttonStr) {
 			$.each(buttonStr.split(' '), function(i) {
 				if (i > 0) {
-					e.append("<span class='fc-header-space'/>");
+					//e.append("<span class='fc-header-space'/>");
 				}
 				var prevButton;
 				$.each(this.split(','), function(j, buttonName) {
@@ -746,19 +746,9 @@ function Header(calendar, options) {
 							var icon = options.theme ? smartProperty(options.buttonIcons, buttonName) : null; // why are we using smartProperty here?
 							var text = smartProperty(options.buttonText, buttonName); // why are we using smartProperty here?
 							var button = $(
-								"<span class='fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
-									"<span class='fc-button-inner'>" +
-										"<span class='fc-button-content'>" +
-											(icon ?
-												"<span class='fc-icon-wrap'>" +
-													"<span class='ui-icon ui-icon-" + icon + "'/>" +
-												"</span>" :
-												text
-												) +
-										"</span>" +
-										"<span class='fc-button-effect'><span></span></span>" +
-									"</span>" +
-								"</span>"
+								"<button type='button' class='btn btn-primary fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
+											text + 
+								"</button>"
 							);
 							if (button) {
 								button
@@ -799,7 +789,7 @@ function Header(calendar, options) {
 					}
 				});
 				if (prevButton) {
-					prevButton.addClass(tm + '-corner-right');
+					prevButton.addClass(tm + '-corner-right').append("</div>");
 				}
 			});
 		}
