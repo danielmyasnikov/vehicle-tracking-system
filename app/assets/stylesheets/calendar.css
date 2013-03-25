@@ -69,20 +69,11 @@
 }
 .overdue-body { display:block; overflow-y:scroll; background-color: white; height: 180px}
 .due-body { display:block; overflow:auto; height:180px; background-color: white;} 
-.overdue-item { background-color: #EEEEEE; margin: 5px; padding: 5px;
-}
-.highlight-yellow {
-	background-color: #fdaf22;
-	color:white;
-    background-image: linear-gradient(#fdaf22);
-    padding: 10px 15px;
-}
-.due{
-	background-color: #fdaf22;
-}
-.overdue{
-	background-color: '#B62C2C';
-}
+.overdue-item { background-color: #EEEEEE; margin: 5px; padding: 5px; }
+.highlight-yellow { background-color: #fdaf22; color:white; background-image: linear-gradient(#fdaf22); padding: 10px 15px; }
+.due{ background-color: #fdaf22; }
+.overdue{ background-color: '#B62C2C';}
+
 #id-due-open, #id-overdue-open {
 	cursor: pointer
 }
@@ -92,20 +83,10 @@
     border-radius: 4px 4px 4px 4px;
     padding: 10px 15px;
 }
-.bg-white {
-	background-color:white;
-	color:black;
-}
-.current-month{
-	background-color: #ffe4c4;
-	color:black;
-}
-#id-due-items .table {
-	margin-bottom: 0;
-}
-#id-overdue-items .table {
-	margin-bottom: 0;
-}
+.bg-white { background-color:white; color:black; }
+.current-month{ background-color: #ffe4c4; color:black; }
+#id-due-items .table { margin-bottom: 0; }
+#id-overdue-items .table { margin-bottom: 0; }
 #id-overdue-items thead { margin:0px; cell-spacing:0px; left:0px; }
 #id-overdue-items th { height:20px; width:70px; }
 #id-overdue-items td { padding-right:37px;}

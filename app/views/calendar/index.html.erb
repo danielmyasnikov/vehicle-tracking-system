@@ -77,10 +77,10 @@
 						<%= link_to fleet_path(t) do %>
 							<div class='external-event'>
 								<% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
-						  		<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
-						  		<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
-						  		<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
-						  		<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
+						  		<%= image_tag t.avatar.url, :size => '24x24', :class => 'width-30' if t.avatar.present? %>
+						  		<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.present? && !t.avatar.present? %>
+						  		<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.nil? && !t.avatar.present? %> | 
+						  		<%= t.name %>
 							</div>
 						<% end %>
 					<% end %>
@@ -90,9 +90,9 @@
 				<% @trucks.each do |t| %>
 					<%= link_to fleet_path(t) do %>
 				  		<div class='external-event'>
-				  			<%= image_tag t.avatar.url, :size => '24x24' if t.avatar.present? %>
-				  			<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24' if t.vehicle_type.present? && !t.avatar.present? %>
-				  			<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24' if t.vehicle_type.nil? && !t.avatar.present? %> | 
+				  			<%= image_tag t.avatar.url, :size => '24x24', :class => 'width-30' if t.avatar.present? %>
+				  			<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.present? && !t.avatar.present? %>
+				  			<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.nil? && !t.avatar.present? %> | 
 				  			<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
 				  		</div>
 					<% end %>
@@ -108,9 +108,9 @@
 					<%= link_to repairer_path(r) do %>
 						<div class='external-event'>
 							<% if r.avatar.file? %>
-							  <%= image_tag r.avatar.url, :size => '16x16' %>
+							  <%= image_tag r.avatar.url, :size => '16x16', :class => 'width-30' %>
 							<% else %> 
-							  <%= image_tag "#{aws_name}/pin-2.png", :size => '16x16' %>
+							  <%= image_tag "#{aws_name}/pin-2.png", :size => '16x16', :class => 'width-30' %>
 							<% end %>
 					  		| <%= r.business_name %>
 					  	</div>
