@@ -1,22 +1,19 @@
 <% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
 <div class='row'>
 	<div class='span4'>
-		<h4 id='id-overdue-open'><%= @overdue.count %> Overdue vehicles</h4>
-		<div id="id-overdue-items">
-			<table class="table table-striped highlight-red open <%= 'hidden' if @overdue.nil? || @overdue.empty? %>">
-			  <thead class='overdue-header'>
+		<div id="id-overdue-items" class="reddish-border">
+			<table id="overdue-items-calendar" class="table highlight-red open <%= 'hidden' if @overdue.nil? || @overdue.empty? %>">
+			  <thead class=''>
 			    <tr>
-			      <th>TruckID</th>
-			      <th>Service</th>
-			      <th>Type</th>
-			      <th>Actions</th>
+			    	<th colspan='4'>
+			    		<%= @overdue.count %> Overdue vehicles
+			    	</th>
 			    </tr>
 			  </thead>
-			  <tbody>
+			  <tbody class='overdue-body'>
 			    <% @overdue.each do |overdue| %>
-			      <tr class=''>
+			      <tr class='overdue-item'>
 			        <td class=''><%= link_to overdue.fleet.name, fleet_path(overdue.fleet) %></td>
-			        <td class=''><%= overdue.fleet.next_service_date %></td>
 			        <td class=''><%= overdue.service_type.name %></td>
 			        <td class=''>
 			        	<%= link_to 'B', new_service_path(
@@ -42,20 +39,16 @@
 			</table>
 			<b><%= 'No items to display' if @overdue.nil? || @overdue.empty? %></b>
 		</div>
-		<h4 id="id-due-open"><%= @due.count %> Due vehicles</h4>
-		<div id="id-due-items">
-			<table class="table highlight-yellow <%= 'hidden' if @due.nil? || @due.empty? %>"">
-				<thead class="due-header">
+		<div id="id-due-items" class="yellowish-border">
+			<table class="table highlight-yellow open <%= 'hidden' if @due.nil? || @due.empty? %>">
+				<thead class="">
 				  <tr>
-				      <th>TruckID</th>
-				      <th>Service</th>
-				      <th>Type</th>
-				      <th>Actions</th>
+				      <th colspan='4'><%= @due.count %> Due vehicles</th>
 				  </tr>
 				</thead>
-			  <tbody>
+			  <tbody class='due-body'>
 			    <% @due.each_with_index do |due, index| %>
-			      <tr class=''>
+			      <tr class='overdue-item'>
 			        <td class=''><%= link_to due.fleet.name, fleet_path(due.fleet) %></td>
 			        <td class=''><%= due.next_service_date %></td>
 			        <td class=''><%= due.service_type.name %></td>
@@ -302,7 +295,6 @@ $(document).ready(function() {
 	
   var $fcCalendarBody = $('#id-calendar .fc-border-separate tbody');
   $fcCalendarBody.addClass("bg-white");
-  
 	
 });
 </script>
