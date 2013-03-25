@@ -26,6 +26,8 @@ gem 'pg'
 gem 'seed_dump', "~> 0.4.2"
 
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-timepicker-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
