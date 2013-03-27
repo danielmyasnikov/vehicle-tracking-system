@@ -13,9 +13,9 @@ gem "paperclip", "~> 3.0"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'rufus-scheduler'
 gem 'libv8'
-# gem "browser"
+gem "browser"
 gem 'lazy_high_charts'
-
+gem 'pie-rails'
 
 # geo location
 gem 'geocoder'

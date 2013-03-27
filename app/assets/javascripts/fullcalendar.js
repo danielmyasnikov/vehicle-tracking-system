@@ -704,7 +704,7 @@ function Header(calendar, options) {
 						.append(renderSection('left'))
 						.append(renderSection('center'))
 						.append(renderSection('right'))
-				)
+				);
 			return element;
 		}
 	}
@@ -721,7 +721,7 @@ function Header(calendar, options) {
 		if (buttonStr) {
 			$.each(buttonStr.split(' '), function(i) {
 				if (i > 0) {
-					//e.append("<span class='fc-header-space'/>");
+					e.append("<span class='fc-header-space'/>");
 				}
 				var prevButton;
 				$.each(this.split(','), function(j, buttonName) {
@@ -789,7 +789,7 @@ function Header(calendar, options) {
 					}
 				});
 				if (prevButton) {
-					prevButton.addClass(tm + '-corner-right').append("</div>");
+					prevButton.addClass(tm + '-corner-right');
 				}
 			});
 		}

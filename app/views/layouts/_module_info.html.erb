@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-	<span class='active-menu-my bold chinon-font-face blue font-72px'><%= session[:active_menu][0..1] %></span>
-	<span class='active-menu-main bold chinon-font-face white font-72px'><%= session[:active_menu][2..50] %></span>
-	<%= image_tag session[:module_logo], :class => "module_logo" %>
+	<span class='active-menu-my bold chinon-font-face blue font-56px'><%= session[:active_menu][0..1] %></span>
+	<span class='active-menu-main bold chinon-font-face white font-56px'><%= session[:active_menu][2..50] %></span>
+	<%#= image_tag session[:module_logo], :class => "module_logo" %>
 <% end %>

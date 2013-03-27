@@ -2,12 +2,16 @@
 <div class='row'>
 	<div class='span4'>
 		<div class="reddish-border">
-			<div class='highlight-red'><%= @overdue.count %> Due vehicles</div>
+			<div class='highlight-red'>
+				<span class="inline-header-count-number-red"><%= @overdue.count %></span> Due vehicles
+			</div>
 			<div class='overdue-body'>
 				<% @overdue.each do |overdue| %>
 			      	<div class='overdue-item'>
+			      		<div style="float: left;">
 			      		<%= link_to overdue.fleet.name, fleet_path(overdue.fleet) %>
 				        <%= overdue.service_type.name %>
+				        </div>
 				        <div class="right">
 				        	<%= link_to 'B', new_service_path(
 				        		:year => Date.today.year,
@@ -26,12 +30,15 @@
 	                      		:service_id => overdue.service_type.id),
 			                  	:class => 'btn btn-mini btn-danger' %>
 			             </div>
+			             <div style="clear:both;"></div>
 		             </div>
 			    <% end if @overdue.present? %>
 			</div>
 		</div>
 		<div class="yellowish-border">
-			<div class='highlight-yellow'><%= @due.count %> Due vehicles</div>
+			<div class='highlight-yellow'>
+				<span class="inline-header-count-number-orange"><%= @due.count %></span> Due vehicles
+			</div>
 			<div class='due-body'>
 				<% @due.each do |due| %>
 			      	<div class='overdue-item'>
@@ -67,7 +74,12 @@
 <div class='row'>
 	<div id='id-repairers-list' class='span8'>
 		<div class="bluish-border">
-			<div class='highlight-blue'><%= @overdue.count %> Due vehicles</div>
+			<div class='highlight-blue'>
+				<span class="inline-header-count-number-blue"><%= @trucks.count %></span> MyFleet 
+				<span style="margin-left: 590px;"><%= link_to t('.new', :default => t("helpers.links.new")),
+            		new_fleet_path,
+            		:class => 'btn btn-warning' %></span>
+			</div>
 			<div class='overdue-body'>
 				<% @trucks.each do |k, tf| %>
 				<div class='dropable-truck-fleet-class'>
@@ -102,7 +114,9 @@
 	</div>
 	<div id='id-trucks-list' class='span4'>
 		<div class="bluish-border">
-			<div class='highlight-blue'><%= @overdue.count %> Due vehicles</div>
+			<div class='highlight-blue'>
+				<span class="inline-header-count-number-blue"><%= @repairers.count %></span> MyRepairer
+			</div>
 			<div class='overdue-body'>
 				<% @repairers.each do |r| %>
 					<%= link_to repairer_path(r) do %>
@@ -194,10 +208,6 @@ $(document).ready(function() {
     defaultView: 'agendaWeek',
     slotMinutes: 120,
     height: 650,
-    columnFormat: {
-    	week: 'ddd d/M',
-    	day: 'dddd d/M',
-    },
 	header: {
 		left: 'prev,next today',
 		center: 'title',

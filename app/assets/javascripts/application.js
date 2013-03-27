@@ -32,17 +32,3 @@ jQuery.expr[':'].regex = function(elem, index, match) {
         regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
     return regex.test(jQuery(elem)[attr.method](attr.property));
 }*/
-
-(function($) {
-    $.fn.changeElementType = function(newType) {
-        var attrs = {};
-
-        $.each(this[0].attributes, function(idx, attr) {
-            attrs[attr.nodeName] = attr.nodeValue;
-        });
-
-        this.replaceWith(function() {
-            return $("<" + newType + "/>", attrs).append($(this).contents());
-        });
-    };
-})(jQuery);

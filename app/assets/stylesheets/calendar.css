@@ -1,3 +1,6 @@
+// Place all the styles related to the Calendar controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/ 
 #wrap {
 	width: 1100px;
 	margin: 0 auto;
@@ -44,6 +47,7 @@
 	border:5px solid #BD362F;
 	border-radius: 4px 4px 4px 4px;	
 	margin-bottom: 10px;
+	behavior: url(PIE.htc);
 }
 .yellowish-border {
 	border-collapse: collapse;
@@ -59,18 +63,22 @@
 	background-color: #216FC2;
 	color:white;
     background-image: linear-gradient(#BD362F);
-    padding: 10px 15px;
+    padding: 10px 0px;
+    font-size:16px; 
+    font-weight:bold;
 }
 .highlight-red {
 	background-color: #BD362F;
 	color:white;
     background-image: linear-gradient(#BD362F);
-    padding: 10px 15px;
+    padding: 10px 0px;
+    font-size:16px; 
+    font-weight:bold;
 }
 .overdue-body { display:block; overflow-y:scroll; background-color: white; height: 180px}
 .due-body { display:block; overflow:auto; height:180px; background-color: white;} 
 .overdue-item { background-color: #EEEEEE; margin: 5px; padding: 5px; }
-.highlight-yellow { background-color: #fdaf22; color:white; background-image: linear-gradient(#fdaf22); padding: 10px 15px; }
+.highlight-yellow { background-color: #fdaf22; color:white; background-image: linear-gradient(#fdaf22); padding: 10px 0px; font-size:16px; font-weight:bold; }
 .due{ background-color: #fdaf22; }
 .overdue{ background-color: '#B62C2C';}
 
@@ -93,7 +101,6 @@
 #id-due-items thead { margin:0px; cell-spacing:0px; left:0px; }
 #id-due-items th { height:20px; width:70px; }
 #id-due-items td { padding-right:37px; }
-
 table { border-collapse: collapse; }
 .space td { padding: 5px 20px 5px 20px; }
 .next-tab { margin-left: 10px;}

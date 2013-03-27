@@ -13,7 +13,6 @@
  *= require bootstrap-datepicker
  *= require bootstrap-timepicker
  */
-behavior: url("/PIE/PIE.htc");
 .right{
 	float: right;
 }
@@ -32,6 +31,42 @@ behavior: url("/PIE/PIE.htc");
     color: white;
     height: 48px;
     padding: 10px 15px;
+}
+.inline-header-count-number-orange {
+	font-size:12px;
+   	background-color: #f0a020;
+    background-image: linear-gradient(to bottom, #fc9b1d, #D2691E);
+    border-radius: 4px 4px 4px 4px;
+    color: white;
+    height: 24px;
+    padding: 8px 15px;
+    padding-bottom: 6px;
+    font-size:16px; 
+    font-weight:bold;
+}
+.inline-header-count-number-red {
+	font-size:12px;
+   	background-color: #c4230f;
+    background-image: linear-gradient(to bottom, #C02000, #8B0000);
+    border-radius: 4px 4px 4px 4px;
+    color:white;
+    height: 24px;
+    padding: 8px 15px;
+    padding-bottom: 6px;
+    font-size:16px; 
+    font-weight:bold;
+}
+.inline-header-count-number-blue {
+	font-size:12px;
+   	background-color: #006DCC;
+    background-image: linear-gradient(to bottom, #0088CC, #0044CC);
+    border-radius: 4px 4px 4px 4px;
+    color: white;
+    height: 24px;
+    padding: 8px 15px;
+    padding-bottom: 6px;
+    font-size:16px; 
+    font-weight:bold;
 }
 .upper-table-info{
 	display:block;
@@ -55,11 +90,19 @@ behavior: url("/PIE/PIE.htc");
 .navigational {
 	background-image:url('level-2-background.png');
 }
+.ie7-navigational {
+	background-image:url('level-1-background.png');
+}
 .module_info {
-	margin-bottom: 40px;
 	padding-bottom: 20px;
-    padding-left: 260px;
     padding-top: 50px;
+	margin-bottom: 40px;
+	background-image:url('level-2-background.png');
+}
+.ie7-module_info {
+	padding-bottom: 70px;
+	margin-bottom: 40px;
+	padding-left: 260px;
 	background-image:url('level-2-background.png');
 }
 .module_logo {
@@ -83,18 +126,30 @@ behavior: url("/PIE/PIE.htc");
 }
 
 @font-face {
-  font-family: 'chinon';
-  src:url('<%= asset_path("chinon-mn.ttf") %>');
-}
+    font-family: 'chinon';
+    src: url('chinon-mn.eot');
+    src: url('chinon-mn.eot?#iefix') format('embedded-opentype'),
+         url('chinon-mn.woff') format('woff'),
+         url('chinon-mn.ttf') format('truetype'),
+         url('chinon-mn.svg#chinon_mnregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
+}
 .chinon-font-face {
   font-family: chinon;
+}
+.font-56px{
+	font-size: 56px;
 }
 .font-72px {
 	font-size: 72px;
 }
 .white{
 	color:white;
+}
+.blue{
+	color:#29a6dd
 }
 /*
 .active-menu-my{
@@ -112,4 +167,5 @@ behavior: url("/PIE/PIE.htc");
 .footer {
 	margin-bottom: 60px;
 	color: grey;
+
 }

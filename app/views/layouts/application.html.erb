@@ -11,29 +11,37 @@
     <%= javascript_include_tag :highcharts %>
     <%= stylesheet_link_tag  %>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "bootstrap-ie7buttonfix" if browser.ie7? %>
+	<%= stylesheet_link_tag "bootstrap-ie8buttonfix" if browser.ie8? %>
     <%= yield(:head) %>
   </head>
   <body>
-	<div class='navigational'>
-	  <%= render 'layouts/second_level_navigation' %>
-	</div>
-	<div class="module_info">
-	  <%= render 'layouts/module_info' %>
-	</div>
+		<div class='<%= 'ie7-navigational' %>'>
+			<div class="container">
+				<div class="content">
+					<%= render 'layouts/second_level_navigation' %>
+				</div>
+			</div>
+		</div>
+		<div class='<%= browser.ie7? ? 'ie7-module_info' : 'module_info' %>''>
+			<div class="container">
+				<div class="content">
+		<%= render 'layouts/module_info' %>
+				</div>
+			</div>
+		</div>
     <div id="main" role="main">
       <div class="container">
         <div class="content">
-           <div class="row">
-            <div class="span12">
+
               <%= render 'layouts/messages' %>
-				<%# if browser.ie6? %>
+				<% if browser.ie6? %>
 			  	  <p class="disclaimer">You're running an older IE version. Please update it!</p>
-				<%# else %>
+				<% else %>
 			  	  <%= yield %>
               	  <%= yield :scripts %>
-				<%# end %>
-            </div>
-          </div>
+				<% end %>
+
           <footer class='footer'>
           	<%= render 'layouts/footer'%>
           </footer>
