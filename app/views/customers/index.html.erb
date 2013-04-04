@@ -1,7 +1,9 @@
 <%- model_class = User -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+<div class="upper-table-info">
+	<span class="table-count-number"><%= @users.count %></span>
+	<span class="table-truck-fleet-name"><%= "Customers" %></span>
 </div>
+<br/>
 <% if @users.present? %>
 <table class="table table-striped">
   <thead>

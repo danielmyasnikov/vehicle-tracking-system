@@ -12,10 +12,11 @@
 		<% end %>
 	</div>
 </div>
+<br/>
 <div class='row'>
 	<div class='span12'>
 		<div class='row'>
-	<div class='span8'>
+	<div class='span12'>
 	<ul class="nav nav-tabs">
 		<li><img class='' alt="Mytruckfleet" src="/assets/MyTruckFleet/_MyTruckFleet.png" width="128"/></li>
 		<% if user_signed_in? && current_user.admin? %>	
@@ -27,6 +28,7 @@
 		  <li class="<%= "active" if session[:active_menu] == 'MyFleet' %>"><%= link_to 'MyFleet', fleets_path %></li>
 		  <li class="<%= "active" if session[:active_menu] == 'MyReports' %>"><%= link_to 'MyReports', report_index_path %></li>
 		  <li class="<%= "active" if session[:active_menu] == 'MyTeam' %>"><%= link_to 'MyTeam', drivers_path %></li>
+		  <li class="<%= "active" if session[:active_menu] == 'MyFaultBook' %>"><%= link_to 'MyFaultBook', fault_books_path %></li>
 		  <li class="<%= "active" if session[:active_menu] == 'MyRepairer' %>"><%= link_to 'MyRepairer', repairers_path %></li>
 		<% end %>
 	  	<% if !user_signed_in? %>	

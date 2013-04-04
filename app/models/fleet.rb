@@ -10,6 +10,7 @@ class Fleet < ActiveRecord::Base
   has_many :drivers
   has_many :service_types, :through => :serviceables
   has_many :serviceables
+  has_many :fault_books
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
   has_attached_file :asset
   has_many :assets

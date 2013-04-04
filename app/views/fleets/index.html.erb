@@ -1,58 +1,9 @@
-<div class="upper-table-info">
-	<span class="table-count-number"><%= @fleets.count %></span>
-	<span class="table-truck-fleet-name"><%= current_user.truck_fleet.name + " fleet"%></span>
-	<div class="right">
-		Sort by: <%= select nil, nil, @columns_to_sort, :class => '' %>
-		<%= link_to t('.new', :default => t("helpers.links.new")),
-	            new_fleet_path,
-	            :class => 'btn btn-warning' %>
-	</div>
-</div>
-<%- model_class = Fleet -%>
-<table class="table mtf-table">
-  <thead class="">
-    <tr class="border-radius border-color">
-      <th><%= model_class.human_attribute_name(:pic) %></th>
-      <th><%= model_class.human_attribute_name(:fleet_number) %></th>
-      <th><%= model_class.human_attribute_name(:registration) %></th>
-      <th><%= model_class.human_attribute_name(:VIN) %></th>
-      <th><%= model_class.human_attribute_name(:make) %></th>
-      <th><%= model_class.human_attribute_name(:model) %></th>
-      <th><%= model_class.human_attribute_name(:year) %></th>
-      <th><%= model_class.human_attribute_name(:auto_services) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @fleets.each do |fleet| %>
-      <tr>
-        <td>
-        	<% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
-        	<%= image_tag fleet.avatar.url, :size => '24x24' if fleet.avatar.present? %>
-        	<%= image_tag "#{aws_name}/#{fleet.vehicle_type}.png", :size => '24x24' if fleet.vehicle_type.present? && !fleet.avatar.present? %>
-        	<%= image_tag "#{aws_name}/Truck.png", :size => '24x24' if fleet.vehicle_type.nil? && !fleet.avatar.present? %>
-        </td>
-        <td><%= fleet.fleet_number %></td>
-        <td><%= fleet.registration %></td>
-        <td><%= fleet.vin %></td>
-        <td><%= fleet.make %></td>
-        <td><%= fleet.model %></td>
-        <td><%= fleet.year %></td>
-        <td><%= fleet.auto_services ? "Yes" : "No" %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_fleet_path(fleet), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      fleet_path(fleet),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_fleet_path,
-            :class => 'btn btn-warning' %>
+<%= render :partial => "shared/informative_table", :locals => {
+	:items => @fleets,
+	:table_name => current_user.truck_fleet.name,
+	:columns_to_sort => @columns_to_sort,
+	:new_item_path => new_fleet_path,
+	:new_action_required => true,
+	:columns_to_display => [:fleet_number, :registration, :vin, :make, :model, :year, :auto_services],
+	:model_class => Fleet
+} %>
