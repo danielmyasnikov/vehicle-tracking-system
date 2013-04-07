@@ -26,7 +26,7 @@ oldsig () {
 case $action in
 start)
 	sig 0 && echo >&2 "Already running" && exit 0
-	$CMD
+	su -c "$CMD" root
 	;;
 stop)
 	sig QUIT && exit 0
