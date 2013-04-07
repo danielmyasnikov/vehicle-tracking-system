@@ -1,9 +1,14 @@
-<div class="control-group">
+<div class="control-group white-background padding-top-bottom-10px ">
+	<%= f.label fleet_service.service_type.name.humanize.to_sym, :class => 'control-label fleet-labals font-bold' %>
 	<div class="controls">
-		<b><%= fleet_service.service_type.name.humanize %></b><br /><br />
-		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_km_interval]", fleet_service.service_km_interval %> KM <br />
-		OR<br />
-		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_time_interval]", fleet_service.service_time_interval %> 
-		<%= select_tag "fields[#{fleet_service.service_type.id}][service_period]", options_for_select(['Year', 'Month', 'Day']) %>
+		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_km_interval]", fleet_service.service_km_interval, 
+				:class => 'service-km-est-text-field-width-height margin-bottom-10px' 
+		%> KM <br />
+		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_time_interval]", fleet_service.service_time_interval, 
+				:class => 'service-km-est-text-field-width-height', 
+				:placeholder => 'Or every?' 
+		%> 
+		<%= select_tag "fields[#{fleet_service.service_type.id}][service_period]", options_for_select(['Year', 'Month', 'Day']), 
+				:class => 'service-km-select-km-est-width selectpicker' %>
 	</div>
 </div>

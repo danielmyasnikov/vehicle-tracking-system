@@ -1,6 +1,12 @@
 require 'date'
 
 class ServicesController < ApplicationController
+  before_filter :menu_activization
+  
+  def menu_activization
+    session[:active_menu] = "MyServices"
+    session[:module_logo] = "" 
+  end
   # GET /services
   # GET /services.json
   def index

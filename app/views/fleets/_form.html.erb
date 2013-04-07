@@ -1,98 +1,119 @@
 <%= form_for @fleet, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
-    <%= f.label :vehicle_type, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select :vehicle_type, ['Truck', 'Trailer', 'Forklift', 'Ute', 'Car', 'Other: Machinery'], :promt => true %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :image, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.file_field :avatar %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :make, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :make, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :model, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :model, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :year, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :year, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :VIN, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :vin, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :registration, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :registration, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :fleet_number, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :fleet_number, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :km_estimates, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :km_estimates, :class => 'text_field', :placeholder => "Enter KM estimates" %> KM per
-      <%= f.select :period, ['Year', 'Month', 'Day'] %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :actual_mileage, "Current mileage", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :actual_km, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :other, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :other, :rows => 5, :class => 'text_area' %>
-    </div>
-  </div>
-  <hr>
-  
-  <div class="control-group">
-    <%= f.label :auto_services, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.check_box :auto_services, :class => 'check_box' %>  <i><font size="2">If unticked kilometres will be entered on service page</font></i>
-	  </br></br>
-    </div>
-  </div>
-  <% @fleet.serviceables.each do |fs| %>
-	<%= f.fields_for fs do |builder| %>
-	  <%= render "service_types", :f => builder, :fleet_service => fs %>
-	<% end %>
-  <% end %>
-  
-  <hr>
-  <%= fields_for @assets do |asset| %>
-    <div class="control-group">
-      <%= asset.label 'Invoices', :class => 'control-label' %>
-      <div class="controls">
-        <%= asset.file_field :invoice %>
-      </div>
-    </div>
-  <% end %>
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                fleets_path, :class => 'btn' %>
-  </div>
+<div class="row">
+	<div class="span6">
+	  <div class="control-group">
+	    <%= f.label :vehicle_type, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.select :vehicle_type, ['Truck', 'Trailer', 'Forklift', 'Ute', 'Car', 'Other: Machinery'], {}, {:class => 'select-widht-height selectpicker'} %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :make, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_field :make, :class => 'text_field text_field_width_height' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :model, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_field :model, :class => 'text_field text_field_width_height' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :year, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.number_field :year, :class => 'number_field text_field_width_height' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :VIN, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_field :vin, :class => 'text_field text_field_width_height' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :registration, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_field :registration, :class => 'text_field text_field_width_height' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :fleet_number, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_field :fleet_number, :class => 'text_field text_field_width_height' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :km_estimates, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_field :km_estimates, :class => 'text_field text-field-km-est-width', :placeholder => "Enter KM estimates" %> KM per&#160;&#160;&#160;&#160;&#160;
+	      <%= f.select :period, ['Year', 'Month', 'Day'], {}, {:class => 'select-km-est-width selectpicker'} %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :actual_mileage, "Current mileage", :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_field :actual_km, :class => 'text_field text_field_width_height' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :other, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.text_area :other, :rows => 5, :class => 'text_area textarea-width-important' %>
+	    </div>
+	  </div>
+	</div>
+	<div class="span6">
+		<div class="control-group background-grey padding-top-bottom-10px">
+	    <%= f.label :image, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.file_field :avatar %>
+	      <% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
+	    </div>
+	  </div>
+	  <%= f.label :default_image, :class => 'control-label fleet-labals' %>
+	  <div class="white-background centre">
+	  	<%= image_tag "#{aws_name}/Truck.png", :size => '240x240', :class => 'width-280px' %>
+	  </div>
+	</div>
+</div>
+<hr>
+<h4 class="blue">Auto Services</h4>
+<div class="row">
+	<div class="span6">
+	  <div class="control-group">
+	  	<%= f.label :auto_serviced_vehicle?, :class => 'control-label fleet-labals' %>
+	    <div class="controls">
+	      <%= f.check_box :auto_services, :class => 'check_box' %>  <i><font size="2">If unticked kilometres will be entered on service page</font></i>
+	    </div>
+	  </div>
+	  <% @fleet.serviceables.each do |fs| %>
+			<%= f.fields_for fs do |builder| %>
+			  <%= render "service_types", :f => builder, :fleet_service => fs %>
+			<% end %>
+	  <% end %>
+		<hr>
+	  <%= fields_for @assets do |asset| %>
+	    <div class="control-group background-grey padding-top-bottom-10px">
+	      <%= asset.label 'Invoices', :class => 'control-label fleet-labals' %>
+	      <div class="controls">
+	        <%= asset.file_field :invoice %>
+	      </div>
+	    </div>
+	  <% end %>
+	</div>
+</div>
+
+	
+	  <div class="form-actions">
+	    <%= f.submit nil, :class => 'btn btn-primary' %>
+	    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	                fleets_path, :class => 'btn' %>
+	  </div>
 <% end %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+	$('.selectpicker').selectpicker();
+	
+});
+</script>

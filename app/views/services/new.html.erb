@@ -1,14 +1,12 @@
 <%- model_class = Service -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
-                                 :default => "New #{model_class.model_name.human}") %></h1>
-</div>
 
-<div class='field'>
-	<div id='id-time' class='control-label'>Time: <%= @date[:hours] %>:00</div>
-	<div id='id-date' class='control-label'>Day: <%= @date[:day] %>/<%= @date[:month] %>/<%= @date[:year] %> </div>
-</div>
+	<dl class="dl-horizontal">
+	  <dt class="fleet-labals font-bold"><strong>Time:</strong></dt>
+	  <dd><div id='id-time'> <%= @date[:hours] %>:00</div></dd>
+	  <dt class="fleet-labals font-bold"><strong>Day:</strong></dt>
+	  <dd><div id='id-date'><%= @date[:day] %>/<%= @date[:month] %>/<%= @date[:year] %> </div></dd>
+	</dl>
 <%= render :partial => 'form' %>
 <script>
-$('.navbar').hide();
+$('.ie7-navigational').hide();
 </script>

@@ -1,36 +1,83 @@
 <%- model_class = Fleet -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
-</div>
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:make) %>:</strong></dt>
-  <dd><%= @fleet.make %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:model) %>:</strong></dt>
-  <dd><%= @fleet.model %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
-  <dd><%= @fleet.year %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:vin) %>:</strong></dt>
-  <dd><%= @fleet.vin %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:registration) %>:</strong></dt>
-  <dd><%= @fleet.registration %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:fleet_number) %>:</strong></dt>
-  <dd><%= @fleet.fleet_number %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:auto_services) %>:</strong></dt>
-  <dd><%= @fleet.auto_services ? "Yes" : "No" %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:actual_km) %>:</strong></dt>
-  <dd><%= @fleet.actual_km.present? ? @fleet.actual_km.round(2) : '0.0 ' %>KM <!-- Is it correct? --> <%#= link_to t('.edit mileage', :default => t("helpers.links.edit")),
-              												edit_fleet_path(@fleet) + "#fleet_km_estimates", :class => 'btn btn-primary' %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:other) %>:</strong></dt>
-  <dd><%= @fleet.other ||= ' ' %></dd>
-</dl>
-  <hr>
-  <dl class="dl-horizontal">
-  <% @fleet.assets.each_with_index do |asset, i| %>
-    <dt><strong>Invoice <%= i + 1 %>:</strong></dt> 
-    <dd><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></dd>
-  <% end %>
-  </dl>
 
+<h3><%=t '.title', :default => @fleet.name %></h3>
+<div class="row">
+	<div class="span6">
+		<dl class="dl-horizontal">
+			<div class="white-background">
+				<dt class="blue fleet-labals"><%= model_class.human_attribute_name(:make) %>:</dt>
+			  <dd><%= @fleet.make %></dd>
+			</div>
+			<div class="white-background">
+		  	<dt class="blue fleet-labals"><%= model_class.human_attribute_name(:model) %>:</strong></dt>
+		  	<dd><%= @fleet.model %></dd>
+		  </div>
+		  <div class="white-background">
+			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+			  <dd><%= @fleet.year %></dd>
+			</div>
+		  <div class="white-background">
+			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:vin) %>:</strong></dt>
+			  <dd><%= @fleet.vin %></dd>
+		  </div>
+		  <div class="white-background">
+			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:registration) %>:</strong></dt>
+			  <dd><%= @fleet.registration %></dd>
+		  </div>
+		  <div class="white-background">
+			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:fleet_number) %>:</strong></dt>
+			  <dd><%= @fleet.fleet_number %></dd>
+		  </div>
+		  <div class="white-background">
+			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:auto_services) %>:</strong></dt>
+			  <dd><%= @fleet.auto_services ? "Yes" : "No" %></dd>
+		  </div>
+		  <div class="white-background">
+			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:actual_km) %>:</strong></dt>
+			  <dd><%= @fleet.actual_km.present? ? @fleet.actual_km.round(2) : '0.0 ' %>KM <!-- Is it correct? --> <%#= link_to t('.edit mileage', :default => t("helpers.links.edit")),
+			              												edit_fleet_path(@fleet) + "#fleet_km_estimates", :class => 'btn btn-primary' %></dd>
+		  </div>
+		  <div class="white-background">
+		  	<dt class="blue fleet-labals"><%= model_class.human_attribute_name(:other) %>:</strong></dt>
+		  	<dd><%= @fleet.other.present? ? @fleet.other : "n/a" %></dd>
+		  </div>
+		</dl>
+	</div>
+	<div class="span6">
+		<dl class="dl-horizontal">
+			<div class='white-background centre'>
+				<% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
+				<%= image_tag "#{aws_name}/Truck.png", :size => '240x240', :class => 'width-280px' %>
+			</div>
+			<h3 class='blue'>Invoices</h3>
+			  <% if @fleet.assets.present? %>
+				  <% @fleet.assets.each_with_index do |asset, i| %>
+				    <div class='external-event'><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></div>
+				  <% end %>
+				<% else %>
+					<%= "No invoices available..." %>
+			  <% end %>
+		</dl>
+	</div>
+</div>
+<table class="table mtf-table">
+  <thead class="">
+    <tr class="border-radius border-color">
+      <th><%= "Service name" %></th>
+      <th><%= "Service sequence (KM)" %></th>
+      <th><%= "Service sequence (every/time limit)" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @fleet.serviceables.each do |s| %>
+      <tr>
+        <td><%= s.service_type.name %></td>
+        <td><%= "Every #{s.service_km_interval} KM" if s.service_km_interval %></td>
+        <td><%= "Every #{s.service_time_interval.to_i} #{s.service_period.downcase}" if s.service_time_interval.present?  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               fleets_path, :class => 'btn'  %>

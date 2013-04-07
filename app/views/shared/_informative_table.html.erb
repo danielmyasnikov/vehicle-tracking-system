@@ -1,0 +1,58 @@
+<div class="upper-table-info">
+	<span class="table-count-number"><%= items.count %></span>
+	<span class="table-truck-fleet-name"><%= table_name %></span>
+	<div class="right">
+		Sort by: <%= select nil, nil, columns_to_sort, :class => '' %>
+		<%= link_to t('.new', :default => t("helpers.links.new")),
+	            new_item_path,
+	            :class => 'btn btn-warning' if new_action_required %>
+	</div>
+</div>
+<table class="table mtf-table">
+  <thead class="">
+    <tr class="border-radius border-color">
+      <% columns_to_display.each do |column| %>
+      <th><%= model_class.human_attribute_name(column) %></th>
+      <% end %>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.each do |item| %>
+        <!-- avatar resolution
+        <td>
+        	<%# aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
+        	<%#= image_tag fleet.avatar.url, :size => '24x24' if fleet.avatar.present? %>
+        	<%#= image_tag "#{aws_name}/#{fleet.vehicle_type}.png", :size => '24x24' if fleet.vehicle_type.present? && !fleet.avatar.present? %>
+        	<%#= image_tag "#{aws_name}/Truck.png", :size => '24x24' if fleet.vehicle_type.nil? && !fleet.avatar.present? %>
+        </td>
+        END avatar -->
+      <tr>
+      		<% columns_to_display.each do |column| %>
+	        <!-- double shortcut on if else conditional statements -->
+	        <!-- first of all it checks if the column is boolean or displays the column value -->
+	        <!-- secondly it checks if the column is true and displays Yes or No -->
+	        
+        	<td><%= !!item.send(column) == item.send(column) ? item.send(column) ? "Yes" : "No" : item.send(column)  %></td>
+        
+      		<% end %>
+        <td>
+          <!-- We use model class to underscore to create dynamic path variable depending on the model passed to the partial -->
+          <%= link_to "View",
+                      send("#{model_class.to_s.underscore}_path", item), :class => 'btn btn-mini btn-success' %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      send("edit_#{model_class.to_s.underscore}_path", item), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      send("#{model_class.to_s.underscore}_path", item),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_item_path,
+            :class => 'btn btn-warning' %>

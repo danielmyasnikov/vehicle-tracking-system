@@ -1,48 +1,9 @@
-<div class='row'>
-	<div class='span2'><%= image_tag('MyRepairer/MyRepairer.jpg', :size => "128x64", :class => '') %></div>
-	<div class='span8'>
-	</div>
-	<div class='span2'></div>
-</div>
-</br>
-
-<%- model_class = Repairer -%>
-<div class="page-header">
-  
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:business_name) %></th>
-      <th><%= model_class.human_attribute_name(:picture) %></th>
-      <th><%= model_class.human_attribute_name(:full_address) %></th>
-      <th><%= model_class.human_attribute_name(:hour_service_24) %></th>
-      <th><%= model_class.human_attribute_name(:phone_number) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @repairers.each do |repairer| %>
-      <tr>
-        <td><%= link_to repairer.business_name, repairer_path(repairer) %></td>
-        <td><%= image_tag repairer.avatar.url, :size => '16x16' %></td>
-        <td><%= truncate(repairer.full_address) %></td>
-        <td><%= repairer.hour_service_24 %></td>
-        <td><%= repairer.phone_number %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_repairer_path(repairer), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      repairer_path(repairer),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_repairer_path,
-            :class => 'btn btn-primary' %>
+<%= render :partial => "shared/informative_table", :locals => {
+	:items => @repairers,
+	:table_name => "MyRepairers table",
+	:columns_to_sort => ['1', '2'],
+	:new_item_path => new_repairer_path,
+	:new_action_required => true,
+	:columns_to_display => [:business_name, :picture, :full_address, :phone_number, :suburb, :state],
+	:model_class => FaultBook
+} %>
