@@ -1,7 +1,4 @@
 <%- model_class = Repairer -%>
-<div class="page-header">
-  <h1><%= @repairer.business_name %> <%#= image_tag @repairer.avatar.url, :size => '32x32' %></h1>
-</div>
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=600x350&sensor=false&zoom=14&markers=#{@repairer.latitude}%2C#{@repairer.longitude}" %>
 
 <dl class="dl-horizontal">

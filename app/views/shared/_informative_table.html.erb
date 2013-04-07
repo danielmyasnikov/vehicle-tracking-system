@@ -28,14 +28,18 @@
         </td>
         END avatar -->
       <tr>
-      <% columns_to_display.each do |column| %>
-        <!-- double shortcut on if else conditional statements -->
-        <!-- first of all it checks if the column is boolean or displays the column value -->
-        <!-- secondly it checks if the column is true and displays Yes or No -->
-        <td><%= !!item.send(column) == item.send(column) ? item.send(column) ? "Yes" : "No" : item.send(column)  %></td>
-      <% end %>
+      		<% columns_to_display.each do |column| %>
+	        <!-- double shortcut on if else conditional statements -->
+	        <!-- first of all it checks if the column is boolean or displays the column value -->
+	        <!-- secondly it checks if the column is true and displays Yes or No -->
+	        
+        	<td><%= !!item.send(column) == item.send(column) ? item.send(column) ? "Yes" : "No" : item.send(column)  %></td>
+        
+      		<% end %>
         <td>
           <!-- We use model class to underscore to create dynamic path variable depending on the model passed to the partial -->
+          <%= link_to "View",
+                      send("#{model_class.to_s.underscore}_path", item), :class => 'btn btn-mini btn-success' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       send("edit_#{model_class.to_s.underscore}_path", item), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

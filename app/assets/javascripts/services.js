@@ -6,6 +6,7 @@ $(document).ready(function() {
 		processData: false,
 		contentType: "application/json"
 	}).done(function ( data ) {
+		$('.selectpicker').selectpicker();
 		var trucks = data.truck_ids;
 		var ddl_fleet_id = $("#fleet_fleet_id").val();
 		if ($.inArray(parseInt($("#fleet_fleet_id").val()), trucks) > -1){

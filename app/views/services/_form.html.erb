@@ -1,54 +1,64 @@
 <%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="field">
-    <%= f.label :fleet_number, :class => 'control-label' %>
-	  <div class="controls">
-    	<%= f.collection_select :fleet_id, @fleets, :id, current_user.truck_fleet.setting.truck_identification.to_sym, :promt => true %>
-	  </div>
-  </div>
-  <div class="field">
-    <%= f.label :repairer_id, :class => 'control-label' %>
-	<div class="controls">
-      <%= f.collection_select :repairer_id, Repairer.all, :id, :business_name, :promt => true, :class => 'text_field' %>
-	</div>
-  </div>
   <div class="control-group">
-    <%= f.label :service_type, :class => 'control-label' %>
+    <%= f.label :fleet_number, :class => 'control-label fleet-labals font-bold' %>
     <div class="controls">
-      <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], :promt => true %>
+      <%= f.collection_select :fleet_id, @fleets, :id, 
+      current_user.truck_fleet.setting.truck_identification.to_sym, {}, {
+      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :service_type, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select :service_type_name, ServiceType.all.collect {|s| [s.name, s.id]}, :promt => true %>
-    </div>
-  </div>
-  <div class="field">
-  	<%= f.label :day, :class => 'control-label' %>
-	<div class="controls">
-      <%= f.text_field :start_service_date, :class => 'text_field' %>
-	</div>
-  	<%= f.label :start_time, :class => 'control-label' %>
-	<div class="controls">
-      <%= f.select :start_service_time, ['08:00', '10:00', '12:00', '14:00', '16:00'], :class => 'text_field' %>
-	</div>
-    <%= f.label :hours, :class => 'control-label' %>
-	<div class="controls">
-      <%= f.select :hours, [1, 2, 3, 4, 5, 6, 7, 8], :promt => true, :class => 'text_field' %>
-	</div>
+    <%= f.label :repairer_id, :class => 'control-label fleet-labals font-bold' %>
+		<div class="controls">
+	      <%= f.collection_select :repairer_id, Repairer.all, :id, :business_name, {}, {
+	      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
+		</div>
   </div>
   <div class="control-group">
-	    <%= f.label :self_service, :class => 'control-label' %>
+    <%= f.label :service_type, :class => 'control-label fleet-labals font-bold' %>
+    <div class="controls">
+      <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], {}, {
+      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :service_type, :class => 'control-label fleet-labals font-bold' %>
+    <div class="controls">
+      <%= f.select :service_type_name, ServiceType.all.collect {|s| [s.name, s.id]}, {}, {
+      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
+    </div>
+  </div>
+  <div class="control-group">
+  	<%= f.label :day, :class => 'control-label fleet-labals font-bold' %>
+		<div class="controls">
+	      <%= f.text_field :start_service_date, :class => 'text_field text_field_width_height' %>
+		</div>
+	</div>
+	<div class="control-group">
+  	<%= f.label :start_time, :class => 'control-label fleet-labals font-bold' %>
+		<div class="controls">
+	      <%= f.select :start_service_time, ['08:00', '10:00', '12:00', '14:00', '16:00'], {}, {
+	      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
+		</div>
+	</div>
+	<div class="control-group">
+    <%= f.label :hours, :class => 'control-label fleet-labals font-bold' %>
+		<div class="controls">
+	      <%= f.select :hours, [1, 2, 3, 4, 5, 6, 7, 8], {}, {:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
+		</div>
+  </div>
+  <div class="control-group">
+	    <%= f.label :self_service, :class => 'control-label fleet-labals font-bold' %>
 	    <div class="controls">
 	      <%= f.check_box :self_service, :class => 'check_box' %>
 	    </div>
   </div>
   </br>
-  <h3>Service details:</h3>
-	<table class="table table-striped">
+  <h4 class="blue">Service details:</h4>
+	<table class="table mtf-table">
 	  <thead>
-	    <tr>
-	      <th></th>
+	    <tr class="border-radius border-color">
+	      <th>Service name</th>
 	      <th>Required?</th>
 	      <th>Done</th>
 	      <th>Price</th>
@@ -91,7 +101,7 @@
 	</table>
 
   <div class="control-group">
-    <%= f.label :other, :class => 'control-label' %>
+    <%= f.label :notes, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_area :other, :rows => 5, :class => 'text_area' %>
     </div>
