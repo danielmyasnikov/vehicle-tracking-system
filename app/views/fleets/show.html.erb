@@ -4,40 +4,40 @@
 <div class="row">
 	<div class="span6">
 		<dl class="dl-horizontal">
-			<div class="white-background">
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
 				<dt class="blue fleet-labals"><%= model_class.human_attribute_name(:make) %>:</dt>
 			  <dd><%= @fleet.make %></dd>
 			</div>
-			<div class="white-background">
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
 		  	<dt class="blue fleet-labals"><%= model_class.human_attribute_name(:model) %>:</strong></dt>
 		  	<dd><%= @fleet.model %></dd>
 		  </div>
-		  <div class="white-background">
+		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:year) %>:</strong></dt>
 			  <dd><%= @fleet.year %></dd>
 			</div>
-		  <div class="white-background">
+		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:vin) %>:</strong></dt>
 			  <dd><%= @fleet.vin %></dd>
 		  </div>
-		  <div class="white-background">
+		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:registration) %>:</strong></dt>
 			  <dd><%= @fleet.registration %></dd>
 		  </div>
-		  <div class="white-background">
+		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:fleet_number) %>:</strong></dt>
 			  <dd><%= @fleet.fleet_number %></dd>
 		  </div>
-		  <div class="white-background">
+		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:auto_services) %>:</strong></dt>
 			  <dd><%= @fleet.auto_services ? "Yes" : "No" %></dd>
 		  </div>
-		  <div class="white-background">
+		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:actual_km) %>:</strong></dt>
 			  <dd><%= @fleet.actual_km.present? ? @fleet.actual_km.round(2) : '0.0 ' %>KM <!-- Is it correct? --> <%#= link_to t('.edit mileage', :default => t("helpers.links.edit")),
 			              												edit_fleet_path(@fleet) + "#fleet_km_estimates", :class => 'btn btn-primary' %></dd>
 		  </div>
-		  <div class="white-background">
+		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 		  	<dt class="blue fleet-labals"><%= model_class.human_attribute_name(:other) %>:</strong></dt>
 		  	<dd><%= @fleet.other.present? ? @fleet.other : "n/a" %></dd>
 		  </div>
