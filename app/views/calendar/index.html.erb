@@ -3,7 +3,7 @@
 	<div class='span4'>
 		<div class="reddish-border">
 			<div class='highlight-red'>
-				<span class="inline-header-count-number-red"><%= @overdue.count %></span> Due vehicles
+				<span class="inline-header-count-number-red"><%= @overdue.present? ? @overdue.count : "0" %></span> Due vehicles
 			</div>
 			<div class='overdue-body'>
 				<% @overdue.each do |overdue| %>
@@ -37,7 +37,7 @@
 		</div>
 		<div class="yellowish-border">
 			<div class='highlight-yellow'>
-				<span class="inline-header-count-number-orange"><%= @due.count %></span> Due vehicles
+				<span class="inline-header-count-number-orange"><%= @due.present? ? @due.count : "0" %></span> Due vehicles
 			</div>
 			<div class='due-body'>
 				<% @due.each do |due| %>
