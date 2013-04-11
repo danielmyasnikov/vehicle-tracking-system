@@ -23,3 +23,5 @@ app/assets/.DS_Store
 
 # Ignore assets pipeline
 public/*
+bin/*
+
