@@ -1,0 +1,18 @@
+.text-field-km-est-width {
+  width: 85px;
+  height: 30px !important;
+}
+.select-km-est-width {
+  width: 90px !important;
+}
+.service-km-est-text-field-width-height {
+  width: 130px;
+  height: 30px !important;
+}
+.service-km-select-km-est-width {
+  width: 110px !important;
+}
+.fleet-labals {
+  margin-left: 10px;
+  text-align: left !important;
+}

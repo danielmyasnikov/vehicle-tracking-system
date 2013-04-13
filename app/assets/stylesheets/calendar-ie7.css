@@ -79,7 +79,7 @@
 .overdue-item { background-color: #EEEEEE; margin: 5px; padding: 5px; }
 .highlight-yellow { background-color: #fdaf22; color:white; background-image: linear-gradient(#fdaf22); padding: 10px 0px; font-size:16px; font-weight:bold; }
 .due{ background-color: #fdaf22; }
-.overdue{ background-color: #B62C2C;}
+.overdue{ background-color: '#B62C2C';}
 
 #id-due-open, #id-overdue-open {
 	cursor: pointer
@@ -103,4 +103,4 @@
 table { border-collapse: collapse; }
 .space td { padding: 5px 20px 5px 20px; }
 .next-tab { margin-left: 10px;}
-.button-new-margin-left { margin-left: 590px; }
+.button-new-margin-left { margin-left: 440px; }

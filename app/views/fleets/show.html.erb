@@ -50,8 +50,8 @@
 				<%= image_tag "#{aws_name}/Truck.png", :size => '240x240', :class => 'width-280px' %>
 			</div>
 			<h3 class='blue'>Invoices</h3>
-			  <% if @fleet.assets.present? %>
-				  <% @fleet.assets.each_with_index do |asset, i| %>
+			  <% if @invoices.present? %>
+				  <% @invoices.each_with_index do |asset, i| %>
 				    <div class='external-event'><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></div>
 				  <% end %>
 				<% else %>

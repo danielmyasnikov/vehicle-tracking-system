@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= content_for?(:title) ? yield(:title) : "My Truck Fleet" %></title>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag :highcharts %>
+    <%= stylesheet_link_tag 'bootstrap-select' %>
+    <%= javascript_include_tag 'bootstrap-select' %>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "bootstrap-ie7buttonfix" if browser.ie7? %>
+		<%= stylesheet_link_tag "bootstrap-ie8buttonfix" if browser.ie8? %>
+		<%= stylesheet_link_tag "bootstrap-ie8buttonfix" if browser.ie8? %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <div id="main" role="main">
+			<% if browser.ie6? %>
+  	  	<p class="disclaimer">You're running an older IE version. Please update it!</p>
+			<% else %>
+  	 		
+			<% end %>
+    </div> <!--! end of #main -->
+  </body>
+</html>

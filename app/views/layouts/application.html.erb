@@ -6,32 +6,41 @@
     <title><%= content_for?(:title) ? yield(:title) : "My Truck Fleet" %></title>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= stylesheet_link_tag "application", :media => "all" %>
+	<%= stylesheet_link_tag "fullcalendar" %>
+	<%= stylesheet_link_tag "gmaps4rails" %>
+	<%= stylesheet_link_tag "services" %>
+	<%= stylesheet_link_tag "bootstrap_and_overrides" %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag :highcharts %>
     <%= stylesheet_link_tag 'bootstrap-select' %>
     <%= javascript_include_tag 'bootstrap-select' %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "bootstrap-ie7buttonfix" if browser.ie7? %>
-		<%= stylesheet_link_tag "bootstrap-ie8buttonfix" if browser.ie8? %>
-		<%= stylesheet_link_tag "bootstrap-ie8buttonfix" if browser.ie8? %>
+	<%= stylesheet_link_tag "bootstrap-ie8buttonfix" if browser.ie8? %>
+	<% if browser.ie7? || browser.ie8? %>
+    	<%= stylesheet_link_tag "ie7-specific" %>
+		<%= stylesheet_link_tag "fleets-ie7" %>
+		<%= stylesheet_link_tag "calendar-ie7" %>
+	<% else %>
+		<%= stylesheet_link_tag "calendar" %>
+		<%= stylesheet_link_tag "fleets" %>
+		<%= stylesheet_link_tag "other-specific" %>
+	<% end %>
     <%= yield(:head) %>
   </head>
   <body>
 		<div class='<%= 'ie7-navigational' %>'>
 			<div class="container">
-				<div class="content">
-					<%= render 'layouts/second_level_navigation' %>
-				</div>
+				<%= render 'layouts/second_level_navigation' %>
 			</div>
 		</div>
-		<div class='<%= browser.ie7? ? 'ie7-module_info' : 'module_info' %>''>
+		<div class='module_info margin-bottom-10px'>
 			<div class="container">
-				<div class="content">
-					<%= render 'layouts/module_info' %>
-				</div>
+				<h1><%= render 'layouts/module_info' %></h1>
 			</div>
 		</div>
+		<div class="spacer"></div>
     <div id="main" role="main">
       <div class="container">
         <div class="content">

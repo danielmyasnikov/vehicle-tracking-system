@@ -21,7 +21,7 @@ class FleetsController < ApplicationController
   # GET /fleets/1.json
   def show
     @fleet = Fleet.find(params[:id])
-    
+    @invoices = @fleet.assets.limit 3
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @fleet }

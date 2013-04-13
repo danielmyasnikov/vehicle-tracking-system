@@ -5,6 +5,7 @@
 			<div class='highlight-red'>
 				<span class="inline-header-count-number-red"><%= @overdue.present? ? @overdue.count : "0" %></span> Due vehicles
 			</div>
+			<!-- refactor due and overdue - replication -->
 			<div class='overdue-body'>
 				<% @overdue.each do |overdue| %>
 			      	<div class='overdue-item'>
@@ -39,11 +40,13 @@
 			<div class='highlight-yellow'>
 				<span class="inline-header-count-number-orange"><%= @due.present? ? @due.count : "0" %></span> Due vehicles
 			</div>
-			<div class='due-body'>
+			<div class='overdue-body'>
 				<% @due.each do |due| %>
 			      	<div class='overdue-item'>
-			      		<%= link_to due.fleet.name, fleet_path(due.fleet) %>
-				        <%= due.service_type.name %>
+						<div style="float: left;">
+			      			<%= link_to due.fleet.name, fleet_path(due.fleet) %>
+				        	<%= due.service_type.name %>
+						</div>
 				        <div class="right">
 				        	<%= link_to 'B', new_service_path(
 				        		:year => Date.today.year,
@@ -61,7 +64,8 @@
 	                      		:service_id => due.service_type.id),
 			                  	:class => 'btn btn-mini btn-danger' %>
 
-			             </div>
+			            </div>
+						<div style="clear:both;"></div>
 		             </div>
 			    <% end if @due.present? %>
 			</div>
@@ -76,7 +80,7 @@
 		<div class="bluish-border">
 			<div class='highlight-blue'>
 				<span class="inline-header-count-number-blue"><%= @trucks.count %></span> MyFleet 
-				<span style="margin-left: 590px;"><%= link_to t('.new', :default => t("helpers.links.new")),
+				<span class="button-new-margin-left"><%= link_to t('.new', :default => t("helpers.links.new")),
             		new_fleet_path,
             		:class => 'btn btn-warning' %></span>
 			</div>

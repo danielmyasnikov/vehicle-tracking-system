@@ -31,7 +31,6 @@ Mytruckfleet::Application.routes.draw do
     end
   end
   
-  
   resources :contact_truck_fleets
   resources :truck_fleets
 
