@@ -68,7 +68,7 @@ class Fleet < ActiveRecord::Base
     service = []
     breakdown = []
     # iterate the last 12 months
-    12.times do |x|
+    12.downto(0).each do |x|
       warranty << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:warranty)
       damage << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:damage)
       repair << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:repair)
