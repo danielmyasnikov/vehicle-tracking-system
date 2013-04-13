@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130064441) do
+ActiveRecord::Schema.define(:version => 20130413100504) do
+
+  create_table "animals", :force => true do |t|
+    t.date     "born_on"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -128,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20130130064441) do
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
+    t.integer  "age"
   end
 
   create_table "notifications", :force => true do |t|
@@ -160,6 +167,21 @@ ActiveRecord::Schema.define(:version => 20130130064441) do
     t.boolean  "gmaps"
     t.string   "full_address"
   end
+
+  create_table "reports", :force => true do |t|
+    t.integer  "fleet_id"
+    t.integer  "service_id"
+    t.float    "warranty"
+    t.float    "repair"
+    t.float    "damage"
+    t.float    "breakdown"
+    t.float    "service"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "reports", ["fleet_id"], :name => "index_reports_on_fleet_id"
+  add_index "reports", ["service_id"], :name => "index_reports_on_service_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -222,6 +244,7 @@ ActiveRecord::Schema.define(:version => 20130130064441) do
     t.boolean  "breakdown_done"
     t.string   "service_type_name"
     t.integer  "truck_fleet_id"
+    t.boolean  "archived"
   end
 
   create_table "settings", :force => true do |t|

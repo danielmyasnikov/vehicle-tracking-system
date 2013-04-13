@@ -6,6 +6,7 @@ class CalendarController < ApplicationController
       @trucks = current_user.truck_fleet.fleets.order("#{current_user.truck_fleet.setting.truck_identification} ASC")
       @drivers = current_user.truck_fleet.drivers
       @services = Service.where(:fleet_id => current_user.truck_fleet.fleets.pluck(:id)) if current_user.truck_fleet.fleets.present?
+      @services = @services.where(:archived => [false, nil])
     end
     @repairers = Repairer.all
     @trainings = Training.all

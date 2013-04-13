@@ -12,6 +12,7 @@ class TruckFleet < ActiveRecord::Base
   accepts_nested_attributes_for :contact_truck_fleets, :reject_if => lambda { |a| a[:email].blank? }, :allow_destroy => true
   has_one :setting
   has_many :users
+  has_many :reports, :through => :fleets
   
   def name
     trading_name_of_business

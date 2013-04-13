@@ -11,14 +11,51 @@ class ReportController < ApplicationController
     #@fleets = current_user.truck_fleet.fleets.where(:model => @params['model']) if @params['type'] == 'model'
     #@fleets = current_user.truck_fleet.fleets.where(:make => @params['make'])   if @params['type'] == 'make'
     
+    # 1. Get all reports for the truck_fleet
+    # 2. Group them by model / make / fleet_number
+    # 3. Group them by date
+    # 4. Group them service name
+    # 5. Prepare data for the high chart
+    # 6. Push data to hight charts
+    # 7. Get filters from the chart index page
+    # 8. 1 - 6
+    
+    @reports = current_user.truck_fleet.reports
     @fleets = current_user.truck_fleet.fleets
-
     @h = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:chart][:defaultSeriesType] = "area"
       @fleets.each do |fleet|
-        f.series(:name => fleet.name, :data => fleet.service_price_by_months_array.map {|e| e ? e : 0})
+        reports = fleet.reports_price_by_months_array
+        f.series(:name => fleet.name, :data => reports[:warranty].zip(reports[:service], reports[:breakdown], reports[:repair], reports[:damage]).map {|e| e.map(&:to_i).inject(&:+) })
       end
-    end
+    end    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
     
     data = []
     @fleets.each do |f|

@@ -14,6 +14,7 @@ class Fleet < ActiveRecord::Base
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
   has_attached_file :asset
   has_many :assets
+  has_many :reports
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   
   def cron_calc_milage
@@ -57,6 +58,30 @@ class Fleet < ActiveRecord::Base
       end
     end
     array_to_return
+  end
+  
+  def reports_price_by_months_array
+    array_to_return = {}
+    warranty = []
+    damage = []
+    repair = []
+    service = []
+    breakdown = []
+    # iterate the last 12 months
+    12.times do |x|
+      warranty << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:warranty)
+      damage << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:damage)
+      repair << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:repair)
+      service << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:service)
+      breakdown << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:breakdown)
+    end
+    array_to_return = { 
+      :warranty => warranty,
+      :damage => damage,
+      :repair => repair,
+      :service => service,
+      :breakdown => breakdown,
+    }
   end
   
   def services_total

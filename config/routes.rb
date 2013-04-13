@@ -17,7 +17,12 @@ Mytruckfleet::Application.routes.draw do
   post "report/index"
   get "report/show"
 
-  resources :services
+  resources :services do
+    member do
+      get 'finish'
+      post 'finish'
+    end
+  end
   resources :customers, :except => [:show]
   resources :contacts_repaiers
   resources :repairers

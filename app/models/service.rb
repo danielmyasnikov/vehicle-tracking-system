@@ -13,5 +13,5 @@ class Service < ActiveRecord::Base
   
   belongs_to :truck_fleet
   has_many :fleet_service_infos
-  
+  has_many :reports
 end

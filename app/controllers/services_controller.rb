@@ -78,7 +78,7 @@ class ServicesController < ApplicationController
     
     respond_to do |format|
       if @service.save
-        UserMailer.completed_booking(current_user, @service).deliver
+        # UserMailer.completed_booking(current_user, @service).deliver
         # TODO: changed completed
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render json: @service, status: :created, location: @service }
@@ -111,7 +111,29 @@ class ServicesController < ApplicationController
         serviceable = @service.fleet.serviceables.where(:service_type_id => params[:service][:service_type_name]).first
         serviceable.update_attributes(:next_service_date => Date.today + @service.fleet.calc_next_period_for_services(serviceable.service_time_interval, serviceable.service_period))
         # TODO: who updaetd the service + send to the primary and secondary contact details of the fleet 
-        @service.destroy
+      end
+    end
+  end
+  
+  def finish
+    @service = Service.find(params[:id])
+    @service.archived = true
+    puts params
+    # refactor this, may be there is a better way to assign values from the form :)
+    @report = @service.reports.build(
+      :fleet_id     => @service.fleet_id        ||= params[:fleet_id], 
+      :warranty     => @service.warranty_price  ||= params[:warranty],
+      :repair       => @service.repair_price    ||= params[:repair],
+      :damage       => @service.damage_price    ||= params[:damage],
+      :breakdown    => @service.breakdown_price ||= params[:breakdown],
+      :service      => @service.service_price   ||= params[:service]
+    )
+    respond_to do |format|
+      if @report.save && @service.save
+        flash[:notice] = 'Everything went OK!' and return
+      else
+        flash[:warning] = 'There were some issues. Please fix them or send an email with the issue to contact@sxtrailers.com.au'
+        redirect_to :back and return
       end
     end
   end
