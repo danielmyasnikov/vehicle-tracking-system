@@ -5,7 +5,7 @@
 			<div class='highlight-red'>
 				<span class="inline-header-count-number-red"><%= @overdue.present? ? @overdue.count : "0" %></span> Due vehicles
 			</div>
-			<!-- refactor due and overdue - replication -->
+			<!-- refactor due and overdue => replication -->
 			<div class='overdue-body'>
 				<% @overdue.each do |overdue| %>
 			      	<div class='overdue-item'>

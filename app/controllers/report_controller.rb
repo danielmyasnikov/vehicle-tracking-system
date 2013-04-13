@@ -19,6 +19,7 @@ class ReportController < ApplicationController
         f.series(:name => fleet.name, :data => fleet.service_price_by_months_array.map {|e| e ? e : 0})
       end
     end
+    
     data = []
     @fleets.each do |f|
       data << { :name => f.name, :y => f.services_total } 
@@ -35,7 +36,7 @@ class ReportController < ApplicationController
       data << { :name => m, :y => total_price } 
     end if params['make']
     
-    # by make
+    # by model
     models = @fleets.scoped.pluck(:model).uniq.compact
     models.each do |m|
       total_price = 0

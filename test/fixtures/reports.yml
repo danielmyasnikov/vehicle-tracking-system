@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  fleet: 
+  service: 
+  warranty: 1.5
+  repair: 1.5
+  damage: 1.5
+  breakdown: 1.5
+  service: 1.5
+
+two:
+  fleet: 
+  service: 
+  warranty: 1.5
+  repair: 1.5
+  damage: 1.5
+  breakdown: 1.5
+  service: 1.5
