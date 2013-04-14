@@ -47,7 +47,10 @@
 		<dl class="dl-horizontal">
 			<div class='white-background centre'>
 				<% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
-				<%= image_tag "#{aws_name}/Truck.png", :size => '240x240', :class => 'width-280px' %>
+				
+				<%= image_tag @fleet.avatar.url, :size => '240x240', :class => 'width-280px' if @fleet.avatar.present? %>
+				<%= image_tag "#{aws_name}/#{@fleet.vehicle_type}.png", :size => '240x240', :class => 'width-280px' if @fleet.vehicle_type.present? && !@fleet.avatar.present? %>
+				<%= image_tag "#{aws_name}/Truck.png", :size => '240x240', :class => 'width-280px' if @fleet.vehicle_type.nil? && !@fleet.avatar.present? %>
 			</div>
 			<h3 class='blue'>Invoices</h3>
 			  <% if @invoices.present? %>

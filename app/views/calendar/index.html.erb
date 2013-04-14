@@ -3,7 +3,7 @@
 	<div class='span4'>
 		<div class="reddish-border">
 			<div class='highlight-red'>
-				<span class="inline-header-count-number-red"><%= @overdue.present? ? @overdue.count : "0" %></span> Due vehicles
+				<span class="inline-header-count-number-red"><%= @overdue.present? ? @overdue.count : "0" %></span> Overdue vehicles
 			</div>
 			<% # TODO refactor due and overdue => replication %>
 			<div class='overdue-body'>
@@ -210,10 +210,15 @@ $(document).ready(function() {
     defaultView: 'agendaWeek',
     slotMinutes: 120,
     height: 650,
-	header: {
-		left: 'prev,next today',
-		center: 'title',
-		right: 'month,basicWeek,basicDay'
+    titleFormat: {
+	    month: 'MMMM yyyy',
+	    week: "d[ MMMM]{ - d MMMM}",
+			day: 'd MMMM'
+		},
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,basicWeek,basicDay'
 	},
 	viewDisplay: function(view){
 		if (view.name === 'basicDay')
