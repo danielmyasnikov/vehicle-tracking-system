@@ -22,11 +22,13 @@ class ReportController < ApplicationController
     
     @reports = current_user.truck_fleet.reports
     @fleets = current_user.truck_fleet.fleets
+    puts params
     @h = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:chart][:defaultSeriesType] = "area"
       @fleets.each do |fleet|
         reports = fleet.reports_price_by_months_array
-        f.series(:name => fleet.name, :data => reports[:warranty].zip(reports[:service], reports[:breakdown], reports[:repair], reports[:damage]).map {|e| e.map(&:to_i).inject(&:+) })
+        # TODO: refactor
+        f.series(:name => fleet.name, :data => reports)
       end
     end    
     
@@ -113,5 +115,11 @@ class ReportController < ApplicationController
   end
 
   def show
+  end
+  
+  private
+  
+  def get_reports(breakdown = [], repair = [], service = [], damage = [], warranty = [])
+    
   end
 end

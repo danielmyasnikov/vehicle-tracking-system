@@ -1,64 +1,105 @@
 <%- model_class = Service -%>
-
-<%= high_chart("my_id", @h) %>
-
-<%= high_chart("my_id4", @chart) do |c| %>
-	<%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: $'+ this.y +'.00 ';}"  %>
-	<%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
-<% end %>
-<%= form_tag report_index_path do %>
-<div class="btn-group">
-  <button class="btn"><%= submit_tag "Vehicle ID", :name => 'truck' %></button>
-  <button class="btn"><%= submit_tag "By model", :name => 'model' %></button>
-  <button class="btn"><%= submit_tag "By make", :name => 'make' %></button>
+<div class="row">
+	<div class="span8">
+		<div class="margin-bottom-10px">
+		<%= high_chart("my_id", @h) %>
+		</div>
+			<%= high_chart("my_id4", @chart) do |c| %>
+				<%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: $'+ this.y +'.00 ';}"  %>
+				<%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
+			<% end %>
+		
+		</div>
+	<div class="span4">
+		<%= form_tag report_index_path, :html => { :class => 'form-horizontal' } do %>
+		<div class="control-group">
+	    <%= label_tag :by_type, "Group by type", :class => 'control-label' %>
+	    	<label class='radio'>
+	    		<%= radio_button_tag 'filter[type]', :name %>Name
+	    	</label>
+	      <label class='radio'>
+	    		<%= radio_button_tag 'filter[type]', :make, true %>Make
+	    	</label>
+	    	<label class='radio'>
+	    		<%= radio_button_tag 'filter[type]', :model %>Model
+	    	</label>
+	  </div>
+	  <div class="control-group">
+	    <%= label_tag :by_service, "Calculate by service name", :class => 'control-label' %>
+    	<label class='checkbox'>
+    		<%= check_box_tag 'filter[service][]', :service, false, :id => 'filter_service_service' %>Service
+    	</label>
+    	<label class='checkbox'>
+    		<%= check_box_tag 'filter[service][]', :damage, false, :id => 'filter_service_damage' %>Damage
+    	</label>
+    	<label class='checkbox'>
+    		<%= check_box_tag 'filter[service][]', :breakdown, false, :id => 'filter_service_breakdown' %>Breakdown
+    	</label>
+    	<label class='checkbox'>
+    		<%= check_box_tag 'filter[service][]', :warranty, false, :id => 'filter_service_warranty' %>Warranty
+    	</label>
+      <label class='checkbox'>
+    		<%= check_box_tag 'filter[service][]', :repair, false, :id => 'filter_service_repair' %>Repair
+    	</label>
+    	<label class='checkbox'>
+    		<%= check_box_tag 'filter[service][]', :all, true, :id => 'filter_service_all' %>All
+    	</label>
+	  </div>
+	  <div class="control-group hidden">
+	  	<%= label_tag :by_date, "Filter by service date", :class => 'control-label' %>
+	  	<div class="text_field">
+	  		<%= text_field_tag 'filter[date_from]', 12.months.ago.day.to_s + '-' + 12.months.ago.month.to_s + '-' + 12.months.ago.year.to_s, 'data-behaviour' => 'datepicker' %></br>
+	  	</div>
+	  	<div class="text_field">
+	  		<%= text_field_tag 'filter[date_to]', 0.months.ago.day.to_s + '-' + 0.months.ago.month.to_s + '-' + 0.months.ago.year.to_s, 'data-behaviour' => 'datepicker' %>
+	  	</div>
+	  </div>
+		<%= submit_tag nil, :class => "btn btn-success" %>
+		<% end %>
+	</div>
 </div>
-<% end %>
+
 <% @fleets.each do |fleet| %>
 <h2><%= fleet.name %></h2>
-	<% if !fleet.services.blank? %>
+	<% if fleet.reports.present? %>
+	<i>Last three services</i>
 		<table class="table table-striped">
 		  <thead>
 		    <tr>
-		      <th>Service name</th>
-			  <th>Service type</th>
-			  <th>Service</th>
-			  <th>Warranty</th>
-			  <th>Damage</th>
-			  <th>Repair</th>
-			  <th>Self Service</th>
+		    	<th>Service type</th>
+				  <th>Service</th>
+				  <th>Warranty</th>
+				  <th>Damage</th>
+				  <th>Repair</th>
+				  <th>Breakdown</th>
+				  <th>Totals</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		  	<% warranty_total = 0 %> <% damage_total = 0 %> <% repair_total = 0 %> <% service_total = 0 %>
-		  	<% fleet.services.each do |service| %>
+		  	<% warranty_total = fleet.reports.order('created_at DESC').limit(3).pluck(:warranty).inject{|sum, x| sum.to_i + x.to_i} %>
+		  	<% damage_total = fleet.reports.order('created_at DESC').limit(3).pluck(:damage).inject{|sum, x| sum.to_i + x.to_i} %>
+		  	<% repair_total = fleet.reports.order('created_at DESC').limit(3).pluck(:repair).inject{|sum, x| sum.to_i + x.to_i} %>
+		  	<% service_total = fleet.reports.order('created_at DESC').limit(3).pluck(:service).inject{|sum, x| sum.to_i + x.to_i} %>
+		  	<% breakdown_total = fleet.reports.order('created_at DESC').limit(3).pluck(:service).inject{|sum, x| sum.to_i + x.to_i} %>
+		  	<% fleet.reports.order('created_at DESC').limit(3).each do |report| %>
 		      <tr>
-		        <td><%= ServiceType.find(service.service_type_name).name if service.service_type_name %></td>
-		        <td><%= service.service_type %></td>
-		 		<td><%# if service.repair %>
-		 			<%= number_to_currency(service.service_price) if service.service_type %></td><% service_total += service.service_price ||= 0 %>
-		 			<%# end %>
-				<td><%# if service.warranty%>
-					<%= number_to_currency(service.warranty_price) %>
-				</td><% warranty_total += service.warranty_price ||= 0 %>
-				<%# end %>
-				<td><%# if service.damage %>
-					<%= number_to_currency(service.damage_price) %></td>
-				<% damage_total += service.damage_price ||= 0 %>
-				<%# end %>
-				<td><%# if service.repair %>
-					<%= number_to_currency(service.repair_price) %></td><% repair_total += service.repair_price ||= 0 %>
-				<%#end %>
-				<td><%= service.self_service ? "Yes" : "No" %></td>
+		      	<td><%= report.support.service_type %></td>
+		        <td><%= report.service %></td>
+		        <td><%= report.warranty %></td>
+		        <td><%= report.damage %></td>
+		        <td><%= report.repair %></td>
+		        <td><%= report.breakdown %></td>
+		        <td><b><%= number_to_currency(report.service.to_i + report.warranty.to_i + report.damage.to_i + report.repair.to_i + report.breakdown.to_i) %></b></td>
 		      </tr>
 		     <% end %>
 		    <tr>
-		    	<td></td>
 		    	<td><b>Total per service:</b></td>
 		    	<td><b><%= number_to_currency(service_total) %></b></td>
 		    	<td><b><%= number_to_currency(warranty_total) %></b></td>
 		    	<td><b><%= number_to_currency(damage_total) %></b></td>
 		    	<td><b><%= number_to_currency(repair_total) %></b></td>
-		    	<td><b>Sum: <%= number_to_currency( service_total + warranty_total + damage_total + repair_total ) %></b></td>
+		    	<td><b><%= number_to_currency(breakdown_total) %></b></td>
+		    	<td><b>Sum: <%= number_to_currency(service_total + warranty_total + damage_total + repair_total + breakdown_total)%></b></td>
 		    </tr> 
 		  </tbody>
 		</table>
@@ -66,3 +107,23 @@
 		No services
 	<% end %>
 <% end %>
+<script type="text/javascript">
+	$('#filter_service_repair, #filter_service_service, #filter_service_damage, #filter_service_breakdown, #filter_service_warranty').click(function(){
+		if ($('#filter_service_all').is(":checked")){
+			$('#filter_service_all').removeAttr('checked');
+		}
+	});
+	$("#filter_service_all").click(function(){
+		if ($('#filter_service_all').is(":checked")){
+			$('#filter_service_repair, #filter_service_service, #filter_service_damage, #filter_service_breakdown, #filter_service_warranty').removeAttr("checked");
+		} else {
+			$('#filter_service_breakdown').attr('checked', 'checked');
+		}
+	});
+  $('#filter_date_from').datepicker({
+  	format: 'dd-mm-yyyy'
+  });
+  $('#filter_date_to').datepicker({
+  	format: 'dd-mm-yyyy'
+  });
+</script>
