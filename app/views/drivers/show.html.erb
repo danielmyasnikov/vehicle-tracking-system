@@ -5,19 +5,19 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @driver.name %></dd>
+  <dd><%= @driver.name.present? ? @driver.name : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:phone_no) %>:</strong></dt>
-  <dd><%= @driver.phone_no %></dd>
+  <dd><%= @driver.phone_no.present? ? @driver.phone_no : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
-  <dd><%= @driver.pic %></dd>
+  <dd><%= @driver.pic.present? ? @driver.pic : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:dl_number) %>:</strong></dt>
-  <dd><%= @driver.dl_number %></dd>
+  <dd><%= @driver.dl_number.present? ? @driver.dl_number : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:dl_expiry) %>:</strong></dt>
-  <dd><%= @driver.dl_expiry %></dd>
+  <dd><%= @driver.dl_expiry.present? ? @driver.dl_expiry : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:training_schedule) %>:</strong></dt>
-  <dd><%= @driver.training_schedule %></dd>
+  <dd><%= @driver.training_schedule.present? ? @driver.training_schedule : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:training_documents) %>:</strong></dt>
-  <dd><%= @driver.training_documents %></dd>
+  <dd><%= @driver.training_documents.present? ? @driver.training_documents : $not_available %></dd>
 </dl>
 
 <div class="form-actions">

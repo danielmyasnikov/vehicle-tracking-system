@@ -5,19 +5,19 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:fault_type) %>:</strong></dt>
-  <dd><%= @fault_book.fault_type %></dd>
+  <dd><%= @fault_book.fault_type.present? ? @fault_book.fault_type : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:driver_id) %>:</strong></dt>
-  <dd><%= @fault_book.driver_id %></dd>
+  <dd><%= @fault_book.driver_id.present? ? @fault_book.driver.name.present? ? @fault_book.driver.name : $not_available : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
-  <dd><%= @fault_book.fleet_id %></dd>
+  <dd><%= @fault_book.fleet_id.present? ? @fault_book.fleet.name : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:fault_date) %>:</strong></dt>
-  <dd><%= @fault_book.fault_date %></dd>
+  <dd><%= @fault_book.fault_date.present? ? @fault_book.fault_date : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:mileage) %>:</strong></dt>
-  <dd><%= @fault_book.mileage %></dd>
+  <dd><%= @fault_book.mileage.present? ? @fault_book.mileage : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:contact_no) %>:</strong></dt>
-  <dd><%= @fault_book.contact_no %></dd>
+  <dd><%= @fault_book.contact_no.present? ? @fault_book.contact_no : $not_available %></dd>
   <dt><strong><%= model_class.human_attribute_name(:faults) %>:</strong></dt>
-  <dd><%= @fault_book.faults %></dd>
+  <dd><%= @fault_book.faults.present? ? @fault_book.faults : $not_available %></dd>
 </dl>
 
 <div class="form-actions">

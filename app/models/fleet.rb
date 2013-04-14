@@ -147,15 +147,13 @@ class Fleet < ActiveRecord::Base
   end
   
   def update_serviceables(params)
+    puts params
     if params.present?
       params.each do |key, value|
         s = serviceables.find_by_service_type_id(key)
-        puts key.inspect
-        puts value.inspect
-        puts s.to_yaml
         s.update_attributes(value)
         next_service = calc_next_period_for_services(value["service_time_interval"], value["service_period"])
-        s.next_service_date = Date.today + next_service
+        s.next_service_date = Date.today + next_service if value["service_time_interval"].present?
         s.save
       end
     end

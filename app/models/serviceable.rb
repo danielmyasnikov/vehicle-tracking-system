@@ -7,7 +7,7 @@ class Serviceable < ActiveRecord::Base
   
   def cancel_service
     puts serviceable_period != 0 && next_service_date.present?
-    self.next_service_date = next_service_date + service_time_interval * serviceable_period if serviceable_period != 0 && next_service_date.present?
+    self.next_service_date = next_service_date + service_time_interval.to_i * serviceable_period.to_i if serviceable_period != 0 && next_service_date.present?
     self.save
   end
   

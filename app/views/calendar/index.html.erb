@@ -5,10 +5,10 @@
 			<div class='highlight-red'>
 				<span class="inline-header-count-number-red"><%= @overdue.present? ? @overdue.count : "0" %></span> Due vehicles
 			</div>
-			<!-- refactor due and overdue => replication -->
+			<% # TODO refactor due and overdue => replication %>
 			<div class='overdue-body'>
 				<% @overdue.each do |overdue| %>
-			      	<div class='overdue-item'>
+			      <div class='overdue-item'>
 			      		<div style="float: left;">
 			      		<%= link_to overdue.fleet.name, fleet_path(overdue.fleet) %>
 				        <%= overdue.service_type.name %>
@@ -19,20 +19,18 @@
 				        		:month => Date.today.month,
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour
-				        	),
-	                      	  :class => 'btn btn-mini btn-success' %>
-	                      	<%= link_to 'P', postpone_fleet_path(
-	                      		:model => overdue.fleet.model, 
-	                      		:next_service => overdue.fleet.next_service_date,
-	                      		:id => overdue.fleet),
-			                  :class => 'btn btn-mini btn-warning' %>
-			                  <%= link_to 'C', cancel_fleet_path(
+				        	), :class => 'btn btn-mini btn-success' %>
+                	<%= link_to 'P', postpone_fleet_path(
 	                      		overdue.fleet,
 	                      		:service_id => overdue.service_type.id),
-			                  	:class => 'btn btn-mini btn-danger' %>
-			             </div>
-			             <div style="clear:both;"></div>
-		             </div>
+			                  	:class => 'btn btn-mini btn-warning' %>
+                <%= link_to 'C', cancel_fleet_path(
+                		overdue.fleet,
+                		:service_id => overdue.service_type.id),
+                		:class => 'btn btn-mini btn-danger' %>
+			          </div>
+			          <div style="clear:both;"></div>
+		      	</div>
 			    <% end if @overdue.present? %>
 			</div>
 		</div>
