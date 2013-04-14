@@ -2,13 +2,13 @@
 	<%= f.label fleet_service.service_type.name.humanize.to_sym, :class => 'control-label fleet-labals font-bold' %>
 	<div class="controls">
 		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_km_interval]", fleet_service.service_km_interval, 
-				:class => 'service-km-est-text-field-width-height margin-bottom-10px' 
+				:class => 'service_time_interval service-km-est-text-field-width-height margin-bottom-10px' 
 		%> KM <br />
 		<%= text_field_tag "fields[#{fleet_service.service_type.id}][service_time_interval]", fleet_service.service_time_interval, 
-				:class => 'service-km-est-text-field-width-height', 
+				:class => 'service_km_interval service-km-est-text-field-width-height', 
 				:placeholder => 'Or every?' 
 		%> 
 		<%= select_tag "fields[#{fleet_service.service_type.id}][service_period]", options_for_select(['Year', 'Month', 'Day']), 
-				:class => 'service-km-select-km-est-width selectpicker' %>
+				:class => "service_period service-km-select-km-est-width selectpicker" %>
 	</div>
 </div>

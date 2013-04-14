@@ -28,70 +28,28 @@ class ReportController < ApplicationController
       @fleets.each do |fleet|
         reports = fleet.reports_price_by_months_array
         # TODO: refactor
-        f.series(:name => fleet.name, :data => reports)
+        f.series(:name => fleet.name, :data => reports[:warranty].zip(reports[:service], reports[:breakdown], reports[:repair], reports[:damage]).map {|e| e.map(&:to_i).inject(&:+) })
       end
     end    
-    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-
-
-    
     data = []
     @fleets.each do |f|
-      data << { :name => f.name, :y => f.services_total } 
+      # TODO: refactor
+      total = 0
+      total += f.reports.sum(:warranty)
+      total += f.reports.sum(:service)
+      total += f.reports.sum(:damage)
+      total += f.reports.sum(:breakdown)
+      total += f.reports.sum(:repair)
+      data << { :name => f.name, :y => total } 
     end if params['make'].nil? && params['model'].nil?
-    
-    # by make
-    makes = @fleets.scoped.pluck(:make).uniq.compact
-    makes.each do |m|
-      total_price = 0
-      fleets = @fleets.scoped.where(:make => m)
-      fleets.each do |fleet|
-        total_price += fleet.services_total
-      end
-      data << { :name => m, :y => total_price } 
-    end if params['make']
-    
-    # by model
-    models = @fleets.scoped.pluck(:model).uniq.compact
-    models.each do |m|
-      total_price = 0
-      fleets = @fleets.scoped.where(:model => m)
-      fleets.each do |fleet|
-        total_price += fleet.services_total
-      end
-      data << { :name => m, :y => total_price } 
-    end if params['model']
-    
+        
     @chart = LazyHighCharts::HighChart.new('pie') do |f|
       f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
       series = {
-               :type=> 'pie',
-               :name=> 'Browser share',
-               :data=> data
+               :type => 'pie',
+               :name => 'Browser share',
+               :data => data
       }
       f.series(series)
       f.options[:title][:text] = "Total spend on services"
@@ -117,9 +75,4 @@ class ReportController < ApplicationController
   def show
   end
   
-  private
-  
-  def get_reports(breakdown = [], repair = [], service = [], damage = [], warranty = [])
-    
-  end
 end

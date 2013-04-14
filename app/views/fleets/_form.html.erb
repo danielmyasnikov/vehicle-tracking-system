@@ -87,9 +87,11 @@
 	      <%= f.check_box :auto_services, :class => 'check_box' %>  <i><font size="2">If unticked kilometres will be entered on service page</font></i>
 	    </div>
 	  </div>
-	  <% @fleet.serviceables.each do |fs| %>
+	  <% @fleet.serviceables.each_with_index do |fs, i| %>
 			<%= f.fields_for fs do |builder| %>
-			  <%= render "service_types", :f => builder, :fleet_service => fs %>
+				<div class="auto_services">
+				  <%= render "service_types", :f => builder, :fleet_service => fs, :i => i %>
+				</div>
 			<% end %>
 	  <% end %>
 		<hr>
