@@ -18,7 +18,7 @@
 			</div>
 		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:vin) %>:</strong></dt>
-			  <dd><%= @fleet.vin.present? ? @fleet.fault_vintype : $not_available %></dd>
+			  <dd><%= @fleet.vin.present? ? @fleet.vin : $not_available %></dd>
 		  </div>
 		  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
 			  <dt class="blue fleet-labals"><%= model_class.human_attribute_name(:registration) %>:</strong></dt>
