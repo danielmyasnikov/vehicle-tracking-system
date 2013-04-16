@@ -11,9 +11,9 @@ Mytruckfleet::Application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => 'my-truck-fleet'
-      :access_key_id => 'AKIAIQLJGUMX2XSY624A'
-      :secret_access_key => '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'
+      :bucket => 'my-truck-fleet',
+      :access_key_id => 'AKIAIQLJGUMX2XSY624A',
+      :secret_access_key => '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',
     }
   }
 
