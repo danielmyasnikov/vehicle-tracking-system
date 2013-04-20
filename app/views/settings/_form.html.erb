@@ -3,16 +3,16 @@
 <div class="control-group">
 	<%= f.label :truck_identification, :class => 'control-label' %>
 	<div class="controls">
-		<%= f.collection_select :truck_identification, [["Fleet Number", "fleet_number"], ["Make", "make"], ["Model", "model"], ["VIN", "vin"], ["Registration", "registration"]], :last, :first, :class => 'text_field' %>
+		<%= f.collection_select :truck_identification, 
+			[
+				["Fleet Number", "fleet_number"], 
+				["Make", "make"], 
+				["Model", "model"], 
+				["VIN", "vin"], 
+				["Registration", "registration"]
+			], :last, :first, :class => 'text_field' %>
 	</div>
 </div>
-<div class="control-group">
-	<%= f.label :report_email_periods, :class => 'control-label' %>
-	<div class="controls">
-		<%= f.select :email_periods, ["Daily", "Weekly", "Tuesdays & Thursdays"], :class => 'text_field' %>
-	</div>
-</div>
-
   <% @setting.email_notifications.each do |en| %>
 	<%= f.fields_for en do |builder| %>
 	  <%= render "email_notifications", :f => builder, :email_notification => en %>

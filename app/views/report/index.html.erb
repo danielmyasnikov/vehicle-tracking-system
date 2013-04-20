@@ -10,12 +10,13 @@
 			<% end %>
 		
 		</div>
-	<div class="span4 hidden">
+	<div class="span4">
 		<%= form_tag report_index_path, :html => { :class => 'form-horizontal' } do %>
 		<div class="control-group">
 	    <%= label_tag :by_type, "Group by type", :class => 'control-label' %>
 	    	<label class='radio'>
-	    		<%= radio_button_tag 'filter[type]', :name %>Name
+	    		<%= radio_button_tag 'filter[type]', :name %>Truck identification
+				
 	    	</label>
 	      <label class='radio'>
 	    		<%= radio_button_tag 'filter[type]', :make, true %>Make
@@ -45,7 +46,7 @@
     		<%= check_box_tag 'filter[service][]', :all, true, :id => 'filter_service_all' %>All
     	</label>
 	  </div>
-	  <div class="control-group hidden">
+	  <div class="control-group">
 	  	<%= label_tag :by_date, "Filter by service date", :class => 'control-label' %>
 	  	<div class="text_field">
 	  		<%= text_field_tag 'filter[date_from]', 12.months.ago.day.to_s + '-' + 12.months.ago.month.to_s + '-' + 12.months.ago.year.to_s, 'data-behaviour' => 'datepicker' %></br>

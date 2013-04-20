@@ -1,9 +1,11 @@
 class FaultBook < ActiveRecord::Base
-  attr_accessible :contact_no, :driver_id, :fault_date, :fault_type, :faults, :fleet_id, :mileage
+  attr_accessible :contact_no, :driver_id, :fault_date, :fault_type,
+                  :faults, :fleet_id, :mileage, :address
   
   belongs_to :fleet
   belongs_to :driver
-  
+  geocoded_by :address
+  after_validation :geocode
   # TODO: validate presence of driver, flet, faults, fault_type, 
   
   def self.belongs_to_truck_fleet(truck_fleet, fault_books)
