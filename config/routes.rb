@@ -1,5 +1,4 @@
 Mytruckfleet::Application.routes.draw do
-  resources :fault_books
   resources :service_types
   resources :notifications
   resources :settings
@@ -16,6 +15,15 @@ Mytruckfleet::Application.routes.draw do
   get "report/index"
   post "report/index"
   get "report/show"
+  
+  resources :fault_books do
+    member do 
+      get 'postpone'
+      put 'postponed'
+      get 'cancel'
+      put 'cancel'
+    end
+  end
 
   resources :services do
     member do

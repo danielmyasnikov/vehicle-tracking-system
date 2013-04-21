@@ -47,10 +47,12 @@ class FleetsController < ApplicationController
     @assets = @fleet.assets.build
   end
   
+  # TODO: move to services / serviceables
   def postpone
     @serviceable = Serviceable.where(:service_type_id => params[:service_id], :fleet_id => params[:id]).first
   end
   
+  # TODO: move to services / serviceables
   def postponed
     @serviceable = Serviceable.find(params[:id])
     @serviceable.update_attributes(params[:serviceable])
@@ -58,6 +60,7 @@ class FleetsController < ApplicationController
     redirect_to controller: :calendar, action: :index
   end
   
+  # TODO: move to services / serviceables
   def cancel
     @serviceable = Serviceable.where(:service_type_id => params[:service_id], :fleet_id => params[:id]).first
     @serviceable.cancel_service # TODO if !@serviceable.set_date

@@ -1,0 +1,26 @@
+<% @postponing = true %>
+	
+<div id="postpone"><%- model_class = Serviceable -%>
+	<%= form_for @fault_book, :html => { :class => 'form-horizontal' }, :url => postponed_fault_book_path(@fault_book)  do |f| %>
+	  <div class="control-group">
+      	<div class="controls">
+      	  	<%= "Fault book creation date: #{@fault_book.created_at.strftime("%d/%m/%y")}" %>
+          	<%= f.label 'Postpone until: ' %>
+			<%= f.text_field :fault_date, :class => 'text_field datepicker' %>
+        </div>
+  	  </div>
+	  	<div class="form-actions">
+    		<%= f.submit 'Postpone', :class => 'btn btn-primary' %>
+    		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                calendar_index_path, :class => 'btn' %>
+  		</div>
+	<% end %>
+</div>
+<script type="text/javascript">
+  var today = new Date();
+  month = today.getMonth() + 1;
+  $('#fault_book_fault_date').val(today.getDate() + '-' + month + '-' + today.getFullYear());
+  $('#fault_book_fault_date').datepicker({
+  	format: 'dd-mm-yyyy'
+  });
+</script>

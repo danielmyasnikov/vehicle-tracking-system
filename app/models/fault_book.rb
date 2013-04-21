@@ -1,8 +1,9 @@
 class FaultBook < ActiveRecord::Base
   attr_accessible :contact_no, :driver_id, :fault_date, :fault_type,
-                  :faults, :fleet_id, :mileage, :address
+                  :faults, :fleet_id, :mileage, :address, :truck_fleet_id, :truck_fleet
   
   belongs_to :fleet
+  belongs_to :truck_fleet
   belongs_to :driver
   geocoded_by :address
   after_validation :geocode

@@ -90,4 +90,19 @@ class FaultBooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def postpone
+    @fault_book = FaultBook.find(params[:fault_book])
+  end
+  
+  def postponed
+    @fault_book = FaultBook.find(params[:id])
+    @fault_book.update_attributes(params[:fault_book])
+    
+    redirect_to controller: :calendar, action: :index
+  end
+  
+  def cancel
+    
+  end
 end

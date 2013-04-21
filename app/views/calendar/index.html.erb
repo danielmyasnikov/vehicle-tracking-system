@@ -9,8 +9,10 @@
 			<div class='overdue-body'>
 				<% @overdue.each do |overdue| %>
 			      <div class='overdue-item'>
-			      		<div style="float: left;">
+					<% if (defined? overdue.service_type) %>
+			      	<div style="float: left;">	
 			      		<%= link_to overdue.fleet.name, fleet_path(overdue.fleet) %>
+						<!-- Displays overdue services or Major Fault Book records  -->
 				        <%= overdue.service_type.name %>
 				        </div>
 				        <div class="right">
@@ -20,30 +22,58 @@
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour
 				        	), :class => 'btn btn-mini btn-success' %>
-                	<%= link_to 'P', postpone_fleet_path(
+                			<%= link_to 'P', postpone_fleet_path(
 	                      		overdue.fleet,
 	                      		:service_id => overdue.service_type.id),
 			                  	:class => 'btn btn-mini btn-warning' %>
-                <%= link_to 'C', cancel_fleet_path(
-                		overdue.fleet,
-                		:service_id => overdue.service_type.id),
-                		:class => 'btn btn-mini btn-danger' %>
+                			<%= link_to 'C', cancel_fleet_path(
+                				overdue.fleet,
+                				:service_id => overdue.service_type.id),
+                				:class => 'btn btn-mini btn-danger' %>
 			          </div>
-			          <div style="clear:both;"></div>
+			    	<div style="clear:both;"></div>
+					<% else %>
+						<%= link_to overdue.fleet.name, fleet_path(overdue.fleet) %>
+						<%= link_to 'Minor fault', fault_book_path(overdue) %>
+						<div class="right">
+							<%= link_to 'B', new_service_path(
+				        		:year => Date.today.year,
+				        		:month => Date.today.month,
+				        		:day => Date.today.day,
+				        		:hours =>  Time.now.hour
+				        	), :class => 'btn btn-mini btn-success' %>
+                			<%= link_to 'P', postpone_fault_book_path(
+	                      		overdue.fleet,
+	                      		:fault_book => overdue),
+			                  	:class => 'btn btn-mini btn-warning' %>
+                			<%= link_to 'C', cancel_fault_book_path(
+                				overdue.fleet,
+                				:fault_book => overdue),
+                				:class => 'btn btn-mini btn-danger' %>
+						</div>
+					<% end %>
 		      	</div>
 			    <% end if @overdue.present? %>
 			</div>
 		</div>
 		<div class="yellowish-border">
 			<div class='highlight-yellow'>
-				<span class="inline-header-count-number-orange"><%= @due.present? ? @due.count : "0" %></span> Due vehicles
+				<span class="inline-header-count-number-orange"><%= @due.present? ? @due.count : "0" %></span> 
+				Due vehicles
 			</div>
 			<div class='overdue-body'>
 				<% @due.each do |due| %>
 			      	<div class='overdue-item'>
+						<% if (defined? due.service_type) %>
 						<div style="float: left;">
 			      			<%= link_to due.fleet.name, fleet_path(due.fleet) %>
-				        	<%= due.service_type.name %>
+							<!-- 
+								TODO refactor this: too much of repetitoins, 
+								for example due and fault book minor do the same stuff 
+								probably data structure is wrong in this pattern 
+							-->
+							<% fault_book_item = link_to due.fault_type, fault_book_path(due) if !(defined? due.service_type)%>
+							<%= (defined? due.service_type) ? due.service_type.name : fault_book_item %>
 						</div>
 				        <div class="right">
 				        	<%= link_to 'B', new_service_path(
@@ -61,9 +91,32 @@
 	                      		due.fleet,
 	                      		:service_id => due.service_type.id),
 			                  	:class => 'btn btn-mini btn-danger' %>
-
 			            </div>
 						<div style="clear:both;"></div>
+						<% else %>
+							<%= link_to due.fleet.name, fleet_path(due.fleet) %> -
+							<%= link_to 'Minor fault', fault_book_path(due) %>
+							<div class="right">
+								<%= link_to 'B', new_service_path(
+					        		:year => Date.today.year,
+					        		:month => Date.today.month,
+					        		:day => Date.today.day,
+					        		:hours =>  Time.now.hour,
+									:type => :fault
+					        	), :class => 'btn btn-mini btn-success' %>
+	                			<%= link_to 'P', postpone_fault_book_path(
+		                      		due.fleet,
+		                      		:fault_book => due),
+				                  	:class => 'btn btn-mini btn-warning'
+				 				%>
+	                			<%= link_to 'C', cancel_fault_book_path(
+	                				due.fleet,
+	                				:fault_book => due,
+									:type => :fault),
+	                				:class => 'btn btn-mini btn-danger'
+	 							%>
+							</div>
+						<% end %>
 		             </div>
 			    <% end if @due.present? %>
 			</div>

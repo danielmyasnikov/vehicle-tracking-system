@@ -5,6 +5,7 @@ class TruckFleet < ActiveRecord::Base
                   
   has_many :contact_truck_fleets, :dependent => :destroy
   has_many :fleets
+  has_many :fault_book
   has_many :drivers
   has_many :repairers
   has_many :services
