@@ -1,8 +1,15 @@
-namespace :stats do 
-  desc "Show the number of animals alive" 
-  task :alive => :environment do |t, args| 
-    kingdom = Kingdom.find_by_name args[:kingdom] 
-    count = kingdom.animals.where('is_dead != ?', false).count 
-    puts "#{count} alive animals in #{kingdom.name}" 
-  end 
+namespace :mtf do 
+  desc "Count KM estimates for fleets" 
+  task :count_daily_milage => :environment do |t, args|
+    @start_time = Time.now
+    puts "Started calculation for fleets at #{@start_time.strftime("%Y/%m/%d - %H:%M:%S")}"
+    Fleet.all.each do |f|
+      @current_time = Time.now
+      puts "Processing fleet #{f.id} actual = #{f.actual_km}"
+      f.cron_calc_milage
+      puts "Processing fleet #{f.id} calculated = #{f.actual_km}"
+    end
+    @finish_time = Time.now
+    puts "Finished calculation for fleets at #{@finish_time.strftime("%Y/%m/%d - %H:%M:%S")}"
+  end
 end

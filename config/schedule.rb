@@ -1,4 +1,4 @@
-set :output, "/path/to/my/cron_log.log"
-every 24.hours do
-  rake "mtf:calc_milage"
+set :output, "#{RAILS_ROOT}/log/cron_log.log"
+every 1.minutes do
+  rake "mtf:count_daily_milage"
 end
