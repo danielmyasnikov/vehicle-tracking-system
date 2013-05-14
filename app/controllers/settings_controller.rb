@@ -29,7 +29,8 @@ class SettingsController < ApplicationController
     @setting = Setting.new(:truck_fleet_id => 3) if current_user.admin
     @setting.build_email_notifications
     @notifications = Notification.all
-
+    @days = [['1 day', 1],['2 days', 2],['3 days', 3],['4 days', 4],['5 days', 5],['6 days', 6],['7 days', 7]]
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @setting }
@@ -41,6 +42,7 @@ class SettingsController < ApplicationController
     @setting = Setting.find(params[:id])
     @setting.prepare_email_notifications
     @notifications = Notification.all
+    @days = [['1 day', 1],['2 days', 2],['3 days', 3],['4 days', 4],['5 days', 5],['6 days', 6],['7 days', 7]]
     @notifications.each do |n|
       @setting.email_notifications.build(:notification_id => n.id)
     end if @setting.email_notifications.blank?

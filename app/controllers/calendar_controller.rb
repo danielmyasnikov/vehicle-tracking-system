@@ -3,7 +3,7 @@ class CalendarController < ApplicationController
   
   def menu_activization
     session[:active_menu] = "MyCalendar"
-    session[:module_logo] = "MyCalendar/MyCalendar.jpg" 
+    session[:module_logo] = "calendar-guy.png" 
   end
   
   def index
@@ -18,7 +18,9 @@ class CalendarController < ApplicationController
     @settings = Setting.all
     @due = Serviceable.due(@trucks.pluck(:id)) if @trucks.present?
     @truck_fleet_fault_book_major = FaultBook.belongs_to_truck_fleet(
-      current_user.truck_fleet, FaultBook.scoped.where(:fault_type => 'Major')
+      current_user.truck_fleet, FaultBook.scoped
+                                          .where(:fault_type => 'Major')
+                                          .where("fault_date < ?", Date.today + 7)
     )
     @truck_fleet_fault_book_minor = FaultBook.belongs_to_truck_fleet(
       current_user.truck_fleet, FaultBook.scoped

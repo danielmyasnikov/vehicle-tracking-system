@@ -3,7 +3,7 @@ class DriversController < ApplicationController
   
   def menu_activization
     session[:active_menu] = "MyTeam"
-    session[:module_logo] = "MyTeam/MyTeam.jpg" 
+    session[:module_logo] = "driver-guy.png" 
   end
   
   # GET /drivers

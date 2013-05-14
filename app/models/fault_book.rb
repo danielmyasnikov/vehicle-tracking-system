@@ -13,7 +13,7 @@ class FaultBook < ActiveRecord::Base
     fault_books_to_return = []
     if fault_books.present?
       fault_books.each do |fb|
-        fault_books_to_return << fb if fb.fleet.truck_fleet == truck_fleet
+        fault_books_to_return << fb if fb.fleet.present? && fb.fleet.truck_fleet == truck_fleet
       end
     end
     return fault_books_to_return

@@ -2,24 +2,40 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @driver.name.present? ? @driver.name : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:phone_no) %>:</strong></dt>
-  <dd><%= @driver.phone_no.present? ? @driver.phone_no : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
-  <dd><%= @driver.pic.present? ? @driver.pic : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:dl_number) %>:</strong></dt>
-  <dd><%= @driver.dl_number.present? ? @driver.dl_number : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:dl_expiry) %>:</strong></dt>
-  <dd><%= @driver.dl_expiry.present? ? @driver.dl_expiry : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:training_schedule) %>:</strong></dt>
-  <dd><%= @driver.training_schedule.present? ? @driver.training_schedule : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:training_documents) %>:</strong></dt>
-  <dd><%= @driver.training_documents.present? ? @driver.training_documents : $not_available %></dd>
-</dl>
-
+<div class="row">
+	<div class="span6">
+		<dl class="dl-horizontal">
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+		  	<dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+		  	<dd><%= @driver.name.present? ? @driver.name : $not_available %></dd>
+			</div>
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+		  	<dt><strong><%= model_class.human_attribute_name(:phone_no) %>:</strong></dt>
+		  	<dd><%= @driver.phone_no.present? ? @driver.phone_no : $not_available %></dd>
+			</div>
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+		  	<dt><strong><%= model_class.human_attribute_name(:pic) %>:</strong></dt>
+		  	<dd><%= @driver.pic.present? ? @driver.pic : $not_available %></dd>
+			</div>
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+		  	<dt><strong><%= model_class.human_attribute_name(:dl_number) %>:</strong></dt>
+		  	<dd><%= @driver.dl_number.present? ? @driver.dl_number : $not_available %></dd>
+			</div>
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+		  	<dt><strong><%= model_class.human_attribute_name(:dl_expiry) %>:</strong></dt>
+		  	<dd><%= @driver.dl_expiry.present? ? @driver.dl_expiry : $not_available %></dd>
+			</div>
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+		  	<dt><strong><%= model_class.human_attribute_name(:training_schedule) %>:</strong></dt>
+		  	<dd><%= @driver.training_schedule.present? ? @driver.training_schedule : $not_available %></dd>
+			</div>
+			<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+		  	<dt><strong><%= model_class.human_attribute_name(:training_documents) %>:</strong></dt>
+		  	<dd><%= @driver.training_documents.present? ? @driver.training_documents : $not_available %></dd>
+			</div>
+		</dl>
+	</div> <!-- span6 -->
+</div><!-- row -->
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               drivers_path, :class => 'btn'  %>

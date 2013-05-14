@@ -3,7 +3,7 @@ class ReportController < ApplicationController
   
   def menu_activization
     session[:active_menu] = "MyReports"
-    session[:module_logo] = 'MyReports/MyReports.jpg' 
+    session[:module_logo] = 'report-guy.png' 
   end
   
   def index

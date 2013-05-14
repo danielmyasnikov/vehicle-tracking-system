@@ -3,7 +3,7 @@ class RepairersController < ApplicationController
   
   def menu_activization
     session[:active_menu] = "MyRepairer"
-    session[:module_logo] = "MyRepairer/MyRepairer.png" 
+    session[:module_logo] = "repairer-guy.png" 
   end
   
   # GET /repairers

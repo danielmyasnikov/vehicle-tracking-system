@@ -1,5 +1,6 @@
 class Driver < ActiveRecord::Base
-  attr_accessible :dl_expiry, :dl_number, :name, :phone_no, :pic, :training_documents, :training_schedule, :fleet_id
+  attr_accessible :dl_expiry, :dl_number, :name, :phone_no, :pic, :training_documents, 
+                  :training_schedule, :fleet_id, :training_period, :training_frequency, :start_schedule_from
   
   belongs_to :fleet
   belongs_to :truck_fleet

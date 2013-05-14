@@ -1,4 +1,4 @@
-set :output, "#{RAILS_ROOT}/log/cron_log.log"
+set :output, "/log/cron_log.log"
 every 1.minutes do
-  rake "mtf:count_daily_milage"
+  command 'bundle exec rake mtf:count_daily_milage RAILS_ENV=production'
 end

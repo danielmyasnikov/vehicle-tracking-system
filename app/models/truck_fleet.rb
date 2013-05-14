@@ -1,7 +1,7 @@
 class TruckFleet < ActiveRecord::Base
   attr_accessible :postcode, :state, :street, :street_2, :suburb, 
                   :trading_name_of_business, :contact_truck_fleets_attributes,
-                  :avatar
+                  :avatar, :full_name
                   
   has_many :contact_truck_fleets, :dependent => :destroy
   has_many :fleets

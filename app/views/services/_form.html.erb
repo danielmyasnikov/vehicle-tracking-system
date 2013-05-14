@@ -24,7 +24,7 @@
   <div class="control-group">
     <%= f.label :service_type, :class => 'control-label fleet-labals font-bold' %>
     <div class="controls">
-      <%= f.select :service_type_name, ServiceType.all.collect {|s| [s.name, s.id]}, {}, {
+      <%= f.select :service_type_name, @service_types, {}, {
       	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
     </div>
   </div>
@@ -132,6 +132,6 @@
 <script>
 $('.ie7-navigational').hide();
 $('#id-cancel').click(function(){
-  window.close()
+  window.close();
 })
 </script>

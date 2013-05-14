@@ -1,56 +1,56 @@
-<%= form_for @driver, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="field">
-    <%= f.label :fleet_number, :class => 'control-label' %>
-	<div class="controls">
-    <%= collection_select :fleet, :fleet_id, Fleet.all, :id, :fleet_number, :promt => true, :class => 'text_field' %>
-	</div>
-  </div>
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :phone_no, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :phone_no, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :pic, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :pic, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :dl_number, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :dl_number, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :dl_expiry, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.date_select :dl_expiry, :class => 'date_select' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :training_schedule, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :training_schedule, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :training_documents, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :training_documents, :class => 'text_field' %>
-    </div>
-  </div>
-
+<div class="row">
+	<div class="span6">
+		<%= form_for @driver, :html => { :class => 'form-horizontal' } do |f| %>
+		  <div class="control-group">
+		    <%= f.label :name, :class => 'control-label' %>
+		    <div class="controls">
+		      <%= f.text_field :name, :class => 'text_field text_field_width_height' %>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <%= f.label :phone_no, :class => 'control-label' %>
+		    <div class="controls">
+		      <%= f.text_field :phone_no, :class => 'text_field text_field_width_height' %>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <%= f.label :pic, :class => 'control-label' %>
+		    <div class="controls">
+		      <%= f.text_field :pic, :class => 'text_field text_field_width_height' %>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <%= f.label :driver_license_number, :class => 'control-label' %>
+		    <div class="controls">
+		      <%= f.text_field :dl_number, :class => 'text_field text_field_width_height' %>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <%= f.label :driver_license_expiry, :class => 'control-label' %>
+		    <div class="controls">
+		      <%= f.text_field :dl_expiry, :class => 'text_field text_field_width_height datepicker' %>
+		    </div>
+		  </div>
+		  <div class="control-group">
+		    <%= f.label :training_schedule, :class => 'control-label' %>
+		    <div class="controls white-background padding-top-bottom-10px">
+		      <%= f.text_field :training_frequency, :placeholder => "How many times per ", :class => 'text_field service-km-est-text-field-width-height' %>
+					<%= f.select :training_period, ["Per year", ["Per quarter"], ["Per month"]], :class => 'text_field service-km-est-text-field-width-height' %> <br>Commencement date:
+					<%= f.text_field :start_schedule_from, :class => 'text_field datepicker service-km-est-text-field-width-height' %>
+		    </div>
+		  </div>
+		</div> <!-- SPAN6 -->
+	</div><!-- ROW -->
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                drivers_path, :class => 'btn' %>
-  </div>
+   <%= f.submit nil, :class => 'btn btn-primary' %>
+   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+		                drivers_path, :class => 'btn' %>
+ </div>
 <% end %>
+<script>
+$(document).ready(function(){
+	$('.datepicker').datepicker({
+		format: 'dd-mm-yyyy'
+	});
+})
+</script>

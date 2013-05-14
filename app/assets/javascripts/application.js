@@ -32,3 +32,17 @@ jQuery.expr[':'].regex = function(elem, index, match) {
         regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g,''), regexFlags);
     return regex.test(jQuery(elem)[attr.method](attr.property));
 }*/
+var shown_help = false
+function remove_fields(link) {
+  
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+  if (true) {
+      shown_help = true;
+      $("#myModal").modal('show');
+  }
+}
+
+$('.datepicker').datepicker({
+	format: 'dd-mm-yyyy'
+});

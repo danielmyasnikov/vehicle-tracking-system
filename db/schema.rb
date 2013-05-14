@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420143236) do
+ActiveRecord::Schema.define(:version => 20130502165955) do
+
+  create_table "animals", :force => true do |t|
+    t.date     "born_on"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -40,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20130420143236) do
     t.integer  "truck_fleet_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "full_name"
   end
 
   create_table "drivers", :force => true do |t|
@@ -50,10 +57,13 @@ ActiveRecord::Schema.define(:version => 20130420143236) do
     t.date     "dl_expiry"
     t.string   "training_schedule"
     t.string   "training_documents"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.integer  "fleet_id"
     t.integer  "truck_fleet_id"
+    t.string   "training_period"
+    t.integer  "training_frequency"
+    t.date     "start_schedule_from"
   end
 
   create_table "email_notifications", :force => true do |t|
@@ -73,8 +83,9 @@ ActiveRecord::Schema.define(:version => 20130420143236) do
     t.string   "mileage"
     t.string   "contact_no"
     t.text     "faults"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "accident_type"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
@@ -132,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20130420143236) do
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
+    t.integer  "age"
   end
 
   create_table "notifications", :force => true do |t|
@@ -307,6 +319,10 @@ ActiveRecord::Schema.define(:version => 20130420143236) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "web_site"
+    t.string   "business_phone"
+    t.string   "fax"
+    t.string   "landline"
   end
 
   create_table "users", :force => true do |t|

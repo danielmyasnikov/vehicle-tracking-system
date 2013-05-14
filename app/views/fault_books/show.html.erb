@@ -3,22 +3,40 @@
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
 <%= image_tag "http://maps.google.com/maps/api/staticmap?size=600x350&sensor=false&zoom=14&markers=#{@fault_book.latitude}%2C#{@fault_book.longitude}" %>
+<div class="row">
+	<div class="span6">
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:fault_type) %>:</strong></dt>
-  <dd><%= @fault_book.fault_type.present? ? @fault_book.fault_type : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:driver_id) %>:</strong></dt>
-  <dd><%= @fault_book.driver_id.present? ? @fault_book.driver.name.present? ? @fault_book.driver.name : $not_available : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
-  <dd><%= @fault_book.fleet_id.present? ? @fault_book.fleet.name : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:fault_date) %>:</strong></dt>
-  <dd><%= @fault_book.fault_date.present? ? @fault_book.fault_date : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:mileage) %>:</strong></dt>
-  <dd><%= @fault_book.mileage.present? ? @fault_book.mileage : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:contact_no) %>:</strong></dt>
-  <dd><%= @fault_book.contact_no.present? ? @fault_book.contact_no : $not_available %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:faults) %>:</strong></dt>
-  <dd><%= @fault_book.faults.present? ? @fault_book.faults : $not_available %></dd>
+	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+  	<dt><strong><%= model_class.human_attribute_name(:fault_type) %>:</strong></dt>
+  	<dd><%= @fault_book.fault_type.present? ? @fault_book.fault_type : $not_available %></dd>
+	</div>
+	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+  	<dt><strong><%= model_class.human_attribute_name(:driver_id) %>:</strong></dt>
+  	<dd><%= @fault_book.driver_id.present? ? @fault_book.driver.name.present? ? @fault_book.driver.name : $not_available : $not_available %></dd>
+	</div>
+	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+  	<dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
+  	<dd><%= @fault_book.fleet_id.present? ? @fault_book.fleet.name : $not_available %></dd>
+	</div>
+	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+  	<dt><strong><%= model_class.human_attribute_name(:fault_date) %>:</strong></dt>
+  	<dd><%= @fault_book.fault_date.present? ? @fault_book.fault_date : $not_available %></dd>
+  </div>
+  <div class="white-background margin-bottom-10px padding-top-bottom-10px">
+  	<dt><strong><%= model_class.human_attribute_name(:mileage) %>:</strong></dt>
+  	<dd><%= @fault_book.mileage.present? ? @fault_book.mileage : $not_available %></dd>
+	</div>
+	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+  	<dt><strong><%= model_class.human_attribute_name(:contact_no) %>:</strong></dt>
+  	<dd><%= @fault_book.contact_no.present? ? @fault_book.contact_no : $not_available %></dd>
+	</div>
+	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+  	<dt><strong><%= model_class.human_attribute_name(:faults) %>:</strong></dt>
+  	<dd><%= @fault_book.faults.present? ? @fault_book.faults : $not_available %></dd>
+  </div>
 </dl>
+	</div>
+</div>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

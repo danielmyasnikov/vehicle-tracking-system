@@ -38,6 +38,9 @@ class ServicesController < ApplicationController
     @fleets = current_user.truck_fleet.fleets
     @trucks = Fleet.where(:auto_services => false).pluck(:id)
     
+    @service_types = ServiceType.all.collect {|s| [s.name, s.id]}
+    @service_types = @service_types + [['Fault', 0]]
+    
     start_service_time = params[:hours]
     year = params[:year].to_i
     month = params[:month].to_i

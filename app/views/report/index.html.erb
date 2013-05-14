@@ -27,6 +27,9 @@
 	  </div>
 	  <div class="control-group">
 	    <%= label_tag :by_service, "Calculate by service name", :class => 'control-label' %>
+		<label class='checkbox'>
+    		<%= check_box_tag 'filter[service][]', :fault_book, false, :id => 'filter_fault_book' %>Fault book
+    	</label>
     	<label class='checkbox'>
     		<%= check_box_tag 'filter[service][]', :service, false, :id => 'filter_service_service' %>Service
     	</label>
@@ -109,14 +112,14 @@
 	<% end %>
 <% end %>
 <script type="text/javascript">
-	$('#filter_service_repair, #filter_service_service, #filter_service_damage, #filter_service_breakdown, #filter_service_warranty').click(function(){
+	$('#filter_fault_book, #filter_service_repair, #filter_service_service, #filter_service_damage, #filter_service_breakdown, #filter_service_warranty').click(function(){
 		if ($('#filter_service_all').is(":checked")){
 			$('#filter_service_all').removeAttr('checked');
 		}
 	});
 	$("#filter_service_all").click(function(){
 		if ($('#filter_service_all').is(":checked")){
-			$('#filter_service_repair, #filter_service_service, #filter_service_damage, #filter_service_breakdown, #filter_service_warranty').removeAttr("checked");
+			$('#filter_fault_book, #filter_service_repair, #filter_service_service, #filter_service_damage, #filter_service_breakdown, #filter_service_warranty').removeAttr("checked");
 		} else {
 			$('#filter_service_breakdown').attr('checked', 'checked');
 		}

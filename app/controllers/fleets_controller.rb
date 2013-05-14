@@ -3,7 +3,7 @@ class FleetsController < ApplicationController
   
   def menu_activization
     session[:active_menu] = "MyFleet"
-    session[:module_logo] = "MyTruckFleet/MyTruckFleet.png"
+    session[:module_logo] = "fleet-image.png"
   end
   
   # GET /fleets
