@@ -31,7 +31,7 @@
   <div class="control-group">
   	<%= f.label :day, :class => 'control-label fleet-labals font-bold' %>
 		<div class="controls">
-	      <%= f.text_field :start_service_date, :class => 'text_field text_field_width_height' %>
+	      <%= f.text_field :start_service_date, :id => 'id-day', :class => 'text_field text_field_width_height' %>
 		</div>
 	</div>
 	<div class="control-group">
@@ -130,6 +130,10 @@
   </div>
 <% end %>
 <script>
+
+$('#id-day').datepicker({
+	format: 'dd-mm-yyyy'
+});
 $('.ie7-navigational').hide();
 $('#id-cancel').click(function(){
   window.close();

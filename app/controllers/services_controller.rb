@@ -47,7 +47,7 @@ class ServicesController < ApplicationController
     day = params[:day].to_i
     
     @service.start_service_time   = start_service_time
-    @service.start_service_date   = Date.new(year, month, day) if year.to_s != "0"
+    @service.start_service_date   = Date.new(year, month, day).strftime("%d-%m-%Y") if year.to_s != "0"
     @service.finish_service_date  = @service.start_service_date
 
     respond_to do |format|
