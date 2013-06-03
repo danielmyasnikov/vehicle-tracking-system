@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:repairer_id) %>:</strong></dt>
   <dd><%= Repairer.find(@service.repairer_id).business_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:service_type) %>:</strong></dt>
-  <dd><%= @service.service_type ? "Needs to be done" : "No" %></dd>
+  <dd><%= @service.service_type ? @service.service_type : "N/A" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:warranty) %>:</strong></dt>
   <dd><%= @service.warranty ? "Needs to be done" : "No"  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:damage) %>:</strong></dt>
