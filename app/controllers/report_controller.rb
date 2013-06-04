@@ -22,6 +22,7 @@ class ReportController < ApplicationController
     
     @reports = current_user.truck_fleet.reports
     @fleets = current_user.truck_fleet.fleets
+    
     puts params
     @h = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:chart][:defaultSeriesType] = "area"
@@ -61,7 +62,6 @@ class ReportController < ApplicationController
         :cursor=>"pointer" , 
         :dataLabels=>{
           :enabled=>true,
-          :color=>"white",
           :style=>{
             :font=>"13px Trebuchet MS, Verdana, sans-serif"
           }
