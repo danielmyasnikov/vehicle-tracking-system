@@ -1,4 +1,11 @@
 class FaultBooksController < ApplicationController
+  before_filter :menu_activization
+  
+  def menu_activization
+    session[:active_menu] = "MyFaultBooks"
+    session[:module_logo] = "fault-book.png" 
+  end
+  
   # GET /fault_books
   # GET /fault_books.json
   def index

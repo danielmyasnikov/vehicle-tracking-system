@@ -28,6 +28,7 @@ class ReportController < ApplicationController
       @fleets.each do |fleet|
         reports = fleet.reports_price_by_months_array
         # TODO: refactor
+        f.xAxis(:categories => reports[:months])
         f.series(:name => fleet.name, :data => reports[:warranty].zip(reports[:service], reports[:breakdown], reports[:repair], reports[:damage]).map {|e| e.map(&:to_i).inject(&:+) })
       end
     end    

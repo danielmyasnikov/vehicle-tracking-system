@@ -62,6 +62,7 @@ class Fleet < ActiveRecord::Base
   
   def reports_price_by_months_array
     array_to_return = {}
+    months = []
     warranty = []
     damage = []
     repair = []
@@ -69,6 +70,7 @@ class Fleet < ActiveRecord::Base
     breakdown = []
     # iterate the last 12 months
     12.downto(0).each do |x|
+      months << x.months.ago.strftime("%b/%y")
       warranty << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:warranty)
       damage << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:damage)
       repair << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:repair)
@@ -76,6 +78,7 @@ class Fleet < ActiveRecord::Base
       breakdown << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:breakdown)
     end
     array_to_return = { 
+      :months => months,
       :warranty => warranty,
       :damage => damage,
       :repair => repair,

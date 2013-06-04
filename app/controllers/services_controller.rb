@@ -65,12 +65,14 @@ class ServicesController < ApplicationController
   def edit
     @service = Service.find(params[:id])
     @fleets = current_user.truck_fleet.fleets
+    @service_types = ServiceType.all.collect {|s| [s.name, s.id]}
+    @service_types = @service_types + [['Fault', 0]]
+    @service.start_service_date   = @service.start_service_date.strftime("%d-%m-%Y")
   end
 
   # POST /services
   # POST /services.json
   def create
-    puts params.to_yaml
     @service = Service.new(params[:service])
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     
