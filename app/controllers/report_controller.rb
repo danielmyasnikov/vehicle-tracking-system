@@ -42,7 +42,7 @@ class ReportController < ApplicationController
       total += f.reports.sum(:damage)
       total += f.reports.sum(:breakdown)
       total += f.reports.sum(:repair)
-      data << { :name => f.name, :y => total } 
+      data << [f.name, total] 
     end if params['make'].nil? && params['model'].nil?
         
     @chart = LazyHighCharts::HighChart.new('pie') do |f|
@@ -50,11 +50,12 @@ class ReportController < ApplicationController
       series = {
                :type => 'pie',
                :name => 'Browser share',
-               :data => data
+               :data => [['say', 100],['may', 500]]
       }
       f.series(series)
+      f.yAxis(:labels => 'low')
       f.options[:title][:text] = "Total spend on services"
-      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+      f.legend(:title => "title", :layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
       f.plot_options(:pie=>{
         :allowPointSelect=>true, 
         :cursor=>"pointer" , 

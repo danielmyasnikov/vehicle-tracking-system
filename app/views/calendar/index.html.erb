@@ -293,7 +293,7 @@ $(document).ready(function() {
 		{
 			id: <%= s.id %>,
 			title: '<%= " #{s.fleet.name}" %>',
-			description: "<%#= ServiceType.find(s.service_type_name).name %>",
+			description: "<%= ServiceType.find(s.service_type_name).name %>",
 			color: function(){
 				if (<%= s.start_service_date.nil? ? false : s.start_service_date < Date.today %>)
 				  return 'red'

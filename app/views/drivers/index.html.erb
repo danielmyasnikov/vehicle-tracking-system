@@ -1,9 +1,49 @@
-<%= render :partial => "shared/informative_table", :locals => {
-	:items => @drivers,
-	:table_name => "My Team",
-	:columns_to_sort => ['1', '2'],
-	:new_item_path => new_driver_path,
-	:new_action_required => true,
-	:columns_to_display => [:name, :phone_no, :dl_number, :dl_expiry],
-	:model_class => Driver
-} %>
+<% model_class = Driver %>
+<% columns_to_display = ["Name", "Phone No", "Driver license number", "Driver license expiry"] %>
+<% columns = [:name, :phone_no, :dl_number, :dl_expiry] %>
+<div class="upper-table-info">
+	<span class="table-count-number"><%= @drivers.count %></span>
+	<span class="table-truck-fleet-name"><%= "My Team" %></span>
+	<div class="right">
+		Sort by: <%= select nil, nil, [], :class => '' %>
+		<%= link_to t('.new', :default => t("helpers.links.new")),
+	            new_driver_path,
+	            :class => 'btn btn-warning' if true %>
+	</div>
+</div>
+<table class="table mtf-table">
+  <thead class="">
+    <tr class="border-radius border-color">
+      <% columns_to_display.each do |column| %>
+      <th><%= column %></th>
+      <% end %>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @drivers.each do |item| %>
+      <tr>
+      		<% columns.each do |column| %>
+	        
+        	<td><%= !!item.send(column) == item.send(column) ? item.send(column) ? "Yes" : "No" : item.send(column)  %></td>
+        
+      		<% end %>
+        <td>
+          <%= link_to "View",
+                      send("#{model_class.to_s.underscore}_path", item), :class => 'btn btn-mini btn-success' %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      send("edit_#{model_class.to_s.underscore}_path", item), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      send("#{model_class.to_s.underscore}_path", item),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_driver_path,
+            :class => 'btn btn-warning' %>
