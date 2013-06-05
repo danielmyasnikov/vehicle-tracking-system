@@ -32,10 +32,11 @@ class Report < ActiveRecord::Base
         hash[key] << [entry[entry.keys[0]][:total], entry[entry.keys[0]][:datecode]] if key == entry.keys[0]
       end
     end
-    array_to_return = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+    
     array_lastMonths = ['201206', '201207', '201208', '201209', '201210', '201211', '201212', '201301', '201302', '201303', '201304', '201305', '201306']
 
     entries.each do |e|
+      array_to_return = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
       hash[e].each do |item|
         index = array_lastMonths.index(item[1])
         array_to_return.delete_at(index)
