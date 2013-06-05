@@ -29,8 +29,6 @@ class ReportController < ApplicationController
     @h = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:chart][:defaultSeriesType] = "area"
       @graph_reports.each do |fleet, value|
-        reports = Fleet.find(46).reports_price_by_months_array
-        # TODO: refactor
         f.xAxis(:categories => ['2012/06', '2012/07', '2012/08', '2012/09', '2012/10', '2012/11', '2012/12', '2013/01', '2013/02', '2013/03', '2013/04', '2013/05', '2013/06'])
         f.series(:name => fleet, :data => value)
       end
