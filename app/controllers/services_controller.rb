@@ -96,7 +96,7 @@ class ServicesController < ApplicationController
     respond_to do |format|
       if @service.update_attributes(params[:service])
         # TODO: get all changed attributes and shoot an email to the PC or SC with the person who updated the details and the details themselfs
-        UserMailer.update_service(current_user, @service).deliver
+        # UserMailer.update_service(current_user, @service).deliver
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { head :no_content }
       else
