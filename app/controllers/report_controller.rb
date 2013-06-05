@@ -20,20 +20,25 @@ class ReportController < ApplicationController
     # 7. Get filters from the chart index page
     # 8. 1 - 6
     
-    @reports = current_user.truck_fleet.reports
+    
+    # TODO: has to be truckfleet specific
+    @reports = Report.scoped
     @fleets = current_user.truck_fleet.fleets
-    puts params
+    @graph_reports = Report.reports_for_graph({}, {})
+    
     @h = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:chart][:defaultSeriesType] = "area"
-      @fleets.each do |fleet|
-        reports = fleet.reports_price_by_months_array
+      @graph_reports.each do |fleet, value|
+        reports = Fleet.find(46).reports_price_by_months_array
         # TODO: refactor
-        f.xAxis(:categories => reports[:months])
-        f.series(:name => fleet.name, :data => reports[:warranty].zip(reports[:service], reports[:breakdown], reports[:repair], reports[:damage]).map {|e| e.map(&:to_i).inject(&:+) })
+        f.xAxis(:categories => ['2012/06', '2012/07', '2012/08', '2012/09', '2012/10', '2012/11', '2012/12', '2013/01', '2013/02', '2013/03', '2013/04', '2013/05', '2013/06'])
+        f.series(:name => fleet, :data => value)
       end
     end    
 
     data = []
+    
+    reports = Report.reports_for_pie_array(params, @reports)
     @fleets.each do |f|
       # TODO: refactor
       total = 0
@@ -50,7 +55,7 @@ class ReportController < ApplicationController
       series = {
                :type => 'pie',
                :name => 'Browser share',
-               :data => [['say', 100],['may', 500]]
+               :data => reports
       }
       f.series(series)
       f.yAxis(:labels => 'low')
@@ -61,7 +66,6 @@ class ReportController < ApplicationController
         :cursor=>"pointer" , 
         :dataLabels=>{
           :enabled=>true,
-          :color=>"white",
           :style=>{
             :font=>"13px Trebuchet MS, Verdana, sans-serif"
           }
