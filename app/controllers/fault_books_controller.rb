@@ -1,4 +1,11 @@
 class FaultBooksController < ApplicationController
+  before_filter :menu_activization
+  
+  def menu_activization
+    session[:active_menu] = "MyFaultBooks"
+    session[:module_logo] = "fault-book.png" 
+  end
+  
   # GET /fault_books
   # GET /fault_books.json
   def index
@@ -26,6 +33,8 @@ class FaultBooksController < ApplicationController
   # GET /fault_books/new.json
   def new
     @fault_book = FaultBook.new
+    @fault_book.fault_date = Date.today.strftime("%d-%m-%Y")
+    
     @drivers = current_user.truck_fleet.drivers
     @fleets = current_user.truck_fleet.fleets
 
@@ -40,6 +49,7 @@ class FaultBooksController < ApplicationController
     @fault_book = FaultBook.find(params[:id])
     @drivers = current_user.truck_fleet.drivers
     @fleets = current_user.truck_fleet.fleets
+    @fault_book.fault_date = @fault_book.fault_date.strftime("%d-%m-%Y")
   end
 
   # POST /fault_books

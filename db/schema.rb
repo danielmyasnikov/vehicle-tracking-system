@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502165955) do
+ActiveRecord::Schema.define(:version => 20130604055316) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -177,8 +177,13 @@ ActiveRecord::Schema.define(:version => 20130502165955) do
     t.float    "damage"
     t.float    "breakdown"
     t.float    "service"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "name"
+    t.string   "make"
+    t.string   "model"
+    t.datetime "service_date"
+    t.string   "datecode"
   end
 
   add_index "reports", ["fleet_id"], :name => "index_reports_on_fleet_id"
@@ -246,6 +251,8 @@ ActiveRecord::Schema.define(:version => 20130502165955) do
     t.string   "service_type_name"
     t.integer  "truck_fleet_id"
     t.boolean  "archived"
+    t.datetime "service_start_date_time"
+    t.boolean  "visible"
   end
 
   create_table "settings", :force => true do |t|

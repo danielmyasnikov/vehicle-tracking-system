@@ -12,6 +12,8 @@
   <thead class="">
     <tr class="border-radius border-color">
       <% columns_to_display.each do |column| %>
+      <%= raw "<th>Indicator</th>" if column == :fault_type %>
+
       <th><%= model_class.human_attribute_name(column) %></th>
       <% end %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -32,8 +34,9 @@
 	        <!-- double shortcut on if else conditional statements -->
 	        <!-- first of all it checks if the column is boolean or displays the column value -->
 	        <!-- secondly it checks if the column is true and displays Yes or No -->
-	        
-        	<td><%= !!item.send(column) == item.send(column) ? item.send(column) ? "Yes" : "No" : item.send(column)  %></td>
+	        <%= raw "<td><div class='btn btn-danger' style='cursor:default;'></div></td>" if item.send(column) == "Major" %>
+					<%= raw "<td><div class='btn btn-warning' style='cursor:default;'></div></td>" if item.send(column) == "Minor" %>
+        	<td></div><%= !!item.send(column) == item.send(column) ? item.send(column) ? "Yes" : "No" : item.send(column)  %></td>
         
       		<% end %>
         <td>

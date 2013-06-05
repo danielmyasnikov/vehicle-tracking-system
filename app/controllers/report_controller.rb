@@ -20,19 +20,25 @@ class ReportController < ApplicationController
     # 7. Get filters from the chart index page
     # 8. 1 - 6
     
-    @reports = current_user.truck_fleet.reports
+    
+    # TODO: has to be truckfleet specific
+    @reports = Report.scoped
     @fleets = current_user.truck_fleet.fleets
-    puts params
+    @graph_reports = Report.reports_for_graph({}, {})
+    
     @h = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:chart][:defaultSeriesType] = "area"
-      @fleets.each do |fleet|
-        reports = fleet.reports_price_by_months_array
+      @graph_reports.each do |fleet, value|
+        reports = Fleet.find(46).reports_price_by_months_array
         # TODO: refactor
-        f.series(:name => fleet.name, :data => reports[:warranty].zip(reports[:service], reports[:breakdown], reports[:repair], reports[:damage]).map {|e| e.map(&:to_i).inject(&:+) })
+        f.xAxis(:categories => ['2012/06', '2012/07', '2012/08', '2012/09', '2012/10', '2012/11', '2012/12', '2013/01', '2013/02', '2013/03', '2013/04', '2013/05', '2013/06'])
+        f.series(:name => fleet, :data => value)
       end
     end    
 
     data = []
+    
+    reports = Report.reports_for_pie_array(params, @reports)
     @fleets.each do |f|
       # TODO: refactor
       total = 0
@@ -41,7 +47,7 @@ class ReportController < ApplicationController
       total += f.reports.sum(:damage)
       total += f.reports.sum(:breakdown)
       total += f.reports.sum(:repair)
-      data << { :name => f.name, :y => total } 
+      data << [f.name, total] 
     end if params['make'].nil? && params['model'].nil?
         
     @chart = LazyHighCharts::HighChart.new('pie') do |f|
@@ -49,17 +55,17 @@ class ReportController < ApplicationController
       series = {
                :type => 'pie',
                :name => 'Browser share',
-               :data => data
+               :data => reports
       }
       f.series(series)
+      f.yAxis(:labels => 'low')
       f.options[:title][:text] = "Total spend on services"
-      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
+      f.legend(:title => "title", :layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
       f.plot_options(:pie=>{
         :allowPointSelect=>true, 
         :cursor=>"pointer" , 
         :dataLabels=>{
           :enabled=>true,
-          :color=>"white",
           :style=>{
             :font=>"13px Trebuchet MS, Verdana, sans-serif"
           }

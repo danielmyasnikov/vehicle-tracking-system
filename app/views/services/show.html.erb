@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:repairer_id) %>:</strong></dt>
   <dd><%= Repairer.find(@service.repairer_id).business_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:service_type) %>:</strong></dt>
-  <dd><%= @service.service_type ? "Needs to be done" : "No" %></dd>
+  <dd><%= @service.service_type ? @service.service_type : "N/A" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:warranty) %>:</strong></dt>
   <dd><%= @service.warranty ? "Needs to be done" : "No"  %></dd>
   <dt><strong><%= model_class.human_attribute_name(:damage) %>:</strong></dt>
@@ -28,6 +28,13 @@
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+	<%= link_to 'Finilize service', finish_service_path(@service.id,
+		:fleet_id => @service.fleet_id,
+		:warranty => @service.warranty_price,
+		:repair => @service.repair_price,
+		:damage => @service.damage_price,
+		:breakdown => @service.breakdown_price,
+		:service => @service.service_price), :class => 'btn btn-warning' if @service.id.present? %>
 </div>
 <script>
 $('.ie7-navigational').hide();

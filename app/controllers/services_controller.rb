@@ -47,17 +47,13 @@ class ServicesController < ApplicationController
     day = params[:day].to_i
     
     @service.start_service_time   = start_service_time
-    @service.start_service_date   = Date.new(year, month, day).strftime("%d-%m-%Y") if year.to_s != "0"
+    puts "params"
+    puts year.to_s + ' ' + month.to_s + ' ' + day.to_s 
+    @service.start_service_date   = Date.new(year, month, day).strftime("%d-%m-%Y")
     @service.finish_service_date  = @service.start_service_date
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { 
-        render :json => {
-          :service => @service,
-          :truck_ids => @trucks
-        }
-      }
     end
   end
 
@@ -65,19 +61,19 @@ class ServicesController < ApplicationController
   def edit
     @service = Service.find(params[:id])
     @fleets = current_user.truck_fleet.fleets
+    @service_types = ServiceType.all.collect {|s| [s.name, s.id]}
+    @service_types = @service_types + [['Fault', 0]]
+    @service.start_service_date   = @service.start_service_date.strftime("%d-%m-%Y")
   end
 
   # POST /services
   # POST /services.json
   def create
-    puts params.to_yaml
     @service = Service.new(params[:service])
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     
     @fleet_email_contacts     = TruckFleet.find_contacts_by_fleet_id(@service.fleet_id)
     @repairer_email_contacts  = Repairer.find_contacts_by_repairer_id(@service.repairer_id) 
-    
-    
     
     respond_to do |format|
       if @service.save
@@ -119,17 +115,23 @@ class ServicesController < ApplicationController
   end
   
   def finish
+    puts 'CAALED'
     @service = Service.find(params[:id])
     @service.archived = true
-    puts params
     # refactor this, may be there is a better way to assign values from the form :)
-    @report = @service.reports.build(
+    @report = Report.new(
+      :service_id   => @service.id              ||= params[:id],
       :fleet_id     => @service.fleet_id        ||= params[:fleet_id], 
       :warranty     => @service.warranty_price  ||= params[:warranty],
       :repair       => @service.repair_price    ||= params[:repair],
       :damage       => @service.damage_price    ||= params[:damage],
       :breakdown    => @service.breakdown_price ||= params[:breakdown],
-      :service      => @service.service_price   ||= params[:service]
+      :service      => @service.service_price   ||= params[:service],
+      :name         => @service.fleet.name,
+      :model        => @service.fleet.model,
+      :make         => @service.fleet.make,
+      :service_date => @service.start_service_date,
+      :datecode     => @service.start_service_date.strftime("%Y%m")
     )
     respond_to do |format|
       if @report.save && @service.save
