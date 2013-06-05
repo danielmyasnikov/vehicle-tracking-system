@@ -105,7 +105,7 @@
 		    	<td><b><%= number_to_currency(damage_total) %></b></td>
 		    	<td><b><%= number_to_currency(repair_total) %></b></td>
 		    	<td><b><%= number_to_currency(breakdown_total) %></b></td>
-		    	<td><b>Sum: <%= number_to_currency(service_total + warranty_total + damage_total + repair_total + breakdown_total)%></b></td>
+		    	<td><b>Sum: <%= number_to_currency(service_total.to_f + warranty_total.to_f + damage_total.to_f + repair_total.to_f + breakdown_total.to_f)%></b></td>
 		    </tr> 
 		  </tbody>
 		</table>
