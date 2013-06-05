@@ -77,6 +77,8 @@ class Fleet < ActiveRecord::Base
       service << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:service)
       breakdown << reports.where("created_at >= ? AND created_at <= ?", x.months.ago.at_beginning_of_month, x.months.ago.at_end_of_month).sum(:breakdown)
     end
+    puts "array to return"
+    puts "array to return"
     array_to_return = { 
       :months => months,
       :warranty => warranty,
