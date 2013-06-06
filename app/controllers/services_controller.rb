@@ -92,7 +92,7 @@ class ServicesController < ApplicationController
   # PUT /services/1.json
   def update
     @service = Service.find(params[:id])
-
+    @service.finalise = true
     respond_to do |format|
       if @service.update_attributes(params[:service])
         # TODO: get all changed attributes and shoot an email to the PC or SC with the person who updated the details and the details themselfs

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130605035631) do
+ActiveRecord::Schema.define(:version => 20130606044735) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -251,6 +251,10 @@ ActiveRecord::Schema.define(:version => 20130605035631) do
     t.string   "service_type_name"
     t.integer  "truck_fleet_id"
     t.boolean  "archived"
+<<<<<<< HEAD
+=======
+    t.boolean  "finalise"
+>>>>>>> e0bde95b7ca62f9bfe24e1098e6a2d228fa5d863
   end
 
   create_table "settings", :force => true do |t|

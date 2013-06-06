@@ -33,7 +33,6 @@ class ReportController < ApplicationController
           :labels => {
             :rotation => -45,
             :align => 'right',
-            
           }
         )
         f.series(:name => fleet, :data => value)
