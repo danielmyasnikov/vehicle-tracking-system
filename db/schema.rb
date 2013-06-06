@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604055316) do
+ActiveRecord::Schema.define(:version => 20130605035631) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -251,8 +251,6 @@ ActiveRecord::Schema.define(:version => 20130604055316) do
     t.string   "service_type_name"
     t.integer  "truck_fleet_id"
     t.boolean  "archived"
-    t.datetime "service_start_date_time"
-    t.boolean  "visible"
   end
 
   create_table "settings", :force => true do |t|
