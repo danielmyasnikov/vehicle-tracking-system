@@ -55,6 +55,7 @@ html .fc,
 	}
 	
 .fc-header-title {
+	color: white;
 	display: inline-block;
 	vertical-align: top;
 	}
@@ -122,9 +123,10 @@ html .fc,
 /* Cell Styles
 ------------------------------------------------------------------------*/
 
-.fc-widget-header,    /* <th>, usually */
+.fc-widget-header ,    /* <th>, usually */
 .fc-widget-content {  /* <td>, usually */
 	border: 1px solid #ccc;
+	text-color:white;
 	}
 	
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */

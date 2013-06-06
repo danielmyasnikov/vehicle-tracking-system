@@ -16,6 +16,7 @@ class Setting < ActiveRecord::Base
     Notification.all.each do |notification|
       notifications << notification if does_not_include notification
     end
+    notifications.sort!
   end
   
   def build_email_notifications

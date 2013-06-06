@@ -2,13 +2,13 @@
 	<div class="span6"></div>
 	<div class="span6">
 		<% if user_signed_in? && current_user.admin? %>
-			<%= link_to 'Edit Account', edit_user_registration_path, :class => 'btn btn-primary'%>
-			<%= link_to 'Logout', destroy_user_session_path, :method => :delete, :class => 'btn btn-primary'%>		
+			<%= link_to 'Edit Account', edit_user_registration_path, :class => 'btn btn-primary btn-small' %>
+			<%= link_to 'Logout', destroy_user_session_path, :method => :delete, :class => 'btn btn-small btn-primary' %>		
 		<% elsif user_signed_in? %>
 			<span class="blue"><%= "Logged in as: " + current_user.name if current_user.name %></span>
-			<%= link_to 'Edit Account', edit_user_registration_path, :class => 'btn btn-primary'%>
-			<%= link_to 'Settings', edit_setting_path(current_user.truck_fleet.setting), :class => 'btn btn-primary' %>
-			<%= link_to 'Logout', destroy_user_session_path, :method => :delete, :class => 'btn btn-primary'%>
+			<%= link_to 'Edit Account', edit_user_registration_path, :class => 'btn btn-primary btn-small'%>
+			<%= link_to 'Settings', edit_setting_path(current_user.truck_fleet.setting), :class => 'btn btn-small btn-primary' %>
+			<%= link_to 'Logout', destroy_user_session_path, :method => :delete, :class => 'btn btn-primary btn-small'%>
 		<% end %>
 	</div>
 </div>
@@ -18,7 +18,7 @@
 		<div class='row'>
 	<div class='span12'>
 	<ul class="nav nav-tabs">
-		<li><img class='' alt="Mytruckfleet" src="/assets/MyTruckFleet/_MyTruckFleet.png" width="128"/></li>
+		<li><img class='' alt="Mytruckfleet" src="/assets/MyTruckFleet/_MyTruckFleet.png" width="98"/></li>
 		<% if user_signed_in? && current_user.admin? %>	
 		  <li class="<%= "active" if session[:active_menu] == 'MyCalendar' %>"><%= link_to "Truck Fleets", truck_fleets_path %>
 		  <li class="<%= "active" if session[:active_menu] == 'MyCalendar' %>"><%= link_to "Customers", customers_path %></li>

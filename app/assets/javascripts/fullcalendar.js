@@ -746,7 +746,7 @@ function Header(calendar, options) {
 							var icon = options.theme ? smartProperty(options.buttonIcons, buttonName) : null; // why are we using smartProperty here?
 							var text = smartProperty(options.buttonText, buttonName); // why are we using smartProperty here?
 							var button = $(
-								"<button type='button' class='btn btn-primary fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
+								"<button type='button' class='btn btn-small btn-primary fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
 											text + 
 								"</button>"
 							);
