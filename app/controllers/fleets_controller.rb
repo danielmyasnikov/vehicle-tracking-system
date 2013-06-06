@@ -50,11 +50,13 @@ class FleetsController < ApplicationController
   # TODO: move to services / serviceables
   def postpone
     @serviceable = Serviceable.where(:service_type_id => params[:service_id], :fleet_id => params[:id]).first
+    @serviceable.next_service_date = @serviceable.next_service_date.strftime("%d/%m/%Y")
   end
   
   # TODO: move to services / serviceables
   def postponed
     @serviceable = Serviceable.find(params[:id])
+    
     @serviceable.update_attributes(params[:serviceable])
     
     redirect_to controller: :calendar, action: :index

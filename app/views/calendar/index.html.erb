@@ -136,10 +136,7 @@
 	<div id='id-repairers-list' class='span8'>
 		<div class="bluish-border">
 			<div class='highlight-blue'>
-				<span class="inline-header-count-number-blue"><%= @trucks.count %></span> MyFleet 
-				<span class="button-new-margin-left"><%= link_to t('.new', :default => t("helpers.links.new")),
-            		new_fleet_path,
-            		:class => 'btn btn-warning' %></span>
+				<span class="inline-header-count-number-blue"><%= @trucks.count %></span> MyFleets 
 			</div>
 			<div class='overdue-body'>
 				<% @trucks.each do |k, tf| %>

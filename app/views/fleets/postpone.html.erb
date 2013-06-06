@@ -5,7 +5,7 @@
 	  <div class="control-group">
       	<div class="controls">
       	  <%#= "Due or overdue date: #{@fleet.next_service_date}" %>
-          <%= f.label 'Postpone until: ' %><%= f.date_select :next_service_date, :placeholder => params[:next_service], :class => 'text_field' %>
+          <%= f.label 'Postpone until: ' %><%= f.text_field :next_service_date, :class => 'text_field datepicker' %>
         </div>
   	  </div>
 	  	<div class="form-actions">
@@ -15,3 +15,6 @@
   		</div>
 	<% end %>
 </div>
+<script>
+$('.datepicker').datepicker();
+</script>
