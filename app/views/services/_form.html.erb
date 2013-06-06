@@ -35,9 +35,9 @@
     </div>
   </div>
 	<div class="control-group">
-  	<%= f.label :start_time, :class => 'control-label fleet-labals font-bold' %>
+  	<%#= f.label :start_time, :class => 'control-label fleet-labals font-bold' %>
 		<div class="controls">
-	      <%= f.select :start_service_time, ['08:00', '10:00', '12:00', '14:00', '16:00'], {}, {
+	      <%#= f.select :start_service_time, ['08:00', '10:00', '12:00', '14:00', '16:00'], {}, {
 	      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
 		</div>
 	</div>
@@ -120,7 +120,7 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-danger' if @service.id.present? %>
-	<%= link_to 'Finilize service', finish_service_path(@service.id,
+	<%#= link_to 'Finilize service', finish_service_path(@service.id,
 		:fleet_id => @service.fleet_id,
 		:warranty => @service.warranty_price,
 		:repair => @service.repair_price,

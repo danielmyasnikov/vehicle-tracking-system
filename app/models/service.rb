@@ -7,7 +7,7 @@ class Service < ActiveRecord::Base
                   :start_service_time, :finish_service_time, :other,
                   :service_done, :service_price, :warranty_done, :damage_done, 
                   :damage_price, :repair_done, :repair_price, :breakdown_done, 
-                  :breakdown_price, :warranty_price, :service_type_name
+                  :breakdown_price, :warranty_price, :service_type_name, :finalise
                   
   belongs_to :fleet
   
