@@ -2,7 +2,7 @@ class FaultBooksController < ApplicationController
   before_filter :menu_activization
   
   def menu_activization
-    session[:active_menu] = "MyFaultBooks"
+    session[:active_menu] = "MyFaultBook"
     session[:module_logo] = "fault-book.png" 
   end
   
