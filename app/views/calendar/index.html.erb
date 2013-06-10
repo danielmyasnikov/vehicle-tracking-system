@@ -146,10 +146,9 @@
 					<% tf.each do |t| %>
 						<%= link_to fleet_path(t) do %>
 							<div class='external-event'>
-								<% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
 						  		<%= image_tag t.avatar.url, :size => '24x24', :class => 'width-30' if t.avatar.present? %>
-						  		<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.present? && !t.avatar.present? %>
-						  		<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.nil? && !t.avatar.present? %> | 
+						  		<%= image_tag "Vehicles/#{t.vehicle_type}.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.present? && !t.avatar.present? %>
+						  		<%= image_tag "Vehicles/Truck.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.nil? && !t.avatar.present? %> | 
 						  		<%= t.name %>
 							</div>
 						<% end %>
@@ -161,8 +160,8 @@
 					<%= link_to fleet_path(t) do %>
 				  		<div class='external-event'>
 				  			<%= image_tag t.avatar.url, :size => '24x24', :class => 'width-30' if t.avatar.present? %>
-				  			<%= image_tag "#{aws_name}/#{t.vehicle_type}-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.present? && !t.avatar.present? %>
-				  			<%= image_tag "#{aws_name}/Truck-MONO.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.nil? && !t.avatar.present? %> | 
+				  			<%= image_tag "Vehicles/#{t.vehicle_type}.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.present? && !t.avatar.present? %>
+				  			<%= image_tag "Vehicles/Truck.png", :size => '24x24', :class => 'width-30' if t.vehicle_type.nil? && !t.avatar.present? %> | 
 				  			<%= t.send t.truck_fleet.setting.truck_identification.downcase %>
 				  		</div>
 					<% end %>
@@ -182,7 +181,7 @@
 							<% if r.avatar.file? %>
 							  <%= image_tag r.avatar.url, :size => '16x16', :class => 'width-30' %>
 							<% else %> 
-							  <%= image_tag "#{aws_name}/pin-2.png", :size => '16x16', :class => 'width-30' %>
+							  <%= image_tag "#{aws_name}/pin-2.png", :size => '14x14', :class => 'width-30' %>
 							<% end %>
 					  		| <%= r.business_name %>
 					  	</div>
@@ -195,6 +194,7 @@
 </div>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
+	
   var startDate;
   var myTeamLink = $('#id-my-team-link');
   var myTeam = $('#id-my-team');
@@ -257,13 +257,39 @@ $(document).ready(function() {
 	if (upcoming) return 'green';
   };
 
-  agendaWeek = function(){
-  	$("#id-calendar").fullCalendar('changeView', 'agendaWeek');
+	function createCookie(name,value,days) {
+	    if (days) {
+	        var date = new Date();
+	        date.setTime(date.getTime()+(days*24*60*60*1000));
+	        var expires = "; expires="+date.toGMTString();
+	    }
+	    else var expires = "";
+	    document.cookie = name+"="+value+expires;
+	}
+
+	function readCookie(name) {
+	    var nameEQ = name + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0;i < ca.length;i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+	        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	    }
+	    return null;
+	}
+
+	function eraseCookie(name) {
+	    createCookie(name,"",-1);
+	}
+  agendaWeek = function() {
+		var view = readCookie("calendarView");
+		if (!view) view = "agendaWeek"
+  	return view;
   };
   
   $('#id-calendar').fullCalendar({
     aspectRatio: 0.5,
-    defaultView: 'agendaWeek',
+    defaultView: agendaWeek(),
     slotMinutes: 120,
     height: 650,
     titleFormat: {
@@ -277,10 +303,18 @@ $(document).ready(function() {
 			right: 'month,basicWeek,basicDay'
 	},
 	viewDisplay: function(view){
-		if (view.name === 'basicDay')
+		eraseCookie("calendarView");
+		if (view.name === 'basicDay'){
 			$('#id-calendar').fullCalendar('changeView', 'agendaDay');
-		else if (view.name === 'basicWeek')
+			createCookie("calendarView", "agendaDay", 7);
+		}
+		if (view.name === 'basicWeek'){
 			$('#id-calendar').fullCalendar('changeView', 'agendaWeek');
+			createCookie("calendarView", "agendaWeek", 7);
+		}
+		if (view.name == 'month'){
+			createCookie("calendarView", "month", 7);
+		}
 	},
     minTime: 8,
     maxTime: 20,
