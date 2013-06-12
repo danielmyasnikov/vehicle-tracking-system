@@ -21,11 +21,20 @@ class FaultBooksController < ApplicationController
   # GET /fault_books/1
   # GET /fault_books/1.json
   def show
-    @fault_book = FaultBook.find(params[:id])
+    if (params[:print])
+      @fault_book = FaultBook.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @fault_book }
+      respond_to do |format|
+        format.html { render :layout => 'print' }# show.html.erb
+        format.json { render json: @fault_book, :layout => 'print' }
+      end
+    else   
+      @fault_book = FaultBook.find(params[:id])
+
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @fault_book }
+      end
     end
   end
 

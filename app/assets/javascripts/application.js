@@ -17,6 +17,8 @@
 //= require bootstrap-datepicker
 //= require bootstrap-timepicker
 //= require highcharts
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap
 
 //http://james.padolsey.com/javascript/regex-selector-for-jquery/
 /*
@@ -42,7 +44,12 @@ function remove_fields(link) {
       $("#myModal").modal('show');
   }
 }
-
-$('.datepicker').datepicker({
-	format: 'dd-mm-yyyy'
-});
+$(document).ready(function(){
+    $('.datepicker').datepicker({
+    	format: 'dd-mm-yyyy'
+    });
+    $('.datatable').dataTable({
+      "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+      "sPaginationType": "bootstrap"
+    });    
+})
