@@ -1,4 +1,5 @@
 <%- model_class = FaultBook -%>
+<%= link_to "Print the page", "#", :id => "printMe", :class => "btn btn-warning print-preview" %>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
@@ -38,14 +39,49 @@
 	</div>
 </div>
 
-<div class="form-actions">
+<div class="form-actions not-print">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              fault_books_path, :class => 'btn'  %>
+              fault_books_path, :id => "id-fault-book-back", :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_fault_book_path(@fault_book), :class => 'btn' %>
+              edit_fault_book_path(@fault_book), :id => "id-fault-book-edit", :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               fault_book_path(@fault_book),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+              :class => 'btn btn-danger', :id => "id-fault-book-destroy" %>
+	<%= link_to "Print preview", "#", :id => "printPreview",  :class => "btn btn-warning print-preview" %>
 </div>
+
+<script>
+$(document).ready(function(){
+	// http://stackoverflow.com/questions/1403888/get-url-parameter-with-jquery
+	function getURLParameter(name) {
+	    return decodeURI(
+	        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+	    );
+	}
+	if (getURLParameter("print") == "true") {
+		$("#printPreview").hide();
+		$("#id-fault-book-back").hide();
+		$("#id-fault-book-edit").hide();
+		$("#id-fault-book-destroy").hide();
+		$(".not-print").hide();
+		$("#printMe").show();
+	} else {
+		$("#printPreview").show();
+		$("#id-fault-book-back").show();
+		$("#id-fault-book-edit").show();
+		$("#id-fault-book-destroy").show();
+		$("#printPreview").show();
+		$("#printMe").hide();
+	}
+	$("#printMe").click(function(){
+		window.print();
+	})
+	$(".print-preview").click(function(){
+		var left  = ($(window).width()/2)-(900/2),
+		    top   = ($(window).height()/2)-(600/2),
+		    popup = window.open ("/fault_books/" + <%= @fault_book.id %> + "?print=true", "popup", "width=900, height=600, top="+top+", left="+left);
+	});
+});
+</script>
