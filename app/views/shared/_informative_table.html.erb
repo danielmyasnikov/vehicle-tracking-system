@@ -2,13 +2,12 @@
 	<span class="table-count-number"><%= items.count %></span>
 	<span class="table-truck-fleet-name"><%= table_name %></span>
 	<div class="right">
-		Sort by: <%= select nil, nil, columns_to_sort, :class => '' %>
 		<%= link_to t('.new', :default => t("helpers.links.new")),
 	            new_item_path,
 	            :class => 'btn btn-warning' if new_action_required %>
 	</div>
 </div>
-<table class="table mtf-table">
+<table class="table mtf-table datatable">
   <thead class="">
     <tr class="border-radius border-color">
       <% columns_to_display.each do |column| %>
@@ -59,3 +58,4 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_item_path,
             :class => 'btn btn-warning' %>
+

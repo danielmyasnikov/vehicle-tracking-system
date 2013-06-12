@@ -6,6 +6,7 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'devise'
+gem 'jquery-datatables-rails'
 gem 'fullcalendar-rails'
 gem "mail"
 gem 'whenever', :require => false
