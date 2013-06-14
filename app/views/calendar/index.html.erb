@@ -20,7 +20,8 @@
 				        		:year => Date.today.year,
 				        		:month => Date.today.month,
 				        		:day => Date.today.day,
-				        		:hours =>  Time.now.hour
+				        		:hours =>  Time.now.hour,
+										:serviceable => overdue,
 				        	), :class => 'btn btn-mini btn-success' %>
                 			<%= link_to 'P', postpone_fleet_path(
 	                      		overdue.fleet,
@@ -47,10 +48,11 @@
 	                      		overdue.fleet,
 	                      		:fault_book => overdue),
 			                  	:class => 'btn btn-mini btn-warning' %>
-                			<%= link_to 'C', cancel_fault_book_path(
-                				overdue.fleet,
-                				:fault_book => overdue),
-                				:class => 'btn btn-mini btn-danger' %>
+												  <%= link_to 'C',
+												              fault_book_path(overdue, :from_calendar => true),
+												              :method => 'delete',
+												              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+												              :class => 'btn btn-mini btn-danger' %>
 						</div>
 					<% end %>
 		      	</div>
@@ -101,6 +103,7 @@
 							<%= link_to due.fleet.name, fleet_path(due.fleet) %> -
 							<%= link_to 'Minor fault', fault_book_path(due) %>
 							<div class="right">
+								<!-- TODO make a fault to be hiddable, as it's the best practice to destroy it -->
 								<%= link_to 'B', new_service_path(
 					        		:year => Date.today.year,
 					        		:month => Date.today.month,
@@ -115,12 +118,17 @@
 		                      		:fault_book => due),
 				                  	:class => 'btn btn-mini btn-warning'
 				 				%>
-	                			<%= link_to 'C', cancel_fault_book_path(
+	                			<%#= link_to 'C', cancel_fault_book_path(
 	                				due.fleet,
 	                				:fault_book => due,
 									:type => :fault),
 	                				:class => 'btn btn-mini btn-danger'
 	 							%>
+							  <%= link_to 'C',
+							              fault_book_path(due, :from_calendar => true),
+							              :method => 'delete',
+							              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+							              :class => 'btn btn-mini btn-danger' %>
 							</div>
 						<% end %>
 		             </div>
