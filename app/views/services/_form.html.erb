@@ -113,8 +113,8 @@
   <%= f.text_field :finish_service_time, :class => 'hidden' %>
   <div class="form-actions">
 	<%= f.submit nil, :class => 'btn btn-primary', :id => 'id-create' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                services_path, :id => 'id-cancel', :class => 'btn' %> 
+    <%= link_to "Cancel",
+                calendar_index_path, :id => 'id-cancel', :class => 'btn' %> 
     <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       service_path(@service),
                       :method => :delete,

@@ -32,6 +32,9 @@ class ServicesController < ApplicationController
   # GET /services/new
   # GET /services/new.json
   def new
+    @serviceable = Serviceable.find(params[:serviceable])
+    @serviceable.booked = true
+    @serviceable.save
     @service = Service.new
     @service.warranty = true
     @date = params
@@ -54,6 +57,7 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.json { render :json => { :serviceable => @serviceable } }
     end
   end
 
@@ -69,6 +73,7 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
+
     @service = Service.new(params[:service])
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     

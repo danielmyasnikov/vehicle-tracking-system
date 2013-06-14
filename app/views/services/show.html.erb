@@ -19,8 +19,8 @@
 </dl>
 
 <div class="form-actions">
-	<%= link_to t('.finish booking', :default => t("helpers.links.cancel")),
-              services_path, :id => 'id-cancel', :class => 'btn' %> 
+	<%= link_to 'Finish booking',
+              calendar_index_path, :id => 'id-cancel', :class => 'btn' %> 
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_service_path(@service), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

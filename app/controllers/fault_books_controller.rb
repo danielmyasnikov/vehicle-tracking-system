@@ -103,10 +103,13 @@ class FaultBooksController < ApplicationController
   def destroy
     @fault_book = FaultBook.find(params[:id])
     @fault_book.destroy
-
-    respond_to do |format|
-      format.html { redirect_to fault_books_url }
-      format.json { head :no_content }
+    if (params[:from_calendar])
+      redirect_to controller: :calendar, action: :index
+    else
+      respond_to do |format|
+        format.html { redirect_to fault_books_url }
+        format.json { head :no_content }
+      end      
     end
   end
   
@@ -122,6 +125,5 @@ class FaultBooksController < ApplicationController
   end
   
   def cancel
-    
   end
 end
