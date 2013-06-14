@@ -251,10 +251,7 @@ ActiveRecord::Schema.define(:version => 20130606044735) do
     t.string   "service_type_name"
     t.integer  "truck_fleet_id"
     t.boolean  "archived"
-<<<<<<< HEAD
-=======
     t.boolean  "finalise"
->>>>>>> e0bde95b7ca62f9bfe24e1098e6a2d228fa5d863
   end
 
   create_table "settings", :force => true do |t|
