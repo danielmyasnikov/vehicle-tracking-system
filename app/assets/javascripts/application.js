@@ -49,6 +49,7 @@ $(document).ready(function(){
     	format: 'dd-mm-yyyy'
     });
     $('.datatable').dataTable({
+      "aLengthMenu": [[3, 5, 10, 50, -1], [3, 5, 10, 50, "All"]],
       "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
       "sPaginationType": "bootstrap"
     });    
