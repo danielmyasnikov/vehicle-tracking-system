@@ -68,7 +68,6 @@
 <% @fleets.each do |fleet| %>
 <h2><%= fleet.name %></h2>
 	<% if fleet.reports.present? %>
-	<i>Last three services</i>
 		<table class="table table-striped report-table">
 		  <thead>
 		    <tr>
@@ -86,7 +85,7 @@
 		  	<% damage_total = fleet.reports.order('created_at DESC').pluck(:damage).inject{|sum, x| sum.to_i + x.to_i} %>
 		  	<% repair_total = fleet.reports.order('created_at DESC').pluck(:repair).inject{|sum, x| sum.to_i + x.to_i} %>
 		  	<% service_total = fleet.reports.order('created_at DESC').pluck(:service).inject{|sum, x| sum.to_i + x.to_i} %>
-		  	<% breakdown_total = fleet.reports.order('created_at DESC').pluck(:service).inject{|sum, x| sum.to_i + x.to_i} %>
+		  	<% breakdown_total = fleet.reports.order('created_at DESC').pluck(:breakdown).inject{|sum, x| sum.to_i + x.to_i} %>
 		  	<% fleet.reports.order('created_at DESC').each do |report| %>
 		      <tr>
 		      	<td><%= report.support.service_type %></td>
@@ -112,7 +111,6 @@
 				</tfoot>
 		</table>
 	<% else %>
-		No services
 	<% end %>
 <% end %>
 <script type="text/javascript">
