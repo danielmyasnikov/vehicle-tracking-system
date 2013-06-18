@@ -158,7 +158,9 @@ class Fleet < ActiveRecord::Base
         s = serviceables.find_by_service_type_id(key)
         s.update_attributes(value)
         next_service = calc_next_period_for_services(value["service_time_interval"], value["service_period"])
-        s.next_service_date = Date.today + next_service if value["service_time_interval"].present?
+        start_service_date = value["start_date"]
+        start_date = Date.strptime(value["start_date"], "%d-%m-%Y") || Date.today
+        s.next_service_date = start_date + next_service if value["service_time_interval"].present?
         s.save
       end
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614000912) do
+ActiveRecord::Schema.define(:version => 20130617233511) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(:version => 20130614000912) do
     t.datetime "updated_at",            :null => false
     t.date     "next_service_date"
     t.boolean  "booked"
+    t.date     "start_date"
   end
 
   create_table "services", :force => true do |t|
