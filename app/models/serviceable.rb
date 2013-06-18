@@ -1,6 +1,7 @@
 class Serviceable < ActiveRecord::Base
   attr_accessible :fleet_id, :service_km_interval, :service_period, 
-                  :service_time_interval, :service_type_id, :service_type, :next_service_date
+                  :service_time_interval, :service_type_id, :service_type, :next_service_date,
+                  :start_date
 
   belongs_to :service_type
   belongs_to :fleet
