@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130617233511) do
+ActiveRecord::Schema.define(:version => 20130622105403) do
 
   create_table "animals", :force => true do |t|
     t.date     "born_on"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20130617233511) do
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "canceled"
+    t.boolean  "booked"
   end
 
   create_table "fautl_books", :force => true do |t|

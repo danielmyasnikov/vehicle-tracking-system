@@ -32,9 +32,21 @@ class ServicesController < ApplicationController
   # GET /services/new
   # GET /services/new.json
   def new
-    @serviceable = Serviceable.find(params[:serviceable])
-    @serviceable.booked = true
-    @serviceable.save
+    
+    # TODO: potential bug, should, if the user clicks on cancel then the service disappers from the scrren
+    # should pass params to create method and execute saving
+    if params[:serviceable] 
+      @serviceable = Serviceable.find(params[:serviceable])
+      @serviceable.booked = true
+      @serviceable.save
+    end
+    
+    if params[:fault_book]
+      @fault_book = FaultBook.find(params[:fault_book])
+      @fault_book.booked = true
+      @fault_book.save
+    end
+    
     @service = Service.new
     @service.warranty = true
     @date = params
@@ -49,11 +61,8 @@ class ServicesController < ApplicationController
     month = params[:month].to_i
     day = params[:day].to_i
     
-    @service.start_service_time   = start_service_time
-    puts "params"
-    puts year.to_s + ' ' + month.to_s + ' ' + day.to_s 
-    @service.start_service_date   = Date.new(year, month, day).strftime("%d-%m-%Y")
-    @service.finish_service_date  = @service.start_service_date
+    # @service.start_service_time   = start_service_time
+    # @service.start_service_date   = Date.new(year, month, day).strftime("%d-%m-%Y")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -73,10 +82,10 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
-
     @service = Service.new(params[:service])
+    @service.start_service_time = DateTime.new(params[:service][:start_service_date]) + params[:service][:start_service_time].to_i.hour
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
-    
+    @service.finish_service_date  = @service.start_service_date
     @fleet_email_contacts     = TruckFleet.find_contacts_by_fleet_id(@service.fleet_id)
     @repairer_email_contacts  = Repairer.find_contacts_by_repairer_id(@service.repairer_id) 
     

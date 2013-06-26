@@ -42,7 +42,8 @@
 				        		:month => Date.today.month,
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour,
-								:type => :fault
+										:type => :fault,
+										:fault_book => overdue.id
 				        	), :class => 'btn btn-mini btn-success' %>
                 			<%= link_to 'P', postpone_fault_book_path(
 	                      		overdue.fleet,
@@ -84,19 +85,20 @@
 				        		:month => Date.today.month,
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour,
-								:type => :fault,
-								:fleet_id => due.fleet.id,
-								:service_id => due.service_type.id
+										:type => :fault,
+										:fleet_id => due.fleet.id,
+										:service_id => due.service_type.id,
+										:serviceable => due
 				        	),
 	                      	  :class => 'btn btn-mini btn-success' %>
 	                      	<%= link_to 'P', postpone_fleet_path(
 	                      		due.fleet,
 	                      		:service_id => due.service_type.id),
-			                  	:class => 'btn btn-mini btn-warning' %>
+			                  		:class => 'btn btn-mini btn-warning' %>
 			                <%= link_to 'C', cancel_fleet_path(
 	                      		due.fleet,
 	                      		:service_id => due.service_type.id),
-			                  	:class => 'btn btn-mini btn-danger' %>
+			                  		:class => 'btn btn-mini btn-danger' %>
 			            </div>
 						<div style="clear:both;"></div>
 						<% else %>
@@ -109,9 +111,9 @@
 					        		:month => Date.today.month,
 					        		:day => Date.today.day,
 					        		:hours =>  Time.now.hour,
-									:type => :fault,
-									:fleet_id => due.fleet.id,
-									:fault_book => due.id
+											:type => :fault,
+											:fleet_id => due.fleet.id,
+											:fault_book => due.id
 					        	), :class => 'btn btn-mini btn-success' %>
 	                			<%= link_to 'P', postpone_fault_book_path(
 		                      		due.fleet,

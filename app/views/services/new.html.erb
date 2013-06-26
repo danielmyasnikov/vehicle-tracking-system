@@ -1,11 +1,4 @@
 <%- model_class = Service -%>
-
-	<dl class="dl-horizontal">
-	  <dt class="fleet-labals font-bold"><strong>Time:</strong></dt>
-	  <dd><div id='id-time'> <%= @date[:hours] %>:00</div></dd>
-	  <dt class="fleet-labals font-bold"><strong>Day:</strong></dt>
-	  <dd><div id='id-date'><%= @date[:day] %>/<%= @date[:month] %>/<%= @date[:year] %> </div></dd>
-	</dl>
 <%= render :partial => 'form' %>
 <script>
 $('.ie7-navigational').hide();
