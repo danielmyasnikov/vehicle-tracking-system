@@ -1,7 +1,5 @@
 <h1>Bookings</h1>
 <p>
-	<div id='id-time'>Time: <%= @date[:hours] %> <%= @date[:suffix]%> </div>
-	<div id='id-date'>Day: <%= @date[:day] %> </div>
 	<%= form_for(@service) do |f| %>
 	  <% if @service.errors.any? %>
 	    <div id="error_explanation">

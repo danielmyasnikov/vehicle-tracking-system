@@ -156,6 +156,7 @@ class Fleet < ActiveRecord::Base
     if params.present?
       params.each do |key, value|
         s = serviceables.find_by_service_type_id(key)
+        s.booked = false
         s.update_attributes(value)
         next_service = calc_next_period_for_services(value["service_time_interval"], value["service_period"])
         start_service_date = value["start_date"]

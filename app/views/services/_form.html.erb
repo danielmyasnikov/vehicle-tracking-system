@@ -1,8 +1,14 @@
 <%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
 	<div class="control-group">
+		<%= f.label :start_service_time, :class => 'control-label fleet-labals font-bold' %>
+		<div class="controls">
+	      <%= f.select :start_service_time, [["08:00AM", 8], ["10:00AM", 10], ["12:00PM", 12], ["02:00PM", 14], ["04:00PM", 16]], {}, { :promt => true, :class => 'select-widht-height text_field_width_height' } %>
+		</div>
+	</div>
+	<div class="control-group">
 		<%= f.label :day, :class => 'control-label fleet-labals font-bold' %>
 		<div class="controls">
-	      <%= f.text_field :start_service_date, :id => 'id-day', :class => 'text_field text_field_width_height' %>
+	      <%= f.text_field :start_service_date, :id => 'id-day', :class => 'text_field text_field_width_height datepicker' %>
 		</div>
 	</div>
   <div class="control-group">
@@ -107,9 +113,7 @@
     </div>
   </div>
   <!-- gets data from new to populate the model -->
-  <%= f.text_field :start_service_date, :class => 'hidden' %>
   <%= f.text_field :finish_service_date, :class => 'hidden' %>
-  <%= f.text_field :start_service_time, :class => 'hidden' %>
   <%= f.text_field :finish_service_time, :class => 'hidden' %>
   <div class="form-actions">
 	<%= f.submit nil, :class => 'btn btn-primary', :id => 'id-create' %>
@@ -131,9 +135,6 @@
 <% end %>
 <script>
 $('.selectpicker').selectpicker();
-$('#id-day').datepicker({
-	format: 'dd-mm-yyyy'
-}).attr("disabled", "disabled");
 $('.ie7-navigational').hide();
 $('#id-cancel').click(function(){
   window.close();
