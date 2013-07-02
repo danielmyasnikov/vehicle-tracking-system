@@ -1,0 +1,11 @@
+<% rows ||= 10 %>
+<% cols ||= 40 %>
+
+<%= form_for(target,
+      remote: true, format: :json,
+      html: { class: "edit-form form-inline" }) do |f| %>
+  <div class="field">
+    <%= f.text_area attribute, class: "edit-input #{css_class}", rows: rows, cols: cols %>
+    <%= spinner_tag %>
+  </div>
+<% end %>

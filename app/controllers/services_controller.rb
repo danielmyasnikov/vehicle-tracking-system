@@ -83,7 +83,11 @@ class ServicesController < ApplicationController
   # POST /services.json
   def create
     @service = Service.new(params[:service])
-    @service.start_service_time = DateTime.new(params[:service][:start_service_date]) + params[:service][:start_service_time].to_i.hour
+    p "start_service_date"
+    p params
+    p "start_service_date"
+    p params[:service][:start_service_time]
+    @service.start_service_time = params[:service][:start_service_date].to_datetime + params[:service][:start_service_time].to_i.hour
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     @service.finish_service_date  = @service.start_service_date
     @fleet_email_contacts     = TruckFleet.find_contacts_by_fleet_id(@service.fleet_id)

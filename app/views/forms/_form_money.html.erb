@@ -1,0 +1,9 @@
+<%= form_for(target,
+      remote: true, format: :json,
+      html: { class: "edit-form form-inline" }) do |f| %>
+  <div class="field">
+    <%= f.text_field attribute, class: "edit-input #{css_class}" %>
+    <b><span class="lead" style="vertical-align: middle">$</span></b>
+    <%= spinner_tag %>
+  </div>
+<% end %>

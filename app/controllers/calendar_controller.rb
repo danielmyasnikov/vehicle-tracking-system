@@ -18,7 +18,7 @@ class CalendarController < ApplicationController
     @trainings = Training.all
     @settings = Setting.all
     @due = Serviceable.due(@trucks.pluck(:id)) if @trucks.present?
-    @due = @due.where("serviceables.booked != ?", true)
+    @due = @due.where("serviceables.booked != ?", true) if @due
     # @due = @due.where(Serviceable.arel_table[:booked].not_eq(true))
     @truck_fleet_fault_book_major = FaultBook.belongs_to_truck_fleet(
       current_user.truck_fleet, FaultBook.scoped
@@ -32,10 +32,10 @@ class CalendarController < ApplicationController
                                           .where("fault_date < ?", Date.today + 7)
                                           .where(:booked => false)
     )
-    @due = @due + @truck_fleet_fault_book_minor
+    @due = @due + @truck_fleet_fault_book_minor if @due
     @overdue = Serviceable.overdue(@trucks.pluck(:id)) if @trucks.present?
-    @overdue = @overdue.where(Serviceable.arel_table[:booked].not_eq(true))
-    @overdue = @overdue + @truck_fleet_fault_book_major
+    @overdue = @overdue.where(Serviceable.arel_table[:booked].not_eq(true)) if @overdue
+    @overdue = @overdue + @truck_fleet_fault_book_major if @overdue
     @trucks = TruckFleet.scoped_by_vehicle if current_user.admin?
   end
   

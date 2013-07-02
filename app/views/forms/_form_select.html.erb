@@ -1,0 +1,10 @@
+<%= form_for(target,
+      remote: true, format: :json,
+      html: { class: "edit-form form-inline" }) do |f| %>
+  <div class="field">
+    <%= f.collection_select attribute, options, :id, :name,
+	{selected: target.send(attribute), prompt: true},
+	{class: "edit-input #{css_class}"} %>
+    <%= spinner_tag %>
+  </div>
+<% end %>
