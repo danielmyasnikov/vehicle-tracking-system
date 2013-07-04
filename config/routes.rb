@@ -56,7 +56,7 @@ Mytruckfleet::Application.routes.draw do
       get "/" => "devise/sessions#new"
     end
   end
-  
+  resources :users
   devise_for :users, :skip => [:sessions]
 
   as :user do

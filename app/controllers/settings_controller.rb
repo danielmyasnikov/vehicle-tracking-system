@@ -39,6 +39,7 @@ class SettingsController < ApplicationController
 
   # GET /settings/1/edit
   def edit
+    @users = current_user.truck_fleet.users.order(:name)
     @setting = Setting.find(params[:id])
     @setting.prepare_email_notifications
     @notifications = Notification.all

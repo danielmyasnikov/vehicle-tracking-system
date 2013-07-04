@@ -70,8 +70,10 @@ class UserMailer < ActionMailer::Base
   def update_vehicle_info(user, vehicle)
     @user = user
     notification = Notification.find_by_name("Update vehicle info except milage")
-    emails = user.truck_fleet.collect_emails_for_notification(notification)
+    emails = vehicle.truck_fleet.collect_emails_for_notification(notification)
     emails ||= user.email
+    p "emails!!!"
+    p emails
     
     emails = emails.join(",") if emails.kind_of?(Array)
     mail :to => emails,

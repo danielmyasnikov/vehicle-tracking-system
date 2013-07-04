@@ -38,7 +38,9 @@ class TruckFleetsController < ApplicationController
 
   # GET /truck_fleets/1/edit
   def edit
+    
     @truck_fleet = TruckFleet.find(params[:id])
+    @users = @truck_fleet.users
   end
 
   # POST /truck_fleets

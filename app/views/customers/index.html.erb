@@ -5,26 +5,29 @@
 </div>
 <br/>
 <% if @users.present? %>
-<table class="table table-striped">
+<table class="table table-striped datetable">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:truck_fleet_id) %></th>
+      <th>Truck Fleet</th>
+      <th>Email</th>
+      <th>Role</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
-      <% if user.truck_fleet.present? %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.truck_fleet.trading_name_of_business %></td>
-        <td>
-          <%= link_to 'Approve', edit_customer_path(user.id), :class => 'btn btn-mini btn-primary' %>
-          <%#= link_to 'Delete', :controller => :customer, :actoin => :delete, :id => user.id, :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-      <% end %>
+			<%= form_for user do |u| %>
+	      <tr>
+		      <td><%= user.name %></td>
+	        <td><%= u.check_box :approved %></td>
+		      <td><%= u.text_field :email %></td>
+		      <td><%= u.select :role, ['Primary', 'Secondary'] %></td>
+					<td>
+					  <%= u.submit %>
+					</td>
+	      </tr>
+			<% end %>
     <% end %>
   </tbody>
 </table>

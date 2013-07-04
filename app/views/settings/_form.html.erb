@@ -33,4 +33,41 @@
 	<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
 	settings_path, :class => 'btn' %>
 </div>
-<% end %> 
+<% end %>
+
+<%- model_class = User -%>
+<div class="upper-table-info">
+	<span class="table-count-number"><%= @users.count %></span>
+	<span class="table-truck-fleet-name"><%= "Customers" %></span>
+</div>
+<br/>
+<% if @users.present? %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th>Approved</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+			<%= form_for user do |u| %>
+	      <tr>
+		      <td><%= user.name %></td>
+	        <td><%= u.check_box :approved %><%#= user.truck_fleet.trading_name_of_business %></td>
+		      <td><%= u.text_field :email %></td>
+		      <td><%= u.select :role, ['Primary', 'Secondary'] %></td>
+					<td>
+					  <%= u.submit %>
+					</td>
+	      </tr>
+			<% end %>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  No users!
+<% end %>

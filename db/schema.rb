@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130622105403) do
+ActiveRecord::Schema.define(:version => 20130704055616) do
 
   create_table "animals", :force => true do |t|
     t.date     "born_on"
@@ -353,6 +353,7 @@ ActiveRecord::Schema.define(:version => 20130622105403) do
     t.boolean  "approved",               :default => false, :null => false
     t.boolean  "admin",                  :default => false
     t.integer  "truck_fleet_id"
+    t.string   "role"
   end
 
   add_index "users", ["approved"], :name => "index_users_on_approved"
