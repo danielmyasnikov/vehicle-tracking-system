@@ -70,11 +70,12 @@ class SettingsController < ApplicationController
   # PUT /settings/1
   # PUT /settings/1.json
   def update
+    p 'settings!!!'
     @setting = Setting.find(params[:id])
     @notifications = Notification.all
     respond_to do |format|
-      if @setting.update_attributes(params[:setting]) && @setting.update_notifications(params[:fields])
-        format.html { redirect_to @setting, notice: 'Setting was successfully updated.' }
+      if @setting.update_attributes(params[:setting])
+        format.html { redirect_to :back }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

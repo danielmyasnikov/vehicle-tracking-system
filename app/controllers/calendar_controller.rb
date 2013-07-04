@@ -12,31 +12,32 @@ class CalendarController < ApplicationController
       @drivers = current_user.truck_fleet.drivers
       @services = Service.where(:fleet_id => current_user.truck_fleet.fleets.pluck(:id)) if current_user.truck_fleet.fleets.present?
       @services = @services.where(:archived => [false, nil])
-      p @services.inspect
     end
     @repairers = Repairer.all
     @trainings = Training.all
     @settings = Setting.all
     @due = Serviceable.due(@trucks.pluck(:id)) if @trucks.present?
-    @due = @due.where("serviceables.booked != ?", true) if @due
+    @due = @due.where("serviceables.booked != ?", true)
     # @due = @due.where(Serviceable.arel_table[:booked].not_eq(true))
     @truck_fleet_fault_book_major = FaultBook.belongs_to_truck_fleet(
       current_user.truck_fleet, FaultBook.scoped
                                           .where(:fault_type => 'Major')
                                           .where("fault_date < ?", Date.today + 7)
-                                          .where(:booked => false)
+                                          .where(:booked => [false, nil])
     )
     @truck_fleet_fault_book_minor = FaultBook.belongs_to_truck_fleet(
       current_user.truck_fleet, FaultBook.scoped
                                           .where(:fault_type => "Minor")
                                           .where("fault_date < ?", Date.today + 7)
-                                          .where(:booked => false)
+                                          .where(:booked => [false, nil])
     )
-    @due = @due + @truck_fleet_fault_book_minor if @due
+    @due = @due + @truck_fleet_fault_book_minor
     @overdue = Serviceable.overdue(@trucks.pluck(:id)) if @trucks.present?
-    @overdue = @overdue.where(Serviceable.arel_table[:booked].not_eq(true)) if @overdue
-    @overdue = @overdue + @truck_fleet_fault_book_major if @overdue
+    @overdue = @overdue.where(Serviceable.arel_table[:booked].not_eq(true))
+    @overdue = @overdue + @truck_fleet_fault_book_major
     @trucks = TruckFleet.scoped_by_vehicle if current_user.admin?
+    p 'DUE'
+    p @due
   end
   
   def view

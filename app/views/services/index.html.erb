@@ -5,7 +5,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:fleet_id) %></th>
       <th><%= model_class.human_attribute_name(:repairer_id) %></th>
       <th><%= model_class.human_attribute_name(:service_type) %></th>
@@ -27,7 +26,6 @@
   <tbody>
     <% @services.each do |service| %>
       <tr>
-        <td><%= link_to service.id, service_path(service) %></td>
         <td><%= service.fleet_id %></td>
         <td><%= service.repairer_id %></td>
         <td><%= service.service_type %></td>

@@ -5,6 +5,8 @@ Mytruckfleet::Application.routes.draw do
   resources :subscribtions
   resources :trainings
   resources :drivers
+  resources :users
+  resources :email_notifications
 
   get "calendar/view"
   get "calendar/index"
@@ -56,7 +58,7 @@ Mytruckfleet::Application.routes.draw do
       get "/" => "devise/sessions#new"
     end
   end
-  resources :users
+  
   devise_for :users, :skip => [:sessions]
 
   as :user do

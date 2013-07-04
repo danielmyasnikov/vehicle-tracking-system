@@ -2,10 +2,12 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
-<table class="table table-striped">
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_service_type_path,
+            :class => 'btn btn-primary right' %>
+<table class="table table-striped mtf-table datatable">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -13,7 +15,6 @@
   <tbody>
     <% @service_types.each do |service_type| %>
       <tr>
-        <td><%= link_to service_type.id, service_type_path(service_type) %></td>
         <td><%= service_type.name %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
