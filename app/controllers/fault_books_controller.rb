@@ -104,6 +104,7 @@ class FaultBooksController < ApplicationController
     @fault_book = FaultBook.find(params[:id])
     @fault_book.destroy
     if (params[:from_calendar])
+      UserMailer.update_service(current_user, @service).deliver
       redirect_to controller: :calendar, action: :index
     else
       respond_to do |format|
@@ -125,5 +126,6 @@ class FaultBooksController < ApplicationController
   end
   
   def cancel
+    p 'went into cancel'
   end
 end

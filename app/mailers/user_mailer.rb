@@ -60,6 +60,7 @@ class UserMailer < ActionMailer::Base
     @next_service_date = next_service_date
     
     notification = Notification.find_by_name("Cancel service")
+    emails = self.find_emails(user, vehicle)
     emails = user.truck_fleet.collect_emails_for_notification(notification)
     emails << user.email
     emails = emails.join(",") if !emails.nil?
@@ -70,12 +71,10 @@ class UserMailer < ActionMailer::Base
   def update_vehicle_info(user, vehicle)
     @user = user
     notification = Notification.find_by_name("Update vehicle info except milage")
-    emails = vehicle.truck_fleet.collect_emails_for_notification(notification)
-    emails ||= user.email
-    p "emails!!!"
-    p emails
+    users = vehicle.truck_fleet.users
+    setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
+    emails = self.find_emails(user, vehicle)
     
-    emails = emails.join(",") if emails.kind_of?(Array)
     mail :to => emails,
          :subject => "Vehicle information has been updated for #{vehicle.fleet_number}"
   end
@@ -90,5 +89,19 @@ class UserMailer < ActionMailer::Base
   
   def service_done(user, service)
     
+  end
+  
+  def self.find_emails(user, vehicle)
+    if (setting.primary && setting.secondary)
+      emails = users.pluck(:email)
+    elsif (setting.primary && !setting.secondary)
+      emails = users.where(:role => "Primary").pluck(:email)
+    elsif (!setting.primary && setting.secondary)
+      emails = users.where(:role => "Secondary").pluck(:email)
+    elsif
+      emails = user.email
+    end
+    
+    emails.kind_of?(Array)? emails.join(",") : emails
   end
 end
