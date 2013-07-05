@@ -11,9 +11,20 @@ class CustomersController < ApplicationController
   end
   
   def edit
+    if (params[:approve])
+      @user = User.find(params[:id])
+      @user.to_approve
+      redirect_to customers_path
+    elsif (params[:update_customer])
+      p 'in here:))))'
+      redirect_to :back
+    end
+  end
+  
+  def update
     @user = User.find(params[:id])
-    @user.to_approve
-    redirect_to customers_path
+    @user.update_attributes(params[:user])
+    redirect_to :back
   end
   
   def destroy

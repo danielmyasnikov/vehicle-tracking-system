@@ -5,7 +5,7 @@ Mytruckfleet::Application.routes.draw do
   resources :subscribtions
   resources :trainings
   resources :drivers
-  resources :users
+  # resources :users
   resources :email_notifications
 
   get "calendar/view"
@@ -33,7 +33,7 @@ Mytruckfleet::Application.routes.draw do
       post 'finish'
     end
   end
-  resources :customers, :except => [:show]
+  resources :customers #, :except => [:show]
   resources :contacts_repaiers
   resources :repairers
   # match 'fleets/postponed/id', :controller => "fleets", :action => "postponed", :via => :post

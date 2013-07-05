@@ -57,14 +57,14 @@
 	  </thead>
 	  <tbody>
 	    <% @users.each do |user| %>
-				<%= form_for user do |u| %>
+				<%= form_for(user, :url => customer_path(user.id)) do |u| %>
 		      <tr>
 			      <td><%= user.name %></td>
 		        <td><%= u.check_box :approved %><%#= user.truck_fleet.trading_name_of_business %></td>
 			      <td><%= u.text_field :email %></td>
 			      <td><%= u.select :role, ['Primary', 'Secondary'] %></td>
 						<td>
-						  <%= u.submit "Update user" %>
+						  <%= u.submit 'Change', :name => "update_customer", :class => 'btn btn-mini btn-primary'  %>
 						</td>
 		      </tr>
 				<% end %>
