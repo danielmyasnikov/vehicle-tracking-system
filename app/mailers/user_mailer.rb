@@ -52,7 +52,7 @@ class UserMailer < ActionMailer::Base
          :subject => "Service has been successfully booked"
   end
   
-  def cancel_service(user, vehicle, service_type_name, service_date, next_service_date)
+  def cancel_service(user, vehicle, service_type_name, service_date = nil, next_service_date = nil)
     @user = user
     @vehicle = vehicle
     @service_type_name = service_type_name
@@ -60,10 +60,9 @@ class UserMailer < ActionMailer::Base
     @next_service_date = next_service_date
     
     notification = Notification.find_by_name("Cancel service")
-    emails = self.find_emails(user, vehicle)
-    emails = user.truck_fleet.collect_emails_for_notification(notification)
-    emails << user.email
-    emails = emails.join(",") if !emails.nil?
+    setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
+    emails = self.find_emails(user, vehicle, setting)
+    
     mail :to => emails,
          :subject => "Service for vehicle #{vehicle.name} has been removed"
   end
@@ -71,9 +70,8 @@ class UserMailer < ActionMailer::Base
   def update_vehicle_info(user, vehicle)
     @user = user
     notification = Notification.find_by_name("Update vehicle info except milage")
-    users = vehicle.truck_fleet.users
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
-    emails = self.find_emails(user, vehicle)
+    emails = self.find_emails(user, vehicle, setting)
     
     mail :to => emails,
          :subject => "Vehicle information has been updated for #{vehicle.fleet_number}"
@@ -91,7 +89,11 @@ class UserMailer < ActionMailer::Base
     
   end
   
-  def self.find_emails(user, vehicle)
+  def find_emails(user, vehicle, setting)
+    p 'Settings primary / secondary'
+    p setting.primary
+    p setting.secondary
+    users = vehicle.truck_fleet.users
     if (setting.primary && setting.secondary)
       emails = users.pluck(:email)
     elsif (setting.primary && !setting.secondary)
@@ -101,6 +103,9 @@ class UserMailer < ActionMailer::Base
     elsif
       emails = user.email
     end
+    
+    p 'Emails!'
+    p emails
     
     emails.kind_of?(Array)? emails.join(",") : emails
   end

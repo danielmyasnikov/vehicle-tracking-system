@@ -56,16 +56,17 @@ class FleetsController < ApplicationController
   # TODO: move to services / serviceables
   def postponed
     @serviceable = Serviceable.find(params[:id])
-    
     @serviceable.update_attributes(params[:serviceable])
-    
     redirect_to controller: :calendar, action: :index
   end
   
   # TODO: move to services / serviceables
   def cancel
+    p 'Service has been canceled'
     @serviceable = Serviceable.where(:service_type_id => params[:service_id], :fleet_id => params[:id]).first
     @serviceable.cancel_service # TODO if !@serviceable.set_date
+    fleet = Fleet.find(params[:id])
+    UserMailer.cancel_service(current_user, fleet, @serviceable.service_type.name, nil, nil).deliver
     redirect_to controller: :calendar, action: :index
   end
   

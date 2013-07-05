@@ -104,7 +104,7 @@ class FaultBooksController < ApplicationController
     @fault_book = FaultBook.find(params[:id])
     @fault_book.destroy
     if (params[:from_calendar])
-      UserMailer.update_service(current_user, @service).deliver
+      UserMailer.cancel_service(current_user, @fault_book.fleet, "Fault Book Service", @fault_book.fault_date).deliver
       redirect_to controller: :calendar, action: :index
     else
       respond_to do |format|
