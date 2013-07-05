@@ -95,7 +95,7 @@ class ServicesController < ApplicationController
     
     respond_to do |format|
       if @service.save
-        # UserMailer.completed_booking(current_user, @service).deliver
+        UserMailer.completed_booking(current_user, @service).deliver
         # TODO: changed completed
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
         format.json { render json: @service, status: :created, location: @service }
@@ -114,7 +114,7 @@ class ServicesController < ApplicationController
     respond_to do |format|
       if @service.update_attributes(params[:service])
         # TODO: get all changed attributes and shoot an email to the PC or SC with the person who updated the details and the details themselfs
-        # UserMailer.update_service(current_user, @service).deliver
+        UserMailer.update_service(current_user, @service).deliver
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { head :no_content }
       else
@@ -153,6 +153,7 @@ class ServicesController < ApplicationController
     )
     respond_to do |format|
       if @report.save && @service.save
+        UserMailer.service_done(current_user, @service).deliver
         flash[:notice] = 'Everything went OK!' and return
       else
         flash[:warning] = 'There were some issues. Please fix them or send an email with the issue to contact@sxtrailers.com.au'

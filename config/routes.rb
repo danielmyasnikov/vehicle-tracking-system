@@ -5,7 +5,6 @@ Mytruckfleet::Application.routes.draw do
   resources :subscribtions
   resources :trainings
   resources :drivers
-  # resources :users
   resources :email_notifications
 
   get "calendar/view"

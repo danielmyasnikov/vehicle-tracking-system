@@ -121,6 +121,7 @@ class FaultBooksController < ApplicationController
   def postponed
     @fault_book = FaultBook.find(params[:id])
     @fault_book.update_attributes(params[:fault_book])
+    UserMailer.postponed_service(current_user, @fault_book).deliver
     
     redirect_to controller: :calendar, action: :index
   end
