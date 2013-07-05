@@ -40,7 +40,7 @@
 	<%- model_class = User -%>
 	<div class="upper-table-info">
 		<span class="table-count-number"><%= @users.count %></span>
-		<span class="table-truck-fleet-name"><%= "Customers" %></span>
+		<span class="table-truck-fleet-name"><%= "Users" %></span>
 	</div>
 	<br/>
 
@@ -64,7 +64,7 @@
 			      <td><%= u.text_field :email %></td>
 			      <td><%= u.select :role, ['Primary', 'Secondary'] %></td>
 						<td>
-						  <%= u.submit :users %>
+						  <%= u.submit "Update user" %>
 						</td>
 		      </tr>
 				<% end %>
