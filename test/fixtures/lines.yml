@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  item: 1
+  item_type: MyString
+  line: MyText
+  logs: 
+
+two:
+  item: 1
+  item_type: MyString
+  line: MyText
+  logs: 

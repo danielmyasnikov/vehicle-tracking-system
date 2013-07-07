@@ -1,4 +1,8 @@
 Mytruckfleet::Application.routes.draw do
+  get "logs/index"
+
+  get "logs/view"
+
   resources :service_types
   resources :notifications
   resources :settings

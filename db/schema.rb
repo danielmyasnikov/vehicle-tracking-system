@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704055616) do
+ActiveRecord::Schema.define(:version => 20130707094029) do
+
+  create_table "animals", :force => true do |t|
+    t.date     "born_on"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",           :null => false
@@ -77,8 +83,9 @@ ActiveRecord::Schema.define(:version => 20130704055616) do
     t.string   "mileage"
     t.string   "contact_no"
     t.text     "faults"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "accident_type"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
@@ -137,6 +144,28 @@ ActiveRecord::Schema.define(:version => 20130704055616) do
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
+    t.integer  "age"
+  end
+
+  create_table "lines", :force => true do |t|
+    t.integer  "item"
+    t.string   "item_type"
+    t.text     "line"
+    t.integer  "log_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "lines", ["log_id"], :name => "index_lines_on_log_id"
+
+  create_table "logs", :force => true do |t|
+    t.string   "name"
+    t.text     "line"
+    t.boolean  "status"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.datetime "start_timestamp"
+    t.datetime "final_timestamp"
   end
 
   create_table "notifications", :force => true do |t|
@@ -254,6 +283,8 @@ ActiveRecord::Schema.define(:version => 20130704055616) do
     t.string   "service_type_name"
     t.integer  "truck_fleet_id"
     t.boolean  "archived"
+    t.datetime "service_start_date_time"
+    t.boolean  "visible"
     t.boolean  "finalise"
   end
 

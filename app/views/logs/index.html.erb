@@ -1,0 +1,38 @@
+
+<% items ||= @logs %>
+<% columns_to_display ||= [:id, :start_timestamp, :final_timestamp, :status] %>
+<% table_name ||= "Logs" %>
+<% model_class ||= Log %>
+<% items ||= @logs %>
+
+<div class="upper-table-info">
+	<span class="table-count-number"><%= items.count %></span>
+	<span class="table-truck-fleet-name"><b><%= table_name %></b></span>
+</div>
+
+<br />
+<br />
+<table class="table table-striped mtf-table datatable">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+			<th><%= model_class.human_attribute_name(:start_timestamp) %></th>
+			<th><%= model_class.human_attribute_name(:final_timestamp) %></th>
+			<th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.each do |item| %>
+      <tr>
+        <td><%= item.name.humanize %></td>
+				<td><%= item.start_timestamp.strftime("%Y/%m/%d - %H:%M:%S") %></td>
+				<td><%= item.final_timestamp.strftime("%Y/%m/%d - %H:%M:%S") %></td>
+				<td><%= item.status? ? "Succsessful" : "Unsuccsessful" %></td>
+        <td>
+					<%= link_to "View", logs_view_path(:id => item.id), :class => "btn btn-mini btn-success"%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
