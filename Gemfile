@@ -10,7 +10,7 @@ gem 'jquery-datatables-rails'
 gem 'fullcalendar-rails'
 gem "mail"
 gem 'whenever', :require => false
-gem "paperclip", "~> 3.0"
+gem "paperclip", "~> 3.4"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'rufus-scheduler'
 gem 'libv8'
