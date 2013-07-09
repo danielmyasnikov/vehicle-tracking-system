@@ -12,7 +12,6 @@ class Fleet < ActiveRecord::Base
   has_many :serviceables
   has_many :fault_books
   has_attached_file :avatar, :styles => {:medium => "300x300", :thumb => "40x40"}
-  has_attached_file :asset
   has_many :assets
   has_many :reports
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
