@@ -8,14 +8,14 @@ Mytruckfleet::Application.configure do
   config.assets.precompile += %w( .svg .eot .woff .ttf )
   
   # paperclip configuration for AWS
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => 'my-truck-fleet',
-      :access_key_id => 'AKIAIQLJGUMX2XSY624A',
-      :secret_access_key => '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',
-    }
-  }
+#  config.paperclip_defaults = {
+#    :storage => :s3,
+#    :s3_credentials => {
+#      :bucket => 'my-truck-fleet',
+#      :access_key_id => 'AKIAIQLJGUMX2XSY624A',
+#      :secret_access_key => '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',
+#    }
+#  }
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -23,7 +23,7 @@ Mytruckfleet::Application.configure do
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
-
+  config.action_mailer.default_url_options = { :host => 'http://unicorn' }
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = true
 
