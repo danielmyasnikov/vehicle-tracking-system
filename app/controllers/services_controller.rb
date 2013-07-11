@@ -83,15 +83,12 @@ class ServicesController < ApplicationController
   # POST /services.json
   def create
     @service = Service.new(params[:service])
-    p "start_service_date"
-    p params
-    p "start_service_date"
-    p params[:service][:start_service_time]
     @service.start_service_time = params[:service][:start_service_date].to_datetime + params[:service][:start_service_time].to_i.hour
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     @service.finish_service_date  = @service.start_service_date
     @fleet_email_contacts     = TruckFleet.find_contacts_by_fleet_id(@service.fleet_id)
     @repairer_email_contacts  = Repairer.find_contacts_by_repairer_id(@service.repairer_id) 
+    @service.truck_fleet = @service.fleet.truck_fleet
     
     respond_to do |format|
       if @service.save
@@ -133,7 +130,6 @@ class ServicesController < ApplicationController
   end
   
   def finish
-    puts 'CAALED'
     @service = Service.find(params[:id])
     @service.archived = true
     # refactor this, may be there is a better way to assign values from the form :)

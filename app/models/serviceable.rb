@@ -41,6 +41,14 @@ class Serviceable < ActiveRecord::Base
     end
   end
   
+  def self.due_in(date)
+    self.where(:next_service_date => Date.today + date)
+  end
+  
+  def self.overdue_in(date)
+    self.where(:next_service_date => Date.today - date)
+  end
+  
   def due?
     next_service_date <= Date.today + 3 && next_service_date > Date.today if next_service_date.present?
   end

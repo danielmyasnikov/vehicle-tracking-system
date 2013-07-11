@@ -19,6 +19,16 @@ class TruckFleet < ActiveRecord::Base
     trading_name_of_business
   end
   
+  def settings_due_service_interval
+    notification = setting.email_notifications.where(:notification_id => Notification.find_by_name("Due service").id)
+    notification.first.interval
+  end
+  
+  def settings_overdue_service_interval
+    notification = setting.email_notifications.where(:notification_id => Notification.find_by_name("Overdue service").id)
+    notification.first.interval
+  end
+   
   def collect_emails_for_notification(notification)
     emails = []
     if send_to_primaries?(notification) && send_to_secondaries?(notification)
