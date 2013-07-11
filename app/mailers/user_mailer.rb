@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
     vehicle = service.fleet
     notification = Notification.find_by_name("Updated / Rescheduled service")
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
-    @emails = self.find_emails(user, vehicle, setting)
+    emails = self.find_emails(user, vehicle, setting)
     
     mail :to => "myasnikovdaniil@gmail.com",
          :subject => "Service for vehicle #{vehicle.name} has been updated"
@@ -75,9 +75,9 @@ class UserMailer < ActionMailer::Base
     @user = user
     notification = Notification.find_by_name("Update vehicle info except milage")
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
-    @emails = self.find_emails(user, vehicle, setting)
+    emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Vehicle information has been updated for #{vehicle.fleet_number}"
   end
   
