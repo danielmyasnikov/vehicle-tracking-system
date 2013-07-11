@@ -3,7 +3,7 @@ ActionMailer::Base.smtp_settings = {
   :user_name            => "info.mytruckfleet@gmail.com",
   :domain               => "gmail.com",
   :port                 => "587",
-  :password             => "cxylioxthnylthrt",
+  :password             => "joswgchtocppujnu",
   :authentication       => "plain",
   :enable_starttls_auto => true
 }
