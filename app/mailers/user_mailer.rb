@@ -22,7 +22,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service for vehicle #{vehicle.name} has been updated"
   end
   
@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Booking completed. For vehicle #{vehicle.name}"
   end
   
@@ -42,7 +42,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service Postponed. For vehicle #{vehicle.name}"
   end
   
@@ -57,7 +57,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service cancelled. For vehicle #{vehicle.name}"
   end
   
@@ -67,7 +67,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Info updated. For #{vehicle.fleet_number}"
   end
   
@@ -79,7 +79,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service postponed! For #{vehicle.fleet_number}"
   end
   
@@ -91,7 +91,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service accomplished. For #{vehicle.fleet_number}"
   end
   
@@ -102,7 +102,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service due. For #{vehicle.fleet_number}"
   end
   
@@ -113,7 +113,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service overdue. For #{vehicle.fleet_number}"
   end
   
@@ -124,7 +124,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Date of booking. For #{vehicle.fleet_number}"
   end
   
@@ -135,7 +135,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Prebooking reminder. For #{vehicle.fleet_number}"
   end
   
@@ -147,7 +147,7 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(vehicle, setting)
     
-    mail :to => "myasnikovdaniil@gmail.com",
+    mail :to => emails,
          :subject => "Service is today. For #{vehicle.fleet_number}"
   end
   
