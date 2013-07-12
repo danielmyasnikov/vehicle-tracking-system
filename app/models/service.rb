@@ -16,5 +16,6 @@ class Service < ActiveRecord::Base
   has_many :reports
   
   def sum_hours
+    
   end
 end
