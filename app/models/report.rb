@@ -10,11 +10,11 @@ class Report < ActiveRecord::Base
     puts "=> type"
     puts type.inspect
     if (type == "name")
-      reports = reports.group(:fleet_id).select("fleet_id, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.fleet.name, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] if r.fleet.present?}
+      reports = reports.group(:fleet_id).select("fleet_id, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.fleet.name, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] }
     elsif (type == "model")
-      reports = reports.group(:model).select("model, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.model, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] if r.fleet.present?}
+      reports = reports.group(:model).select("model, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.model, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] }
     elsif(type == "make")
-      reports = reports.group(:make).select("make, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.make, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] if r.fleet.present?}
+      reports = reports.group(:make).select("make, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.make, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] }
     end
   end
   

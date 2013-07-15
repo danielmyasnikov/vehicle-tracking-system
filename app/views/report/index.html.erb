@@ -1,6 +1,6 @@
 <%- model_class = Service -%>
 <div class="row">
-	<div class="span8">
+	<div class="span12">
 		<div class="margin-bottom-10px">
 		<%= high_chart("my_id", @h) %>
 		</div>
@@ -10,7 +10,7 @@
 			<% end %>
 		
 		</div>
-	<div class="span4">
+	<div class="span4 hidden">
 		<%= form_tag report_index_path, :html => { :class => 'form-horizontal' } do %>
 		<div class="control-group">
 	    <%= label_tag :by_type, "Group by type", :class => 'control-label' %>
@@ -25,7 +25,7 @@
 	    	</label>
 	  </div>
 	<hr>
-	  <div class="control-group">
+	  <div class="control-group hidden">
 	    <%= label_tag :by_service, "Calculate by service name", :class => 'control-label' %>
 			<label class='checkbox'>
     		<%= check_box_tag 'filter[service][]', :fault_book, false, :id => 'filter_fault_book' %>Fault book
