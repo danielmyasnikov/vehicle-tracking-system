@@ -33,12 +33,17 @@ class Report < ActiveRecord::Base
       end
     end
     
-    array_lastMonths = ['201206', '201207', '201208', '201209', '201210', '201211', '201212', '201301', '201302', '201303', '201304', '201305', '201306']
-
+    array_lastMonths = []
+    (0..12).each do |r|
+      array_lastMonths << (Date.today - r.months).strftime("%Y%m")
+    end
+    array_lastMonths.sort!
+    
     entries.each do |e|
       array_to_return = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
       hash[e].each do |item|
         index = array_lastMonths.index(item[1])
+        p index
         array_to_return.delete_at(index)
         array_to_return.insert(index, item[0])
       end
