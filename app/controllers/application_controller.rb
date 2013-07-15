@@ -4,10 +4,12 @@ class ApplicationController < ActionController::Base
   $not_available = 'Not available'
   
   def after_sign_in_path_for(resource)
-    if resource.admin?
-      customers_path
-    else
+    if resource.is_a?(User)
       calendar_index_path
+    elsif resource.is_a?(AdminUser) 
+      admin_dashboard_path(resource)
+    else
+      new_user_session
     end
   end
 end
