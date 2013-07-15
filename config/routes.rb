@@ -13,6 +13,8 @@ Mytruckfleet::Application.routes.draw do
   resources :drivers
   resources :email_notifications
 
+  get "kill/index"
+  get "kill/create"
   get "calendar/view"
   get "calendar/index"
   get "calendar/show"
