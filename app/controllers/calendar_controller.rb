@@ -11,14 +11,12 @@ class CalendarController < ApplicationController
       @trucks = current_user.truck_fleet.fleets.order("#{current_user.truck_fleet.setting.truck_identification} ASC")
       @drivers = current_user.truck_fleet.drivers
       @services = Service.where(:fleet_id => current_user.truck_fleet.fleets.pluck(:id)) if current_user.truck_fleet.fleets.present?
-      @services = @services.where(:archived => [false, nil])
+      @services = @services.where(:archived => [false, nil]) if @services
     end
     @repairers = Repairer.all
     @trainings = Training.all
     @settings = Setting.all
-    @due = Serviceable.due(@trucks.pluck(:id)) if @trucks.present?
-    @due = @due.where("serviceables.booked != ?", true)
-    # @due = @due.where(Serviceable.arel_table[:booked].not_eq(true))
+    @due = Serviceable.due(@trucks.pluck(:id)).where("serviceables.booked != ?", true) if @trucks.present?
     @truck_fleet_fault_book_major = FaultBook.belongs_to_truck_fleet(
       current_user.truck_fleet, FaultBook.scoped
                                           .where(:fault_type => 'Major')
@@ -31,13 +29,16 @@ class CalendarController < ApplicationController
                                           .where("fault_date < ?", Date.today + 7)
                                           .where(:booked => [false, nil])
     )
+    @due ||= []
+    @truck_fleet_fault_book_minor ||= []
     @due = @due + @truck_fleet_fault_book_minor
-    @overdue = Serviceable.overdue(@trucks.pluck(:id)) if @trucks.present?
-    @overdue = @overdue.where(Serviceable.arel_table[:booked].not_eq(true))
-    @overdue = @overdue + @truck_fleet_fault_book_major
+    
+    @overdue = Serviceable.overdue(@trucks.pluck(:id)).where(Serviceable.arel_table[:booked].not_eq(true)) if @trucks.present?
+    @overdue ||= []
+    @truck_fleet_fault_book_major ||= []
+    @overdue =  @overdue + @truck_fleet_fault_book_major
+    
     @trucks = TruckFleet.scoped_by_vehicle if current_user.admin?
-    p 'DUE'
-    p @due
   end
   
   def view
