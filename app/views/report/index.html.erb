@@ -2,12 +2,20 @@
 <div class="row">
 	<div class="span12">
 		<div class="margin-bottom-10px">
-		<%= high_chart("my_id", @h) %>
+			<% if @graph_monthly_spent_vehicles %>
+				<%= high_chart("my_id", @graph_monthly_spent_vehicles) %>
+			<% else %>
+				<%= "No data available for Graph" %>
+			<% end %>
 		</div>
-			<%= high_chart("my_id4", @chart) do |c| %>
+		<% if @total_chart %>
+			<%= high_chart("my_id4", @total_chart) do |c| %>
 				<%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: $'+ this.y +'.00 ';}"  %>
 				<%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
 			<% end %>
+		<% else %>
+		  <%= "No data for a pie chart" %>
+		<% end %>
 		
 		</div>
 	<div class="span4 hidden">

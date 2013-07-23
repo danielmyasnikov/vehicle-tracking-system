@@ -9,7 +9,7 @@ class FaultBooksController < ApplicationController
   # GET /fault_books
   # GET /fault_books.json
   def index
-    @fault_books = FaultBook.scoped
+    @fault_books = FaultBook.where(:truck_fleet_id => current_user.truck_fleet.id)
     @fault_books = FaultBook.belongs_to_truck_fleet(current_user.truck_fleet, @fault_books) if current_user.admin?
 
     respond_to do |format|
@@ -65,12 +65,11 @@ class FaultBooksController < ApplicationController
   # POST /fault_books.json
   def create
     @fault_book = FaultBook.new(params[:fault_book])
-
+    @fault_book.truck_fleet_id = @fault_book.fleet.truck_fleet_id
+    
     respond_to do |format|
       if @fault_book.save
         s = Serviceable.find_by_fleet_id(params['fault_book']['fleet_id'])
-        puts 'Fault book date'
-        puts @fault_book.fault_date.inspect
         s.next_service_date = @fault_book.fault_date 
         s.save
         format.html { redirect_to @fault_book, notice: 'Fault book was successfully created.' }

@@ -76,14 +76,24 @@ class ServicesController < ApplicationController
     @fleets = current_user.truck_fleet.fleets
     @service_types = ServiceType.all.collect {|s| [s.name, s.id]}
     @service_types = @service_types + [['Fault', 0]]
-    @service.start_service_date   = @service.start_service_date.strftime("%d-%m-%Y")
+    @service.start_service_date = @service.start_service_date.strftime("%d-%m-%Y")
   end
 
   # POST /services
   # POST /services.json
   def create
     @service = Service.new(params[:service])
-    @service.start_service_time = params[:service][:start_service_date].to_datetime + params[:service][:start_service_time].to_i.hour
+    if browser.ie7? || browser.ie8? || browser.ie9?
+      a = params[:service][:start_service_date]
+      a = a.split("/")
+      b = a[1] + "-" + a[0] + "-" + a[2]
+      @service.start_service_date = b.to_datetime
+      @service.start_service_time = b.to_datetime + params[:service][:start_service_time].to_i.hour
+    else
+      @service.start_service_time = params[:service][:start_service_date].to_datetime + params[:service][:start_service_time].to_i.hour
+    end
+    
+    
     @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
     @service.finish_service_date  = @service.start_service_date
     @fleet_email_contacts     = TruckFleet.find_contacts_by_fleet_id(@service.fleet_id)
@@ -107,9 +117,17 @@ class ServicesController < ApplicationController
   # PUT /services/1.json
   def update
     @service = Service.find(params[:id])
-    @service.finalise = true
+    if browser.ie7? || browser.ie8? || browser.ie9?
+      start_service_date = params[:service][:start_service_date]
+      start_service_date = a.split("/")
+      start_service_date = a[1] + "-" + a[0] + "-" + a[2]
+      @service.start_service_date = start_service_date.to_datetime
+      @service.start_service_time = start_service_date.to_datetime + params[:service][:start_service_time].to_i.hour
+    end
+    @service.finish_service_time = @service.start_service_time + params[:service][:hours].to_i.hour
+    @service.finish_service_date  = @service.start_service_date
     respond_to do |format|
-      if @service.update_attributes(params[:service])
+      if @service.save && @service.update_attributes(params[:service])
         # TODO: get all changed attributes and shoot an email to the PC or SC with the person who updated the details and the details themselfs
         UserMailer.update_service(current_user, @service).deliver
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
@@ -123,8 +141,8 @@ class ServicesController < ApplicationController
     services.each do |s| 
       if @service.send(s) == true && @service.send(s + '_done') == true
         serviceable = @service.fleet.serviceables.where(:service_type_id => params[:service][:service_type_name]).first
-        serviceable.update_attributes(:next_service_date => Date.today + @service.fleet.calc_next_period_for_services(serviceable.service_time_interval, serviceable.service_period))
-        # TODO: who updaetd the service + send to the primary and secondary contact details of the fleet 
+        next_service = @service.fleet.calc_next_period_for_services(serviceable.service_time_interval, serviceable.service_period) if !serviceable.nil?
+        serviceable.update_attributes(:next_service_date => Date.today + next_service) if !serviceable.nil?
       end
     end
   end
@@ -132,6 +150,7 @@ class ServicesController < ApplicationController
   def finish
     @service = Service.find(params[:id])
     @service.archived = true
+    @service.finalise = true
     # refactor this, may be there is a better way to assign values from the form :)
     @report = Report.new(
       :service_id   => @service.id              ||= params[:id],

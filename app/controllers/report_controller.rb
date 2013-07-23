@@ -7,38 +7,23 @@ class ReportController < ApplicationController
   end
   
   def index
-    #@fleets = current_user.truck_fleet.fleets                                   if @params['type'] == 'fleet_number'
-    #@fleets = current_user.truck_fleet.fleets.where(:model => @params['model']) if @params['type'] == 'model'
-    #@fleets = current_user.truck_fleet.fleets.where(:make => @params['make'])   if @params['type'] == 'make'
-    
-    # 1. Get all reports for the truck_fleet
-    # 2. Group them by model / make / fleet_number
-    # 3. Group them by date
-    # 4. Group them service name
-    # 5. Prepare data for the high chart
-    # 6. Push data to hight charts
-    # 7. Get filters from the chart index page
-    # 8. 1 - 6
-    
-    
-    # TODO: has to be truckfleet specific
-    @reports = Report.scoped
+    @reports = Report.truck_fleet_reports(current_user.truck_fleet_id)
     @fleets = current_user.truck_fleet.fleets
-    @graph_reports = Report.reports_for_graph({}, {})
-    
-    @h = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:chart][:defaultSeriesType] = "area"
-      @graph_reports.each do |fleet, value|
-        f.xAxis(:categories => ['2012/06', '2012/07', '2012/08', '2012/09', '2012/10', '2012/11', '2012/12', '2013/01', '2013/02', '2013/03', '2013/04', '2013/05', '2013/06'],
-          :labels => {
-            :rotation => -45,
-            :align => 'right',
-          }
-        )
-        f.series(:name => fleet, :data => value)
+    @graph_reports = Report.reports_for_graph({}, @reports)
+    if (@graph_reports)
+      @graph_monthly_spent_vehicles = LazyHighCharts::HighChart.new('graph') do |f|
+        f.options[:chart][:defaultSeriesType] = "area"
+        @graph_reports.each do |fleet, value|
+          f.xAxis(:categories => ['2012/07', '2012/08', '2012/09', '2012/10', '2012/11', '2012/12', '2013/01', '2013/02', '2013/03', '2013/04', '2013/05', '2013/06', '2013/07'],
+            :labels => {
+              :rotation => -45,
+              :align => 'right',
+            }
+          )
+          f.series(:name => fleet, :data => value)
+        end
       end
-    end    
-
+    end
     data = []
     
     reports = Report.reports_for_pie_array(params, @reports)
@@ -53,7 +38,7 @@ class ReportController < ApplicationController
       data << [f.name, total] 
     end if params['make'].nil? && params['model'].nil?
         
-    @chart = LazyHighCharts::HighChart.new('pie') do |f|
+    @total_chart = LazyHighCharts::HighChart.new('pie') do |f|
       f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
       series = {
                :type => 'pie',

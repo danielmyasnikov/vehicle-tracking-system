@@ -17,7 +17,7 @@ gem 'libv8'
 gem "browser"
 gem 'lazy_high_charts'
 gem 'pie-rails'
-
+gem 'validates_timeliness', '~> 3.0'
 # geo location
 gem 'geocoder'
 
