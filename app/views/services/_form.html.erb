@@ -73,34 +73,34 @@
 	  <tbody>
 	      <tr>
 	        <td><%= f.label :service, :class => 'control-label' %></td>
-	        <td><%= f.check_box :service, :class => 'check_box' %></td>
-	        <td><%= f.check_box :service_done, :class => 'check_box', :disabled => @service.id.nil? %></td>
+	        <td><%= f.check_box :service, :class => 'check_box traceable' %></td>
+	        <td><%= f.check_box :service_done, :class => 'check_box traceable', :disabled => @service.id.nil? %></td>
 	        	<td>
 	        			$ <%= f.text_field :service_price, :class => 'text_field', :disabled => @service.id.nil? %>
 	        	</td>
 	      </tr>
 		  <tr>
 	        <td><%= f.label :warranty, :class => 'control-label' %></td>
-	        <td><%= f.check_box :warranty, :class => 'check_box' %></td>
-	        <td><%= f.check_box :warranty_done, :class => 'check_box', :disabled => @service.id.nil? %></td>
+	        <td><%= f.check_box :warranty, :class => 'check_box traceable' %></td>
+	        <td><%= f.check_box :warranty_done, :class => 'check_box traceable', :disabled => @service.id.nil? %></td>
 	        <td>$ <%= f.text_field :warranty_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
 	      </tr>
 		  <tr>
 	        <td><%= f.label :damage, :class => 'control-label' %></td>
-	        <td><%= f.check_box :damage, :class => 'check_box' %></td>
-	        <td><%= f.check_box :damage_done, :class => 'check_box', :disabled => @service.id.nil? %></td>
+	        <td><%= f.check_box :damage, :class => 'check_box traceable' %></td>
+	        <td><%= f.check_box :damage_done, :class => 'check_box traceable', :disabled => @service.id.nil? %></td>
 	        <td>$ <%= f.text_field :damage_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
 	      </tr>
 		  <tr>
 	        <td><%= f.label :repair, :class => 'control-label' %></td>
-	        <td><%= f.check_box :repair, :class => 'check_box' %></td>
-	        <td><%= f.check_box :repair_done, :class => 'check_box', :disabled => @service.id.nil? %></td>
+	        <td><%= f.check_box :repair, :class => 'check_box traceable' %></td>
+	        <td><%= f.check_box :repair_done, :class => 'check_box traceable', :disabled => @service.id.nil? %></td>
 	        <td>$ <%= f.text_field :repair_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
 	      </tr>
 		  <tr>
 	        <td><%= f.label :breakdown, :class => 'control-label' %></td>
-	        <td><%= f.check_box :breakdown, :class => 'check_box' %></td>
-	        <td><%= f.check_box :breakdown_done, :class => 'check_box', :disabled => @service.id.nil? %></td>
+	        <td><%= f.check_box :breakdown, :class => 'check_box traceable' %></td>
+	        <td><%= f.check_box :breakdown_done, :class => 'check_box traceable', :disabled => @service.id.nil? %></td>
 	        <td>$ <%= f.text_field :breakdown_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
 	      </tr>
 	  </tbody>
@@ -130,13 +130,20 @@
 		:repair => @service.repair_price,
 		:damage => @service.damage_price,
 		:breakdown => @service.breakdown_price,
-		:service => @service.service_price), :class => 'btn btn-warning' if @service.status == :ready %>
+		:service => @service.service_price), :class => 'btn btn-warning' %>
   </div>
 <% end %>
 <script>
-$('.selectpicker').selectpicker();
-$('.ie7-navigational').hide();
-$('#id-cancel').click(function(){
-  window.close();
-})
+	$('.selectpicker').selectpicker();
+	$('.ie7-navigational').hide();
+	$('#id-cancel').click(function(){
+	  window.close();
+	});
+
+	var arr_elements = ['service', 'warranty', 'damage', 'repair', 'breakdow'];
+	$(".traceable").change(function(){
+		alert("yay");
+	})
+
+
 </script>
