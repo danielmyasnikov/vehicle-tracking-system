@@ -18,14 +18,18 @@ class Service < ActiveRecord::Base
   has_many :fleet_service_infos
   has_many :reports
   
+  before_save :check_status
+  
   def start_service_date?
     p 'yay callled'
     true
   end
   
   def check_status
-    if false
-      status
-    end
+    self.status = "ready" if self.service && self.service_done
+    self.status = "ready" if self.warranty && self.warranty_done
+    self.status = "ready" if self.damage && self.damage_done
+    self.status = "ready" if self.breakdown && self.breakdown_done
+    self.status = "ready" if self.damage && self.damage_done  
   end
 end

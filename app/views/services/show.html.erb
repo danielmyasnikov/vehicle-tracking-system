@@ -34,7 +34,7 @@
 		:repair => @service.repair_price,
 		:damage => @service.damage_price,
 		:breakdown => @service.breakdown_price,
-		:service => @service.service_price), :class => 'btn btn-warning' if @service.finalise? %>
+		:service => @service.service_price), :class => 'btn btn-warning' if @service.status == "ready" %>
 </div>
 <script>
 $('.ie7-navigational').hide();

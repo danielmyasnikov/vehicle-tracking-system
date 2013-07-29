@@ -23,7 +23,7 @@ class Report < ActiveRecord::Base
   def self.reports_for_graph(params, reports)
     if (reports && reports.count > 0)
       report = reports.group(:make, :datecode).select("make, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage, datecode").order('datecode ASC').collect{|r| {r.make => {:total => r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f, :datecode => r.datecode}}}
-      entries = Report.pluck(:make).uniq
+      entries = reports.pluck(:make).uniq
       hash = Hash.new {|h,k| h[k] = []}
       # creates a hash of values that are equal to empty array
       entries.each do |value|
