@@ -4,8 +4,10 @@ class UserMailer < ActionMailer::Base
   def due_services(due_fleets, emails)
     @due_fleets = due_fleets
     emails = emails.join(",")
-    mail :to => emails,
-         :subject => "Vehicles due for service"
+    if emails.present?
+      mail :to => emails,
+          :subject => "Vehicles due for service"
+    end
   end
   
   def registered_user(user)
@@ -21,9 +23,10 @@ class UserMailer < ActionMailer::Base
     notification = Notification.find_by_name("Updated / Rescheduled service")
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Service for vehicle #{vehicle.name} has been updated"
+    if emails.present?
+      mail :to => emails,
+          :subject => "Service for vehicle #{vehicle.name} has been updated"
+    end
   end
   
   def completed_booking(user, service)
@@ -31,9 +34,10 @@ class UserMailer < ActionMailer::Base
     vehicle = service.fleet
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Booking completed. For vehicle #{vehicle.name}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Booking completed. For vehicle #{vehicle.name}"
+    end
   end
   
   def postponed_service(user, service)
@@ -41,9 +45,10 @@ class UserMailer < ActionMailer::Base
     vehicle = service.fleet
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Service Postponed. For vehicle #{vehicle.name}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Service Postponed. For vehicle #{vehicle.name}"
+    end
   end
   
   def cancel_service(user, vehicle, service_type_name, service_date = nil, next_service_date = nil)
@@ -56,9 +61,10 @@ class UserMailer < ActionMailer::Base
     notification = Notification.find_by_name("Cancel service")
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Service cancelled. For vehicle #{vehicle.name}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Service cancelled. For vehicle #{vehicle.name}"
+    end
   end
   
   def update_vehicle_info(user, vehicle)
@@ -78,9 +84,10 @@ class UserMailer < ActionMailer::Base
     vehicle = service.fleet
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Service postponed! For #{vehicle.fleet_number}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Service postponed! For #{vehicle.fleet_number}"
+    end
   end
   
   
@@ -91,8 +98,10 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => emails,
-         :subject => "Service accomplished. For #{vehicle.fleet_number}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Service accomplished. For #{vehicle.fleet_number}"
+    end
   end
   
   # service: Serviceable, you can use # => service.fleet or service.service_type.name
@@ -102,8 +111,10 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
     
-    mail :to => emails,
-         :subject => "Service due. For #{vehicle.fleet_number}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Service due. For #{vehicle.fleet_number}"
+    end
   end
   
   # service: Serviceable, you can use # => service.fleet or service.service_type.name
@@ -112,9 +123,10 @@ class UserMailer < ActionMailer::Base
     vehicle = service.fleet
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Service overdue. For #{vehicle.fleet_number}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Service overdue. For #{vehicle.fleet_number}"
+    end
   end
   
   # service: Serviceable, you can use # => service.fleet or service.service_type.name
@@ -123,9 +135,10 @@ class UserMailer < ActionMailer::Base
     vehicle = service.fleet
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Date of booking. For #{vehicle.fleet_number}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Date of booking. For #{vehicle.fleet_number}"
+    end
   end
   
   # service: Serviceable, you can use # => service.fleet or service.service_type.name
@@ -134,9 +147,10 @@ class UserMailer < ActionMailer::Base
     vehicle = service.fleet
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Prebooking reminder. For #{vehicle.fleet_number}"
+    if emails.present?
+      mail  :to => emails,
+            :subject => "Prebooking reminder. For #{vehicle.fleet_number}"
+    end
   end
   
   # difference between date_of_booking and date_of_service, booking is a booked service, while we can have a serviceable vehicle without a booked service
@@ -147,8 +161,10 @@ class UserMailer < ActionMailer::Base
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(vehicle, setting)
     
-    mail :to => emails,
-         :subject => "Service is today. For #{vehicle.fleet_number}"
+    if emails.present?
+      mail :to => emails,
+           :subject => "Service is today. For #{vehicle.fleet_number}"
+    end
   end
   
   def find_emails(user = nil, vehicle, setting)

@@ -124,13 +124,13 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-danger' if @service.id.present? %>
-	<%#= link_to 'Finilize service', finish_service_path(@service.id,
+	<%= link_to 'Finilize service', finish_service_path(@service.id,
 		:fleet_id => @service.fleet_id,
 		:warranty => @service.warranty_price,
 		:repair => @service.repair_price,
 		:damage => @service.damage_price,
 		:breakdown => @service.breakdown_price,
-		:service => @service.service_price), :class => 'btn btn-warning' if @service.id.present? %>
+		:service => @service.service_price), :class => 'btn btn-warning' if @service.status == :ready %>
   </div>
 <% end %>
 <script>

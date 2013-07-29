@@ -10,7 +10,7 @@ class Service < ActiveRecord::Base
                   :damage_price, :repair_done, :repair_price, :breakdown_done, 
                   :breakdown_price, :warranty_price, :service_type_name, :finalise
   
-  // validates_date :start_service_date
+  # validates_date :start_service_date
   belongs_to :fleet
   belongs_to :truck_fleet
   

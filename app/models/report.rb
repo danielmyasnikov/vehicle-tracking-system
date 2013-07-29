@@ -21,7 +21,7 @@ class Report < ActiveRecord::Base
   end
   
   def self.reports_for_graph(params, reports)
-    if (reports && reports.kind_of?(Array) && reports.count > 0)
+    if (reports && reports.count > 0)
       report = reports.group(:make, :datecode).select("make, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage, datecode").order('datecode ASC').collect{|r| {r.make => {:total => r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f, :datecode => r.datecode}}}
       entries = Report.pluck(:make).uniq
       hash = Hash.new {|h,k| h[k] = []}
@@ -45,7 +45,6 @@ class Report < ActiveRecord::Base
         array_to_return = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
         hash[e].each do |item|
           index = array_lastMonths.index(item[1])
-          p index
           array_to_return.delete_at(index)
           array_to_return.insert(index, item[0])
         end
@@ -58,13 +57,10 @@ class Report < ActiveRecord::Base
   
   def self.truck_fleet_reports(truck_fleet_id)
     if truck_fleet_id.present? && truck_fleet_id != ""
-      reports = []
-      fleets = Fleet.where(:truck_fleet_id => truck_fleet_id)
-      fleets.each do |f|
-        reports << f.reports
-      end # fleets.each
+      reports = where(:fleet_id => Fleet.where(:truck_fleet_id => truck_fleet_id))
+      reports
+    else
+      []
     end
-    reports.flatten if reports.present?
   end
-  
 end

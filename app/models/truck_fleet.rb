@@ -5,6 +5,7 @@ class TruckFleet < ActiveRecord::Base
                   :avatar_file_size, :avatar_updated_at, :web_site, :business_phone, 
                   :fax, :landline
                   
+  after_create :setup_settings
   has_many :contact_truck_fleets, :dependent => :destroy
   has_many :fleets
   has_many :fault_book
@@ -74,4 +75,17 @@ class TruckFleet < ActiveRecord::Base
     end
     return @truck_fleets
   end 
+  
+  def setup_settings
+    @setting = Setting.new
+    @setting.truck_fleet_id = self.id
+    @setting.truck_identification = "fleet_number" # default one :)
+    @setting.save
+  end
+  
+  
+  
+  
+  
+  
 end
