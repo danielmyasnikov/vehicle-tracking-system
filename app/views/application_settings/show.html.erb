@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @application_setting.name %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @application_setting.value %>
+</p>
+
+<p>
+  <b>Trigger:</b>
+  <%= @application_setting.trigger %>
+</p>
+
+
+<%= link_to 'Edit', edit_application_setting_path(@application_setting) %> |
+<%= link_to 'Back', application_settings_path %>

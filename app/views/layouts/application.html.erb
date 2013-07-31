@@ -48,9 +48,12 @@
 						<% if browser.ie6? %>
 			  	  	<p class="disclaimer">You're running an older IE version. Please update it!</p>
 						<% else %>
-			  	 		<%#= yield %>
-              <%#= yield :scripts %>
-							<h2>MyTruckFleet is under unscheduled maintenance<h2> </br> <h4>We will inform you when it's back. MTF Support Team.</h4>
+							<% if ApplicationSetting.find_by_name("Maintenance").trigger == true %>
+								<h2>MyTruckFleet is under unscheduled maintenance<h2> </br> <h4>We will inform you when it's back. MTF Support Team.</h4>
+							<% else %>
+				  	 		<%= yield %>
+	              <%= yield :scripts %>
+							<% end %>
 						<% end %>
           <footer class='footer'>
           	<%= render 'layouts/footer'%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130729115508) do
+ActiveRecord::Schema.define(:version => 20130731020646) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -48,6 +48,14 @@ ActiveRecord::Schema.define(:version => 20130729115508) do
 
   create_table "animals", :force => true do |t|
     t.date     "born_on"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "application_settings", :force => true do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.boolean  "trigger"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
