@@ -46,12 +46,6 @@ ActiveRecord::Schema.define(:version => 20130731024024) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "animals", :force => true do |t|
-    t.date     "born_on"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "application_settings", :force => true do |t|
     t.string   "name"
     t.integer  "value"
@@ -126,7 +120,6 @@ ActiveRecord::Schema.define(:version => 20130731024024) do
     t.text     "faults"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.string   "accident_type"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
@@ -186,7 +179,6 @@ ActiveRecord::Schema.define(:version => 20130731024024) do
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
-    t.integer  "age"
   end
 
   create_table "lines", :force => true do |t|
@@ -325,8 +317,6 @@ ActiveRecord::Schema.define(:version => 20130731024024) do
     t.string   "service_type_name"
     t.integer  "truck_fleet_id"
     t.boolean  "archived"
-    t.datetime "service_start_date_time"
-    t.boolean  "visible"
     t.boolean  "finalise"
     t.string   "status"
   end
