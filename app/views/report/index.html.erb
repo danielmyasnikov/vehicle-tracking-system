@@ -8,13 +8,13 @@
 				<%= "No data available for Graph" %>
 			<% end %>
 		</div>
-		<% if @total_chart %>
+		<% if false %>
 			<%= high_chart("my_id4", @total_chart) do |c| %>
 				<%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: $'+ this.y +'.00 ';}"  %>
 				<%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
 			<% end %>
 		<% else %>
-		  <%= "No data for a pie chart" %>
+		  <%#= "No data for a pie chart" %>
 		<% end %>
 		
 		</div>

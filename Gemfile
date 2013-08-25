@@ -29,6 +29,7 @@ end
 group :production do
   gem 'pg'
 end
+
 gem 'seed_dump', "~> 0.4.2"
 
 gem 'twitter-bootstrap-rails'

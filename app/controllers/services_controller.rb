@@ -149,6 +149,7 @@ class ServicesController < ApplicationController
   
   def finish
     @service = Service.find(params[:id])
+    # @service.update_attributes()
     @service.archived = true
     @service.finalise = true
     # refactor this, may be there is a better way to assign values from the form :)

@@ -82,10 +82,4 @@ class TruckFleet < ActiveRecord::Base
     @setting.truck_identification = "fleet_number" # default one :)
     @setting.save
   end
-  
-  
-  
-  
-  
-  
 end
