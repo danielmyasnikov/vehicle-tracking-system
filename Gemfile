@@ -25,7 +25,11 @@ gem 'geocoder'
 gem "squeel"
 
 group :development do
-  gem 'pg'
+  gem 'sqlite3'
+end
+
+group :production do 
+  gem "pg"
 end
 
 gem 'seed_dump', "~> 0.4.2"

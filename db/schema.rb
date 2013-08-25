@@ -194,10 +194,10 @@ ActiveRecord::Schema.define(:version => 20130731024024) do
 
   create_table "logs", :force => true do |t|
     t.string   "name"
-    t.text     "line"
+    t.text     "line",            :limit => 255
     t.boolean  "status"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.datetime "start_timestamp"
     t.datetime "final_timestamp"
   end
