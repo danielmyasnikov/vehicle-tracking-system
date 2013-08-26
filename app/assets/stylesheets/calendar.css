@@ -113,4 +113,4 @@ table { border-collapse: collapse; }
 #id-calendar .fc-slot5 { height: 100px; }
 #id-calendar .fc-slot6 { height: 100px; }
 
-#id-calendar .mtf-event { padding-left:10px; height: 16px !important; background-image:url('red-dot.gif'); background-repeat:no-repeat; }
+#id-calendar .mtf-event { padding-left:10px; height: 16px !important; background-image:url('red-dot.gif'); background-repeat:no-repeat; background-position: left center; }
