@@ -1,6 +1,4 @@
 Mytruckfleet::Application.routes.draw do
-
-
   resources :application_settings
 
 

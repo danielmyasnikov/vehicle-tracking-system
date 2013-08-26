@@ -261,12 +261,6 @@ $(document).ready(function() {
   	};
   });
 
-  dateColor = function(past, current, upcoming){
-	if (past) return 'red';
-	if (current) return 'yellow';
-	if (upcoming) return 'green';
-  };
-
 	function createCookie(name,value,days) {
 	    if (days) {
 	        var date = new Date();
@@ -312,7 +306,7 @@ $(document).ready(function() {
 			center: 'title',
 			right: 'month,basicWeek,basicDay'
 	},
-	viewDisplay: function(view){
+	viewDisplay: function(view) {
 		eraseCookie("calendarView");
 		if (view.name === 'basicDay'){
 			$('#id-calendar').fullCalendar('changeView', 'agendaDay');
@@ -333,13 +327,13 @@ $(document).ready(function() {
 	<% @services.each do |s| %>
 		{
 			id: <%= s.id %>,
-			title: '<%= " #{s.fleet.name}" %>',
+			title: '<%=  %>',
 			description: "<%= s.service_type %>",
 			color: function(){
 				if (<%= s.start_service_date.nil? ? false : s.start_service_date < Date.today %>)
-				  return 'red'
-				else if (<%= s.start_service_date.nil? ? false : s.start_service_date >= Date.today && s.start_service_date <= Date.today + 3 %>) return '#8B8989'
-				else return 'green'
+				  return ''
+				else if (<%= s.start_service_date.nil? ? false : s.start_service_date >= Date.today && s.start_service_date <= Date.today + 3 %>) return ''
+				else return ''
 			}(),			
 			start: '<%= s.start_service_date %> <%= s.start_service_time.hour.to_s + ':00:00' if !s.start_service_time.nil? %>',
 			end: '<%= s.start_service_date %> <%= s.finish_service_time.hour.to_s + ':00:00' if !s.finish_service_time.nil? %>',
@@ -347,9 +341,28 @@ $(document).ready(function() {
 		},
 	<% end if @services.present? %>
 	],
-	eventRender: function(event, element) { 
-		element.find('.fc-event-title').append("<br />" + event.description);
+	eventAfterRender: function( event, element, view ) { 
+	  
+	  var events = $('#id-calendar').fullCalendar('clientEvents');
+	  
+    $(".fc-event-time").addClass("ml10");
+    $(element).parent().parent().addClass("v-align-m");
+    $(".fc-event-skin").removeClass("fc-event-skin");
+    $(".fc-event-vert").removeClass("fc-event-vert");
+    $(".fc-corner-top").removeClass("fc-corner-top");
+    $(".fc-corner-bottom").removeClass("fc-corner-bottom");
+    
+    $(element).prepend("<div class='dot'></div>")
+    
+    // TODO: check out the month view
+    // TODO: check out the week view
+	  
 	},
+  eventAfterAllRender: function(view){
+    console.log("=============");
+    var events = $('#id-calendar').fullCalendar('clientEvents');
+    console.log(events);
+  },
 	eventClick: function(event, jsEvent, view){
 		cuteLittleWindow = window.open("/services/" + event.id + "/edit",
 			"littleWindow", "location=no,width=850,height=650,left=300");
