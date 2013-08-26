@@ -104,3 +104,13 @@ table { border-collapse: collapse; }
 .space td { padding: 5px 20px 5px 20px; }
 .next-tab { margin-left: 10px;}
 .button-new-margin-left { margin-left: 590px; }
+
+#id-calendar .fc-slot0 { height: 100px; }
+#id-calendar .fc-slot1 { height: 100px; }
+#id-calendar .fc-slot2 { height: 100px; }
+#id-calendar .fc-slot3 { height: 100px; }
+#id-calendar .fc-slot4 { height: 100px; }
+#id-calendar .fc-slot5 { height: 100px; }
+#id-calendar .fc-slot6 { height: 100px; }
+
+#id-calendar .mtf-event { padding-left:10px; height: 16px !important; background-image:url('red-dot.gif'); background-repeat:no-repeat; }
