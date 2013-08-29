@@ -113,4 +113,5 @@ table { border-collapse: collapse; }
 #id-calendar .fc-slot5 { height: 100px; }
 #id-calendar .fc-slot6 { height: 100px; }
 
-#id-calendar .mtf-event { padding-left:10px; height: 16px !important; background-image:url('red-dot.gif'); background-repeat:no-repeat; background-position: left center; }
+#id-calendar .mtf-event-past { width: 100px !important; padding-left:10px; height: 16px !important; background-image:url('red-dot.gif'); background-repeat:no-repeat; background-position: left center; }
+#id-calendar .mtf-event-future { width: 100px !important; padding-left:10px; height: 16px !important; background-image:url('orange-dot.gif'); background-repeat:no-repeat; background-position: left center; background-size: 10px;}

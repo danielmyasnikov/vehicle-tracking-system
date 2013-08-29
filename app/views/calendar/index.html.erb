@@ -327,7 +327,7 @@ $(document).ready(function() {
 	<% @services.each do |s| %>
 		{
 			id: <%= s.id %>,
-			title: '<%=  %>',
+			title: '<%= s.fleet.name   %>',
 			description: "<%= s.service_type %>",
 			color: function(){
 				if (<%= s.start_service_date.nil? ? false : s.start_service_date < Date.today %>)
@@ -341,19 +341,47 @@ $(document).ready(function() {
 		},
 	<% end if @services.present? %>
 	],
-	eventAfterRender: function( event, element, view ) { 
-	  
+	eventRender: function( event, element, view ) { 
 	  var events = $('#id-calendar').fullCalendar('clientEvents');
+	  $(element).css("width", 100);
+	  
+	  $(element).attr("id", event.id);
+	  hash = {};
+	  var left = "";
+    for (i in events) {
+      var date = new Date(events[i].start);
+      if (events[i].start in hash) {
+        hash[events[i].start] = hash[events[i].start] + 1;
+        if (events[i].id == $(element).attr("id")) { 
+          var orig_top = $(element).css("top").replace ( /[^\d.]/g, '' );
+          orig_top = parseInt(orig_top);
+          var top = orig_top + (15 * hash[events[i].start]);
+          $(element).css("top", top);
+          $(element).css("left", left);
+        }
+      } else {
+        hash[events[i].start] = 0;
+        var id = "#" + events[i].id;
+        left = $(id).css("left")
+      }
+    };
 	  
     $(".fc-event-time").addClass("ml10");
     $(element).parent().parent().addClass("v-align-m");
-    $(".fc-event").removeClass("fc-event").addClass("mtf-event");
+    $(".fc-event").removeClass("fc-event")
     $(".fc-event-skin").removeClass("fc-event-skin");
     $(".fc-event-vert").removeClass("fc-event-vert");
     $(".fc-corner-top").removeClass("fc-corner-top");
     $(".fc-corner-bottom").removeClass("fc-corner-bottom");
     
-    $(element).prepend("<div class='dot'></div>")
+    console.log();
+    
+     if (isFutureDate(event.start)) {
+       $(element).addClass("mtf-event-future");
+     } else {
+       $(element).addClass("mtf-event-past");
+     }
+    
     
     // TODO: check out the month view
     // TODO: check out the week view
@@ -363,6 +391,7 @@ $(document).ready(function() {
 		cuteLittleWindow = window.open("/services/" + event.id + "/edit",
 			"littleWindow", "location=no,width=850,height=650,left=300");
 	},
+
 	dayClick: function(date, allDay, jsEvent, view){
 		m = date.getMonth() + 1;
 		suffix = (date.getHours >= 12)? 'pm' : 'am';
@@ -387,7 +416,6 @@ $(document).ready(function() {
   			i > 0 ? $(time).addClass("bg-white") : undefined;
   		});
   		$fcDaysOfMonth.each (function(i, dayOfMonth){
-  			console.log($(dayOfMonth));
   			$(dayOfMonth).hasClass('fc-other-month') ? $(dayOfMonth).addClass("bg-white") : $(dayOfMonth).addClass("current-month")
   		});
   	})
@@ -409,9 +437,56 @@ $(document).ready(function() {
 	
   var $fcCalendarBody = $('#id-calendar .fc-border-separate tbody');
   $fcCalendarBody.addClass("bg-white");
-  var events = $('#id-calendar').fullCalendar('clientEvents');
   
-  var hourly_events = {}
+  var hash = {};
+  
+  // hacking events on the calendar
+  /************************************************************************/
+  var events = $('#id-calendar').fullCalendar('clientEvents');
+  for (i in events) {
+    var date = new Date(events[i].start);
+    if (events[i].start in hash) { 
+      hash[events[i].start] = hash[events[i].start] + 1;
+      var HH = date.getHours();
+      if (HH >= 8 && HH < 10) {
+        var position = 1;
+        
+        // position of an event on the calendar slot, 
+        // this number depends on the number of events in the slot, the more events the bigger the number
+        position = position + 1;
+        events[i].position = position;
+      }
+    } else {
+      hash[events[i].start] = 1;
+    }
+  };
+  var hourly_hash = {};
+  var hourly_events = {};
+  for (i in hash) {
+    var date = new Date(i); 
+    if (date.getHours() in hourly_hash) { 
+      if (hash[i] > hourly_hash[date.getHours()]) { 
+        hourly_hash[date.getHours()] = hash[i];
+      } else {}
+    } else {
+      hourly_hash[date.getHours()] = hash[i];
+    }
+  };
+  for (i in hourly_hash) {
+    if (i >= 8 && i < 10 && hourly_hash[i] > 5) { $(".fc-slot0").height(hourly_hash[i] * 20);  } 
+    if (i >=10 && i < 12 && hourly_hash[i] > 5) { $(".fc-slot1").height(hourly_hash[i] * 20);  }
+    if (i >=12 && i < 14 && hourly_hash[i] > 5) { $(".fc-slot2").height(hourly_hash[i] * 20);  }
+    if (i >=14 && i < 16 && hourly_hash[i] > 5) { $(".fc-slot3").height(hourly_hash[i] * 20);  }
+    if (i >=16 && i < 18 && hourly_hash[i] > 5) { $(".fc-slot4").height(hourly_hash[i] * 20);  }
+    if (i >=18 && i < 20 && hourly_hash[i] > 5) { $(".fc-slot5").height(hourly_hash[i] * 20);  }
+  };
+  
+  // 2. get all records for a particular slot (if possible?)
+  // 3. Adjust height of each item
+  // 4. Adjust items of a slot to left
+  
+  /************************************************************************/
+  
   
   for (i in events) {
     var ident = events[i].start.getFullYear() + "" + events[i].start.getMonth() + events[i].start.getDate() + events[i].start.getHours();
@@ -427,18 +502,21 @@ $(document).ready(function() {
     
     // if events[i].start
     // hourly_events = { : }
+    
+    
   }
   
-  console.log(hourly_events);
-  
-  
-  
-  
-  
-  
-  
-  
-  
-	
+  function isFutureDate( date ) {
+      var date=new Date(date);
+      
+      var _now=new Date();
+      if( date.getTime() > _now.getTime() )
+      {
+        return true
+      } else { 
+        return false 
+      }
+  }
+
 });
 </script>
