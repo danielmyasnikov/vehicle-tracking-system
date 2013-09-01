@@ -1,3 +1,4 @@
+<!-- TODO: when there are more than 5 events in one slot. Other events positioned on the same top height, which stops them being at their place -->
 <% aws_name = "https://s3-ap-southeast-2.amazonaws.com/my-truck-fleet" %>
 <div class='row'>
 	<div class='span4'>
@@ -422,82 +423,85 @@ $(document).ready(function() {
 	<% end if @services.present? %>
 	],
 	eventRender: function( event, element, view ) { 
-	  var events = $('#id-calendar').fullCalendar('clientEvents');
-	  $(element).css("width", 100);
-	  
-	  $(element).attr("id", event.id);
-	  hash = {};
-	  var left = "";
-    for (i in events) {
-      var date = new Date(events[i].start);
-      if (events[i].start in hash) {
-        hash[events[i].start] = hash[events[i].start] + 1;
-        
-        if (events[i].id == event.id) { 
-          switch (daysAgo(event.start.getDay())) {
-            case 0:
-              $(element).css("left", 61.99);
-              break;
-            case 1:
-              $(element).css("left", 162.02);
-              break;
-            case 2:
-              $(element).css("left", 256.44);
-              break;
-            case 3:
-              $(element).css("left", 353.10);
-              break;
-            case 4:
-              $(element).css("left", 449.77);
-              break;
-            case 5:
-              $(element).css("left", 546.77);
-              break;
-            case 6:
-              $(element).css("left", 644.77);
-              break;
-          }
-        };
-        
-        if (events[i].id == $(element).attr("id")) { 
-          var orig_top = $(element).css("top").replace ( /[^\d.]/g, '' );
-          orig_top = parseInt(orig_top);
-          var top = orig_top + (15 * hash[events[i].start]);
-          $(element).css("top", top);
+	  console.log(view)
+	  if (view.name == "agendaWeek") {
+	    var events = $('#id-calendar').fullCalendar('clientEvents');
+  	  $(element).css("width", 100);
 
-          
-        }
-      } else {
-        hash[events[i].start] = 0;
-        var id = "#" + events[i].id;
-        left = $(id).css("left");
-        if (events[i].id == event.id) { 
-          switch (daysAgo(event.start.getDay())) {
-            case 0:
-              $(element).css("left", 61.99);
-              break;
-            case 1:
-              $(element).css("left", 162.02);
-              break;
-            case 2:
-              $(element).css("left", 256.44);
-              break;
-            case 3:
-              $(element).css("left", 353.10);
-              break;
-            case 4:
-              $(element).css("left", 449.77);
-              break;
-            case 5:
-              $(element).css("left", 546.77);
-              break;
-            case 6:
-              $(element).css("left", 644.77);
-              break;
+  	  $(element).attr("id", event.id);
+  	  hash = {};
+  	  var left = "";
+      for (i in events) {
+        var date = new Date(events[i].start);
+        if (events[i].start in hash) {
+          hash[events[i].start] = hash[events[i].start] + 1;
+
+          if (events[i].id == event.id) { 
+            switch (daysAgo(event.start.getDay())) {
+              case 0:
+                $(element).css("left", 61.99);
+                break;
+              case 1:
+                $(element).css("left", 162.02);
+                break;
+              case 2:
+                $(element).css("left", 256.44);
+                break;
+              case 3:
+                $(element).css("left", 353.10);
+                break;
+              case 4:
+                $(element).css("left", 449.77);
+                break;
+              case 5:
+                $(element).css("left", 546.77);
+                break;
+              case 6:
+                $(element).css("left", 644.77);
+                break;
+            }
+          };
+
+          if (events[i].id == $(element).attr("id")) { 
+            var orig_top = $(element).css("top").replace ( /[^\d.]/g, '' );
+            orig_top = parseInt(orig_top);
+            var top = orig_top + (15 * hash[events[i].start]);
+            $(element).css("top", top);
+
+
           }
-        };
-      }
-    };
+        } else {
+          hash[events[i].start] = 0;
+          var id = "#" + events[i].id;
+          left = $(id).css("left");
+          if (events[i].id == event.id) { 
+            switch (daysAgo(event.start.getDay())) {
+              case 0:
+                $(element).css("left", 61.99);
+                break;
+              case 1:
+                $(element).css("left", 162.02);
+                break;
+              case 2:
+                $(element).css("left", 256.44);
+                break;
+              case 3:
+                $(element).css("left", 353.10);
+                break;
+              case 4:
+                $(element).css("left", 449.77);
+                break;
+              case 5:
+                $(element).css("left", 546.77);
+                break;
+              case 6:
+                $(element).css("left", 644.77);
+                break;
+            }
+          };
+        }
+      };
+	  };
 	  
     $(".fc-event-time").addClass("ml10");
     $(element).parent().parent().addClass("v-align-m");

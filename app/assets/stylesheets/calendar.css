@@ -85,8 +85,6 @@
 	cursor: pointer
 }
 #id-calendar{
-   	background-color: #006DCC;
-    background-image: linear-gradient(to bottom, #0088CC, #0044CC);
     border-radius: 4px 4px 4px 4px;
     padding: 10px 15px;
 }
