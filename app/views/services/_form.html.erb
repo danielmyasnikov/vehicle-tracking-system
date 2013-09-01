@@ -8,7 +8,7 @@
 	<div class="control-group">
 		<%= f.label :day, :class => 'control-label fleet-labals font-bold' %>
 		<div class="controls">
-	      <%= f.text_field :start_service_date, :class => 'text_field text_field_width_height datepicker' %>
+	      <%= f.text_field :start_service_date, :value => Date.today.strftime("%d-%m-%Y").to_s, :class => 'text_field text_field_width_height datepicker' %>
 		</div>
 	</div>
   <div class="control-group">
@@ -16,7 +16,7 @@
     <div class="controls">
       <%= f.collection_select :fleet_id, @fleets, :id, 
       current_user.truck_fleet.setting.truck_identification.to_sym, {}, {
-      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
+      	:promt => true, :selected => @fleet_id, :class => 'selectpicker select-widht-height text_field_width_height'} %>
     </div>
   </div>
   <div class="control-group">
@@ -99,7 +99,7 @@
 	      </tr>
 		  <tr>
 	        <td><%= f.label :breakdown, :class => 'control-label' %></td>
-	        <td><%= f.check_box :breakdown, :class => 'check_box traceable' %></td>
+	 w       <td><%= f.check_box :breakdown, :class => 'check_box traceable' %></td>
 	        <td><%= f.check_box :breakdown_done, :class => 'check_box traceable', :disabled => @service.id.nil? %></td>
 	        <td>$ <%= f.text_field :breakdown_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
 	      </tr>
@@ -146,6 +146,7 @@
 				$("#id-finalise-service").removeClass("hidden");
 			};
 		};		
+		
 	});
 */
 </script>

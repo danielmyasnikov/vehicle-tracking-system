@@ -48,7 +48,6 @@ class ServicesController < ApplicationController
     end
     
     @service = Service.new
-    @service.warranty = true
     @date = params
     @fleets = current_user.truck_fleet.fleets
     @trucks = Fleet.where(:auto_services => false).pluck(:id)
@@ -63,6 +62,10 @@ class ServicesController < ApplicationController
     
     # @service.start_service_time   = start_service_time
     # @service.start_service_date   = Date.new(year, month, day).strftime("%d-%m-%Y")
+
+	if params[:fleet_id]
+		@fleet_id = params[:fleet_id]
+	end
 
     respond_to do |format|
       format.html # new.html.erb
