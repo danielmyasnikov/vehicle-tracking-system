@@ -251,6 +251,86 @@ $(document).ready(function() {
     }
   };
   
+  daysAgo = function(day) {
+    // alert("Start day: " + startDate());
+    //     alert(day);
+    // sunday start
+    if (startDate() == 0) {
+      if ((7 - day) == 0) { return 0 };
+      if ((7 - day) == 6) { return 1 };
+      if ((7 - day) == 5) { return 2 };
+      if ((7 - day) == 4) { return 3 };
+      if ((7 - day) == 3) { return 4 };
+      if ((7 - day) == 2) { return 5 };
+      if ((7 - day) == 1) { return 6 };
+    }
+    
+    // saturday start
+    if (startDate() == 6) {
+      if ((7 - day) == 1) { return 0 };
+      if ((7 - day) == 7) { return 1 };
+      if ((7 - day) == 6) { return 2 };
+      if ((7 - day) == 5) { return 3 };
+      if ((7 - day) == 4) { return 4 };
+      if ((7 - day) == 3) { return 5 };
+      if ((7 - day) == 2) { return 6 };
+    }
+    
+    // monday start
+    if (startDate() == 1) {
+      if ((7 - day) == 0) { return 6 };
+      if ((7 - day) == 1) { return 5 };
+      if ((7 - day) == 2) { return 4 };
+      if ((7 - day) == 3) { return 3 };
+      if ((7 - day) == 4) { return 2 };
+      if ((7 - day) == 5) { return 1 };
+      if ((7 - day) == 6) { return 0 };
+    }
+    
+    // tuesday start
+    if (startDate() == 2) {
+      if ((7 - day) == 5) { return 0 };
+      if ((7 - day) == 4) { return 1 };
+      if ((7 - day) == 3) { return 2 };
+      if ((7 - day) == 2) { return 3 };
+      if ((7 - day) == 1) { return 4 };
+      if ((7 - day) == 0) { return 5 };
+      if ((7 - day) == 6) { return 6 };
+    }
+    
+    // wednesday start
+    if (startDate() == 3) {
+      if ((7 - day) == 4) { return 0 };
+      if ((7 - day) == 3) { return 1 };
+      if ((7 - day) == 2) { return 2 };
+      if ((7 - day) == 1) { return 3 };
+      if ((7 - day) == 0) { return 4 };
+      if ((7 - day) == 6) { return 5 };
+      if ((7 - day) == 5) { return 6 };
+    }
+    
+    // thursday start
+    if (startDate() == 4) {
+      if ((7 - day) == 3) { return 0 };
+      if ((7 - day) == 2) { return 1 };
+      if ((7 - day) == 1) { return 2 };
+      if ((7 - day) == 0) { return 3 };
+      if ((7 - day) == 6) { return 4 };
+      if ((7 - day) == 5) { return 5 };
+      if ((7 - day) == 4) { return 6 };
+    }
+    
+    // friday start
+    if (startDate() == 5) {
+      if ((7 - day) == 2) { return 1 };
+      if ((7 - day) == 1) { return 2 };
+      if ((7 - day) == 0) { return 3 };
+      if ((7 - day) == 6) { return 4 };
+      if ((7 - day) == 5) { return 5 };
+      if ((7 - day) == 4) { return 6 };
+    }
+  };
+  
   $(".dropable-truck-fleet-class").click(function(){
   	if ($(this).find('div').hasClass('open')){
   		$(this).find('span').html("&#x25B2;");
@@ -352,17 +432,70 @@ $(document).ready(function() {
       var date = new Date(events[i].start);
       if (events[i].start in hash) {
         hash[events[i].start] = hash[events[i].start] + 1;
+        
+        if (events[i].id == event.id) { 
+          switch (daysAgo(event.start.getDay())) {
+            case 0:
+              $(element).css("left", 61.99);
+              break;
+            case 1:
+              $(element).css("left", 162.02);
+              break;
+            case 2:
+              $(element).css("left", 256.44);
+              break;
+            case 3:
+              $(element).css("left", 353.10);
+              break;
+            case 4:
+              $(element).css("left", 449.77);
+              break;
+            case 5:
+              $(element).css("left", 546.77);
+              break;
+            case 6:
+              $(element).css("left", 644.77);
+              break;
+          }
+        };
+        
         if (events[i].id == $(element).attr("id")) { 
           var orig_top = $(element).css("top").replace ( /[^\d.]/g, '' );
           orig_top = parseInt(orig_top);
           var top = orig_top + (15 * hash[events[i].start]);
           $(element).css("top", top);
-          $(element).css("left", left);
+
+          
         }
       } else {
         hash[events[i].start] = 0;
         var id = "#" + events[i].id;
-        left = $(id).css("left")
+        left = $(id).css("left");
+        if (events[i].id == event.id) { 
+          switch (daysAgo(event.start.getDay())) {
+            case 0:
+              $(element).css("left", 61.99);
+              break;
+            case 1:
+              $(element).css("left", 162.02);
+              break;
+            case 2:
+              $(element).css("left", 256.44);
+              break;
+            case 3:
+              $(element).css("left", 353.10);
+              break;
+            case 4:
+              $(element).css("left", 449.77);
+              break;
+            case 5:
+              $(element).css("left", 546.77);
+              break;
+            case 6:
+              $(element).css("left", 644.77);
+              break;
+          }
+        };
       }
     };
 	  
@@ -406,7 +539,7 @@ $(document).ready(function() {
   var $fcRightButtons = $('.fc-header-right [class*="fc-button"]').addClass('btn btn-primary').removeClass('fc-button-basicDay fc-state-default fc-corner-right')
   var $fcLeftButtons = $('.fc-header-left [class*="fc-button"]').addClass('btn btn-primary').removeClass('fc-button-basicDay fc-state-default fc-corner-right')
   
-  	$fcRightButtons.click(function(el){
+  	$fcRightButtons.click(function(el) {
   		$fcRightButtons.addClass('btn-primary').removeClass('btn-warning');
   		$(this).addClass('btn-warning').removeClass('btn-primary');
   		var $fcAgendaAxis  = $('#id-calendar .fc-view-agendaDay .fc-agenda-axis')

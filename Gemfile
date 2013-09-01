@@ -23,7 +23,7 @@ gem 'geocoder'
 
 # DB and ARel extensions
 gem "squeel"
-
+gem 'momentjs-rails'
 group :development do
   gem 'pg'
 end

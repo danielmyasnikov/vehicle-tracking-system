@@ -19,6 +19,7 @@
 //= require highcharts
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require moment
 
 var shown_help = false
 function remove_fields(link) {
