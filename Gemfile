@@ -23,13 +23,12 @@ gem 'geocoder'
 
 # DB and ARel extensions
 gem "squeel"
-
 group :development do
   gem 'sqlite3'
 end
 
-group :production do 
-  gem "pg"
+group :production do
+  gem 'pg'
 end
 
 gem 'seed_dump', "~> 0.4.2"
