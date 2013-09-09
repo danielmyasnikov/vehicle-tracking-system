@@ -37,7 +37,7 @@
 		</div>
 		<div class='module_info margin-bottom-10px'>
 			<div class="container">
-				<h1><%= render 'layouts/module_info' %></h1>
+		    <h1><%= render 'layouts/module_info' %></h1>
 			</div>
 		</div>
 		<div class="spacer"></div>
@@ -45,15 +45,37 @@
       <div class="container">
         <div class="content">
         	<%= render 'layouts/messages' %>
-						<% if browser.ie6? %>
-			  	  	<p class="disclaimer">You're running an older IE version. Please update it!</p>
+						<% if browser.chrome? || browser.safari? %>
+  						<% if ApplicationSetting.find_by_name("Maintenance").trigger == true %>
+  							<h2>MyTruckFleet is under unscheduled maintenance<h2> </br> <h4>We will inform you when it's back. MTF Support Team.</h4>
+  						<% else %>
+  			  	 		<%= yield %>
+                <%= yield :scripts %>
+  						<% end %>
 						<% else %>
-							<% if ApplicationSetting.find_by_name("Maintenance").trigger == true %>
-								<h2>MyTruckFleet is under unscheduled maintenance<h2> </br> <h4>We will inform you when it's back. MTF Support Team.</h4>
-							<% else %>
-				  	 		<%= yield %>
-	              <%= yield :scripts %>
-							<% end %>
+						  <div class="row">
+						    <div class="span4"></div>
+						    <div class="span4" style="text-align:center">
+						      <p class="disclaimer">My Truck Fleet is compatible with Chrome. We are looking to support Safari and IE in near future. Could you please use or install chrome browser.</p>
+						    </div>
+						    <div class="span4"></div>
+						  </div>
+						  <div class="row">
+						    <div class='span4'></div>
+						    <div class='span4'><h4 style="text-align:center">Download one of them</h4></div>
+						    <div class='span4'></div>
+						  </div>
+						  <div class="row">
+						    <div class="span6">
+						      <%= link_to "https://www.google.com/intl/en/chrome/browser/" do %>
+						        <%= image_tag "google-chrome.png", :size => "256X256", :class => "right" %></div>
+						      <% end %>
+
+						    <div class="span6">
+						      <%= link_to "http://support.apple.com/kb/dl1531" do %>
+						        <%= image_tag "safari.png", :size => "256X256" %></div>
+						      <% end %>
+						  </div>
 						<% end %>
           <footer class='footer'>
           	<%= render 'layouts/footer'%>

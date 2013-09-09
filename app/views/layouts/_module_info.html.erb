@@ -1,14 +1,19 @@
 <div class="row">
-	<% if user_signed_in? && current_user.admin? %>
-		<span class='active-menu-my bold chinon-font-face blue font-56px'>My</span>
-		<span class='active-menu-main bold chinon-font-face white font-56px'>Customers</span>	
-	<% elsif user_signed_in? %>
-	<div class="span10">
-		<span class='active-menu-my bold chinon-font-face blue font-56px'><%= session[:active_menu][0..1] %></span>
-		<span class='active-menu-main bold chinon-font-face white font-56px'><%= session[:active_menu][2..50] %></span>
-	</div>
-	<div class="span2">
-		<%= image_tag "module/" + session[:module_logo], :size => "96x96", :class => "module-logo" if session[:module_logo].present? %>
-	</div>
-	<% end %>
+  <% if browser.chrome? || browser.safari? %>
+    <% if user_signed_in? && current_user.admin? %>
+  		<span class='active-menu-my bold chinon-font-face blue font-56px'>My</span>
+  		<span class='active-menu-main bold chinon-font-face white font-56px'>Customers</span>	
+  	<% elsif user_signed_in? %>
+  	<div class="span10">
+  		<span class='active-menu-my bold chinon-font-face blue font-56px'><%= session[:active_menu][0..1] %></span>
+  		<span class='active-menu-main bold chinon-font-face white font-56px'><%= session[:active_menu][2..50] %></span>
+  	</div>
+  	<div class="span2">
+  		<%= image_tag "module/" + session[:module_logo], :size => "96x96", :class => "module-logo" if session[:module_logo].present? %>
+  	</div>
+  	<% end %>
+	<% else %>
+    <span class='active-menu-my bold chinon-font-face blue font-56px' style="">My</span>
+  	<span class='active-menu-main bold chinon-font-face white font-56px' style="">Browser</span>
+  <% end %>
 </div>
