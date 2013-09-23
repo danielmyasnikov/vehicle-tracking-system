@@ -2,7 +2,7 @@ class ServiceTypesController < ApplicationController
   # GET /service_types
   # GET /service_types.json
   def index
-    @service_types = ServiceType.all
+    @service_types = ServiceType.truck_fleet_scoped(current_user)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,9 +41,10 @@ class ServiceTypesController < ApplicationController
   # POST /service_types.json
   def create
     @service_type = ServiceType.new(params[:service_type])
-
+    
     respond_to do |format|
       if @service_type.save
+        current_user.truck_fleet.service_types << @service_type
         format.html { redirect_to @service_type, notice: 'Service type was successfully created.' }
         format.json { render json: @service_type, status: :created, location: @service_type }
       else

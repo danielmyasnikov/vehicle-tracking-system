@@ -32,7 +32,7 @@ class FleetsController < ApplicationController
   # GET /fleets/new.json
   def new
     @fleet = Fleet.new
-    @fleet.build_fleet_services
+    @fleet.build_fleet_services current_user
     @assets = @fleet.assets.build
     respond_to do |format|
       format.html # new.html.erb
@@ -43,7 +43,7 @@ class FleetsController < ApplicationController
   # GET /fleets/1/edit
   def edit
     @fleet = Fleet.find(params[:id])
-    @fleet.prepare_services
+    @fleet.prepare_services current_user
     @assets = @fleet.assets.build
   end
   
@@ -85,7 +85,7 @@ class FleetsController < ApplicationController
     respond_to do |format|
       if @fleet.save
         @assets.save
-        @fleet.prepare_services
+        @fleet.prepare_services current_user
         @fleet.update_serviceables(params[:fields]) 
         format.html { redirect_to @fleet, notice: 'Fleet was successfully created.' }
         format.json { render json: @fleet, status: :created, location: @fleet }

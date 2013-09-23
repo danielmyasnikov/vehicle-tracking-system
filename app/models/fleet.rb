@@ -134,14 +134,14 @@ class Fleet < ActiveRecord::Base
     end
   end
   
-  def prepare_services
-    ServiceType.all.each do |service_type|
+  def prepare_services user
+    ServiceType.truck_fleet_scoped(user).each do |service_type|
       service_types << service_type if does_not_include service_type
     end
   end
   
-  def build_fleet_services
-    ServiceType.all.each do |service_type|
+  def build_fleet_services(current_user)
+    ServiceType.scoped_by_user(current_user).each do |service_type|
       self.serviceables.new(:service_type => service_type).save
     end
   end
@@ -151,7 +151,6 @@ class Fleet < ActiveRecord::Base
   end
   
   def update_serviceables(params)
-    puts params
     if params.present?
       params.each do |key, value|
         s = serviceables.find_by_service_type_id(key)
