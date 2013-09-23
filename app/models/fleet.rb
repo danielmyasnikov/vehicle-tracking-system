@@ -140,8 +140,8 @@ class Fleet < ActiveRecord::Base
     end
   end
   
-  def build_fleet_services(current_user)
-    ServiceType.scoped_by_user(current_user).each do |service_type|
+  def build_fleet_services user
+    ServiceType.truck_fleet_scoped(user).each do |service_type|
       self.serviceables.new(:service_type => service_type).save
     end
   end
