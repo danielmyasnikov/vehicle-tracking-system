@@ -9,13 +9,16 @@ class ReportController < ApplicationController
   def index
     @reports = Report.truck_fleet_reports(current_user.truck_fleet_id)
     @fleets = current_user.truck_fleet.fleets
+    array_lastMonths = []
+    (0..12).each do |r|
+      array_lastMonths << (Date.today - r.months).strftime("%Y/%m")
+    end
     @graph_reports = Report.reports_for_graph({}, @reports)
     if (@graph_reports)
       @graph_monthly_spent_vehicles = LazyHighCharts::HighChart.new('graph') do |f|
         f.options[:chart][:defaultSeriesType] = "area"
-        cats = 
         @graph_reports.each do |fleet, value|
-          f.xAxis(:categories => ,
+          f.xAxis(:categories => array_lastMonths,
             :labels => {
               :rotation => -45,
               :align => 'right',
@@ -36,6 +39,8 @@ class ReportController < ApplicationController
       total += f.reports.sum(:damage)
       total += f.reports.sum(:breakdown)
       total += f.reports.sum(:repair)
+      total += f.reports.sum(:parts)
+      total += f.reports.sum(:services)
       data << [f.name, total] 
     end if params['make'].nil? && params['model'].nil?
         
