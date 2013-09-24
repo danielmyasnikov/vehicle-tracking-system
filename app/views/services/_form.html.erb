@@ -103,6 +103,18 @@
 	        <td><%= f.check_box :breakdown_done, :class => 'check_box traceable', :disabled => @service.id.nil? %></td>
 	        <td>$ <%= f.text_field :breakdown_price, :class => 'text_field', :disabled => @service.id.nil? %></td>
 	      </tr>
+      <tr>
+	        <td><%= f.label "Parts price", :class => 'control-label' %></td>
+	        <td></td>
+	        <td></td>
+	        <td>$ <%= f.text_field :parts, :class => 'text_field', :disabled => @service.id.nil? %></td>
+	      </tr>
+      <tr>
+        <td><%= f.label "Services price", :class => 'control-label' %></td>
+        <td></td>
+        <td></td>
+        <td>$ <%= f.text_field :services, :class => 'text_field', :disabled => @service.id.nil? %></td>
+	      </tr>
 	  </tbody>
 	</table>
 

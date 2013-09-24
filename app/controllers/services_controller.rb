@@ -149,6 +149,7 @@ class ServicesController < ApplicationController
   
   def finish
     @service = Service.find(params[:id])
+
     # @service.update_attributes()
     @service.archived = true
     @service.finalise = true
@@ -161,6 +162,8 @@ class ServicesController < ApplicationController
       :damage       => @service.damage_price    ||= params[:damage],
       :breakdown    => @service.breakdown_price ||= params[:breakdown],
       :service      => @service.service_price   ||= params[:service],
+      :services     => @service.services        ||= params[:services],
+      :parts        => @service.parts           ||= params[:parts],
       :name         => @service.fleet.name,
       :model        => @service.fleet.model,
       :make         => @service.fleet.make,

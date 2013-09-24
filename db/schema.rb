@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130923133440) do
+ActiveRecord::Schema.define(:version => 20130924130857) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -256,6 +256,8 @@ ActiveRecord::Schema.define(:version => 20130923133440) do
     t.string   "model"
     t.datetime "service_date"
     t.string   "datecode"
+    t.float    "services"
+    t.float    "parts"
   end
 
   add_index "reports", ["fleet_id"], :name => "index_reports_on_fleet_id"
@@ -330,6 +332,8 @@ ActiveRecord::Schema.define(:version => 20130923133440) do
     t.boolean  "visible"
     t.boolean  "finalise"
     t.string   "status"
+    t.string   "parts"
+    t.string   "services"
   end
 
   create_table "settings", :force => true do |t|

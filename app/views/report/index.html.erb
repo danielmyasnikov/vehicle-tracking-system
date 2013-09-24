@@ -86,15 +86,22 @@
 				  <th>Damage</th>
 				  <th>Repair</th>
 				  <th>Breakdown</th>
+				  <th>Services</th>
+				  <th>Parts</th>
 				  <th>Totals</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		  	<% warranty_total = fleet.reports.order('created_at DESC').pluck(:warranty).inject{|sum, x| sum.to_i + x.to_i} %>
-		  	<% damage_total = fleet.reports.order('created_at DESC').pluck(:damage).inject{|sum, x| sum.to_i + x.to_i} %>
-		  	<% repair_total = fleet.reports.order('created_at DESC').pluck(:repair).inject{|sum, x| sum.to_i + x.to_i} %>
-		  	<% service_total = fleet.reports.order('created_at DESC').pluck(:service).inject{|sum, x| sum.to_i + x.to_i} %>
-		  	<% breakdown_total = fleet.reports.order('created_at DESC').pluck(:breakdown).inject{|sum, x| sum.to_i + x.to_i} %>
+		  	<% 
+		  	warranty_total  = fleet.reports.order('created_at DESC').pluck(:warranty).inject{|sum, x| sum.to_i + x.to_i}
+		  	damage_total    = fleet.reports.order('created_at DESC').pluck(:damage).inject{|sum, x| sum.to_i + x.to_i}
+		  	repair_total    = fleet.reports.order('created_at DESC').pluck(:repair).inject{|sum, x| sum.to_i + x.to_i}
+		  	service_total   = fleet.reports.order('created_at DESC').pluck(:service).inject{|sum, x| sum.to_i + x.to_i}
+		  	breakdown_total = fleet.reports.order('created_at DESC').pluck(:breakdown).inject{|sum, x| sum.to_i + x.to_i} 
+		  	parts_total     = fleet.reports.order('created_at DESC').pluck(:parts).inject{|sum, x| sum.to_i + x.to_i} 
+		  	services_total  = fleet.reports.order('created_at DESC').pluck(:services).inject{|sum, x| sum.to_i + x.to_i} 
+		  	%>
+		  	
 		  	<% fleet.reports.order('created_at DESC').each do |report| %>
 		      <tr>
 		      	<td><%= report.support.service_type %></td>
@@ -103,7 +110,9 @@
 		        <td><%= report.damage %></td>
 		        <td><%= report.repair %></td>
 		        <td><%= report.breakdown %></td>
-		        <td><b><%= number_to_currency(report.service.to_i + report.warranty.to_i + report.damage.to_i + report.repair.to_i + report.breakdown.to_i) %></b></td>
+		        <td><%= report.services %></td>
+		        <td><%= report.parts %></td>
+		        <td><b><%= number_to_currency(report.service.to_i + report.warranty.to_i + report.damage.to_i + report.repair.to_i + report.breakdown.to_i + report.services.to_i + report.parts.to_i) %></b></td>
 		      </tr>
 		     <% end %>
 			</tbody>
@@ -115,7 +124,9 @@
 		    	<td><b><%= number_to_currency(damage_total) %></b></td>
 		    	<td><b><%= number_to_currency(repair_total) %></b></td>
 		    	<td><b><%= number_to_currency(breakdown_total) %></b></td>
-		    	<td><b>Sum: <%= number_to_currency(service_total.to_f + warranty_total.to_f + damage_total.to_f + repair_total.to_f + breakdown_total.to_f)%></b></td>
+		    	<td><b><%= number_to_currency(services_total) %></b></td>
+		    	<td><b><%= number_to_currency(parts_total) %></b></td>
+		    	<td><b>Sum: <%= number_to_currency(service_total.to_f + warranty_total.to_f + damage_total.to_f + repair_total.to_f + breakdown_total.to_f + services_total.to_f + parts_total.to_f)%></b></td>
 				 </tr>
 				</tfoot>
 		</table>
