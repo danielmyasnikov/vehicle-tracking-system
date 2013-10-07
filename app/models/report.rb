@@ -1,4 +1,7 @@
 class Report < ActiveRecord::Base
+  
+  SERVICES = [:breakdown, :damage, :repair, :service, :services, :warranty, :parts]
+  
   belongs_to :fleet
   belongs_to :support, :class_name => "Service", :foreign_key => :service_id
   attr_accessible :breakdown, :damage, :repair, :service, :warranty, :fleet_id, 
@@ -6,59 +9,30 @@ class Report < ActiveRecord::Base
                   :services, :parts
                   
                   
-  def self.reports_for_pie_array(parameters, reports)
-    if (reports && reports.kind_of?(Array) && reports.count > 0)
-      !parameters[:filter].nil? ? type = parameters[:filter][:type] : type = "name"
-      puts "=> type"
-      puts type.inspect
-      if (type == "name")
-        reports = reports.group(:fleet_id).select("fleet_id, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.fleet.name, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] }
-      elsif (type == "model")
-        reports = reports.group(:model).select("model, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.model, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] }
-      elsif(type == "make")
-        reports = reports.group(:make).select("make, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage").collect{|r| [r.make, r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] }
-      end
+  def self.reports_for_pie_array(reports, parameters = nil, group_by = nil)      
+    if group_by.nil? || group_by.to_sym == :fleet_id
+      group_by ||= :fleet_id
+      reports = reports.group(group_by).select("#{group_by.to_s}, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage, SUM(parts) as parts, SUM(services) as services").collect{|r| [r.fleet.name, r.parts.to_f + r.services.to_f + r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f] }
+    else
+      my_hash = {}
+      reports.pluck(group_by.to_sym).uniq.collect {|model_name| my_hash.merge!(model_name => reports.sum_by(reports.where(group_by.to_sym => model_name), parameters))}
+      my_hash
     end
   end
   
-  def self.reports_for_graph(params, reports)
-    if (reports && reports.count > 0)
-      report = reports.group(:make, :datecode).select("make, SUM(repair) as repair, SUM(breakdown) as breakdown, SUM(service) as service, SUM(warranty) as warranty, SUM(damage) as damage, SUM(parts) as parts, SUM(services) as services, datecode")
-        .order('datecode ASC').collect{ |r| {
-          r.make => {:total => r.warranty.to_f + r.damage.to_f + r.service.to_f + r.repair.to_f + r.breakdown.to_f + r.parts.to_f + r.services.to_f, :datecode => r.datecode
-          }
-        }
-      }
-      entries = reports.pluck(:make).uniq
-      hash = Hash.new {|h,k| h[k] = []}
-      # creates a hash of values that are equal to empty array
-      entries.each do |value|
-        hash[value] = []
-      end
-      hash.each do |key, value|
-        report.each do |entry| 
-          hash[key] << [entry[entry.keys[0]][:total], entry[entry.keys[0]][:datecode]] if key == entry.keys[0]
-        end
-      end
+  def self.reports_for_graph(reports, params = nil, group_by = nil)
+    my_hash = {}
+    group_by ||= :fleet_id
     
-      array_lastMonths = []
-      (0..12).each do |r|
-        array_lastMonths << (Date.today - r.months).strftime("%Y%m")
-      end
-      array_lastMonths.sort!
-    
-      entries.each do |e|
-        array_to_return = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
-        hash[e].each do |item|
-          index = array_lastMonths.index(item[1])
-          array_to_return.delete_at(index)
-          array_to_return.insert(index, item[0])
-        end
-        array_to_return.collect!{|r| r.to_i }
-        hash[e] = array_to_return
-      end
-      return hash
+    datecodes = self.last_datecodes
+    reports = reports.where(:datecode => datecodes)
+    group_by_keys = reports.pluck(group_by)
+    if group_by == :fleet_id
+      group_by_keys.uniq.collect { |key| my_hash.merge!(Fleet.find(key).name => reports.sum_by_datecode_hash(reports.where(group_by.to_sym => key), params)) }
+    else
+      group_by_keys.uniq.collect { |key| my_hash.merge!(key => reports.sum_by_datecode_hash(reports.where(group_by.to_sym => key), params)) }
     end
+    my_hash
   end
   
   def self.truck_fleet_reports(truck_fleet_id)
@@ -69,4 +43,56 @@ class Report < ActiveRecord::Base
       []
     end
   end
+  
+  def self.sum_by_datecode_hash reports, arr_of_args = nil
+    summed_reports_hash = {}
+    
+    datecodes = reports.last_datecodes
+    datecodes.each do |dc|
+      summed_reports_hash.merge!({ dc => self.sum_by(reports.where(:datecode => dc), arr_of_args) })
+    end
+    
+    arr = self.arr_of_last_12_months
+    arr.collect! {|dc| summed_reports_hash.keys.include?(dc) ? summed_reports_hash[dc] : 0 }
+    
+    arr
+  end
+  
+  # calculates all services fields from reports if no array of arguments is provided
+  def self.sum_by reports, arr_of_args = nil   
+    total = 0 
+    raise ArgumentError, 'Arguments are not ACTIVE RELATION' unless reports.kind_of? ActiveRecord::Relation
+    return SERVICES.collect {|s| total += reports.sum(s)}.last if arr_of_args.nil? || arr_of_args == ['all']
+    return self.sum_by_array reports, arr_of_args if arr_of_args != ['all'] and arr_of_args.kind_of? Array
+    return self.sum_by_one_arg reports, arr_of_args unless arr_of_args.kind_of? Array  
+  end
+  
+  def self.sum_by_array reports, arr_of_args
+    total = 0
+    arr_of_args.collect!(&:to_sym)
+    arr_of_args.each do |column|
+      total += reports.sum(column)
+    end
+    total
+  end
+  
+  def self.sum_by_one_arg reports, arr_of_args
+    arg = arr_of_args
+    arg = arg.to_sym
+    reports.sum(arg)
+  end
+  
+  # Note: you can store this in database and run Rake every 1st of every month to produce an array of last months
+  def self.last_datecodes
+    # for the graph we need last 12 monthsof the data
+    last_month_to_count = (Date.today - 1.year).strftime("%Y%m").to_i
+    
+    # datecode is a db column that tracks the monthly date for recorded report
+    datecodes = Report.pluck(:datecode).uniq.reject { |dc| dc if dc.to_i < last_month_to_count }.sort
+  end
+  
+  def self.arr_of_last_12_months
+    (0..12).collect { |x| (Date.today - x.months).strftime("%Y%m") }.sort
+  end  
+  
 end

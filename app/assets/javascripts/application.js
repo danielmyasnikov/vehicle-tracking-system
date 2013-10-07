@@ -16,7 +16,7 @@
 //= require_tree .
 //= require bootstrap-datepicker
 //= require bootstrap-timepicker
-//= require highcharts
+//= require highcharts/highcharts
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require moment

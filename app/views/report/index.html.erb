@@ -1,6 +1,6 @@
 <%- model_class = Service -%>
 <div class="row">
-	<div class="span12">
+	<div class="span8">
 		<div class="margin-bottom-10px">
 			<% if @graph_monthly_spent_vehicles %>
 				<%= high_chart("my_id", @graph_monthly_spent_vehicles) %>
@@ -8,7 +8,7 @@
 				<%= "No data available for Graph" %>
 			<% end %>
 		</div>
-		<% if false %>
+		<% if @total_chart.present? %>
 			<%= high_chart("my_id4", @total_chart) do |c| %>
 				<%= raw "options.tooltip.formatter = function() {return '<b> '+ this.point.name +'</b>: $'+ this.y +'.00 ';}"  %>
 				<%= raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"  %>
@@ -18,26 +18,24 @@
 		<% end %>
 		
 		</div>
-	<div class="span4 hidden">
+
+	<div class="span4">
 		<%= form_tag report_index_path, :html => { :class => 'form-horizontal' } do %>
 		<div class="control-group">
 	    <%= label_tag :by_type, "Group by type", :class => 'control-label' %>
 	    	<label class='radio'>
-	    		<%= radio_button_tag 'filter[type]', :name %> Truck identification
+	    		<%= radio_button_tag 'filter[type]', :fleet_id, true %> Truck identification
 	    	</label>
 	      <label class='radio'>
-	    		<%= radio_button_tag 'filter[type]', :make, true %> Make
+	    		<%= radio_button_tag 'filter[type]', :make %> Make
 	    	</label>
 	    	<label class='radio'>
 	    		<%= radio_button_tag 'filter[type]', :model %>Model
 	    	</label>
 	  </div>
 	<hr>
-	  <div class="control-group hidden">
+	  <div class="control-group">
 	    <%= label_tag :by_service, "Calculate by service name", :class => 'control-label' %>
-			<label class='checkbox'>
-    		<%= check_box_tag 'filter[service][]', :fault_book, false, :id => 'filter_fault_book' %>Fault book
-    	</label>
 			
     	<label class='checkbox'>
     		<%= check_box_tag 'filter[service][]', :service, false, :id => 'filter_service_service' %>Service

@@ -1,7 +1,9 @@
 @import "twitter/bootstrap/bootstrap";
 body { background-color: #ECECEC; }
+
+.user-menu .btn {color:white; text-decoration:none;}
 .nav-tabs { margin-bottom: 0px; border-bottom: 0px;}
-.nav-tabs > li > a { padding-top: 25px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; dislplay:default; color:white; font-size: 12px;}
+.nav-tabs > li > a { padding-top: 25px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; dislplay:default; color:white; font-size: 12px; text-decoration: none;}
 .nav-tabs > .active > a { background-image: url("active.png"); border-color: transparent; }
 .nav-tabs > li > a:hover { border-color: transparent }  
 .nav > li > a:hover { background-color: #216FC2 }
@@ -49,14 +51,14 @@ body { background-color: #ECECEC; }
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled bootstrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
-@fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot#iefix");
-@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
-@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf");
-@fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
+@fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
+@fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot#iefix");
+@fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
+@fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
+@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
 
 // Font Awesome
-@import "fontawesome";
+@import "fontawesome/font-awesome";
 
 // Glyphicons
 //@import "twitter/bootstrap/sprites.less";
