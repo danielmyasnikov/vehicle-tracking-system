@@ -35,13 +35,14 @@ gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-timepicker-rails'
 # Gems used only for assets and not required
 # in production environments by default.
+gem 'less-rails'
+gem 'sass-rails'
 group :assets do
   
   
   gem 'coffee-rails'
   # gem 'client_side_validations'
-  gem 'less-rails'
-  gem 'sass-rails'
+
   
 
   
