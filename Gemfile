@@ -43,8 +43,7 @@ group :assets do
   gem 'less-rails'
   gem 'sass-rails'
   
-  gem 'bootstrap-datepicker-rails'
-  gem 'bootstrap-timepicker-rails'
+
   
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
