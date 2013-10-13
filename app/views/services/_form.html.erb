@@ -1,3 +1,8 @@
+<% fleet_id = Serviceable.find(params[:serviceable]).fleet.id rescue nil if params[:serviceable].blank? %>
+<% fleet_id = Serviceable.find(params[:id]).fleet.id rescue nil if params[:serviceable].blank? %>
+
+<%= params[:id] %>
+
 <%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
 	<div class="control-group">
 		<%= f.label :start_service_time, :class => 'control-label fleet-labals font-bold' %>
@@ -15,7 +20,7 @@
     <%= f.label :fleet_number, :class => 'control-label fleet-labals font-bold' %>
     <div class="controls">
       <%= f.collection_select :fleet_id, @fleets, :id, 
-      current_user.truck_fleet.setting.truck_identification.to_sym, {}, {
+      current_user.truck_fleet.setting.truck_identification.to_sym, {selected: fleet_id}, { 
       	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
     </div>
   </div>
