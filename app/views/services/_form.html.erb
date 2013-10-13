@@ -1,7 +1,7 @@
-<% fleet_id = Serviceable.find(params[:serviceable]).fleet.id rescue nil if params[:serviceable].blank? %>
-<% fleet_id = Serviceable.find(params[:id]).fleet.id rescue nil if params[:serviceable].blank? %>
+<% fleet_id = Service.find(params[:serviceable]).fleet.id rescue nil if params[:serviceable].present? %>
+<% fleet_id = Service.find(params[:id]).fleet.id rescue nil if params[:serviceable].blank? %>
 
-<%= params[:id] %>
+
 
 <%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
 	<div class="control-group">

@@ -22,7 +22,7 @@
 				        		:month => Date.today.month,
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour,
-										:serviceable => overdue,
+										:service => overdue,
 				        	), :class => 'btn btn-mini btn-success' %>
                 			<%= link_to 'P', postpone_fleet_path(
 	                      		overdue.fleet,
@@ -525,7 +525,7 @@ $(document).ready(function() {
 	  
 	},
 	eventClick: function(event, jsEvent, view){
-		cuteLittleWindow = window.open("/services/" + event.id + "/edit?serviceable=" + event.serviceable_id,
+		cuteLittleWindow = window.open("/services/" + event.id + "/edit",
 			"littleWindow", "location=no,width=850,height=650,left=300");
 	},
 
