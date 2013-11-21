@@ -5,6 +5,7 @@ class Serviceable < ActiveRecord::Base
 
   belongs_to :service_type
   belongs_to :fleet
+  belongs_to :fault_book
   
   def cancel_service
     puts serviceable_period != 0 && next_service_date.present?

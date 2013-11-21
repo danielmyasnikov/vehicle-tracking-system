@@ -6,6 +6,7 @@ class FaultBook < ActiveRecord::Base
   belongs_to :fleet
   belongs_to :truck_fleet
   belongs_to :driver
+  has_many :assets
   geocoded_by :address
   after_validation :geocode
   # TODO: validate presence of driver, flet, faults, fault_type, 

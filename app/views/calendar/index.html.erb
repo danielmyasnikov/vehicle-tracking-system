@@ -44,7 +44,7 @@
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour,
 										:type => :fault,
-										:fault_book => overdue.id
+										:fault_book => overdue.id,
 				        	), :class => 'btn btn-mini btn-success' %>
                 			<%= link_to 'P', postpone_fault_book_path(
 	                      		overdue.fleet,

@@ -32,7 +32,7 @@ class ServicesController < ApplicationController
   # GET /services/new
   # GET /services/new.json
   def new
-    
+    fault_book_id = nil
     # TODO: potential bug, should, if the user clicks on cancel then the service disappers from the scrren
     # should pass params to create method and execute saving
     if params[:serviceable] 
@@ -44,11 +44,13 @@ class ServicesController < ApplicationController
     if params[:fault_book]
       @fault_book = FaultBook.find(params[:fault_book])
       @fault_book.booked = true
+      fault_book_id = @fault_book.id
       @fault_book.save
     end
     
     @service = Service.new
     @service.warranty = true
+    @service.fault_book_id = fault_book_id
     @date = params
     @fleets = current_user.truck_fleet.fleets
     @trucks = Fleet.where(:auto_services => false).pluck(:id)
@@ -153,22 +155,26 @@ class ServicesController < ApplicationController
     # @service.update_attributes()
     @service.archived = true
     @service.finalise = true
-    # refactor this, may be there is a better way to assign values from the form :)
+    
+    fault_flag = @service.service_type_name == "0" ?  true : false
+    
     @report = Report.new(
-      :service_id   => @service.id              ||= params[:id],
-      :fleet_id     => @service.fleet_id        ||= params[:fleet_id], 
-      :warranty     => @service.warranty_price  ||= params[:warranty],
-      :repair       => @service.repair_price    ||= params[:repair],
-      :damage       => @service.damage_price    ||= params[:damage],
-      :breakdown    => @service.breakdown_price ||= params[:breakdown],
-      :service      => @service.service_price   ||= params[:service],
-      :services     => @service.services        ||= params[:services],
-      :parts        => @service.parts           ||= params[:parts],
-      :name         => @service.fleet.name,
-      :model        => @service.fleet.model,
-      :make         => @service.fleet.make,
-      :service_date => @service.start_service_date,
-      :datecode     => @service.start_service_date.strftime("%Y%m")
+      :service_id     => @service.id              ||= params[:id],
+      :fleet_id       => @service.fleet_id        ||= params[:fleet_id], 
+      :warranty       => @service.warranty_price  ||= params[:warranty],
+      :repair         => @service.repair_price    ||= params[:repair],
+      :damage         => @service.damage_price    ||= params[:damage],
+      :breakdown      => @service.breakdown_price ||= params[:breakdown],
+      :service        => @service.service_price   ||= params[:service],
+      :services       => @service.services        ||= params[:services],
+      :parts          => @service.parts           ||= params[:parts],
+      :name           => @service.fleet.name,
+      :model          => @service.fleet.model,
+      :make           => @service.fleet.make,
+      :service_date   => @service.start_service_date,
+      :datecode       => @service.start_service_date.strftime("%Y%m"),
+      :fault_flag     => fault_flag,
+      :fault_book_id  => @service.fault_book_id
     )
     respond_to do |format|
       if @report.save && @service.save

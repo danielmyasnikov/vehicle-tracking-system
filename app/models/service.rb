@@ -9,7 +9,7 @@ class Service < ActiveRecord::Base
                   :service_done, :service_price, :warranty_done, :damage_done, 
                   :damage_price, :repair_done, :repair_price, :breakdown_done, 
                   :breakdown_price, :warranty_price, :service_type_name, :finalise,
-                  :status, :parts, :services
+                  :status, :parts, :services, :fault_book_id
   
   # validates_date :start_service_date
   belongs_to :fleet
@@ -23,6 +23,15 @@ class Service < ActiveRecord::Base
   def start_service_date?
     p 'yay callled'
     true
+  end
+  
+  def services_done
+    services_done = []
+    services_done << "warranty" if warranty_done.present?
+    services_done << "repair" if repair_done.present?
+    services_done << "service" if service_done.present?
+    services_done << "breakdown" if breakdown_done.present?
+    services_done << "damage" if damage_done.present?
   end
   
   def check_status

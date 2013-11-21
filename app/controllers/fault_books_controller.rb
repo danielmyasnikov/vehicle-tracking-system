@@ -28,9 +28,12 @@ class FaultBooksController < ApplicationController
         format.html { render :layout => 'print' }# show.html.erb
         format.json { render json: @fault_book, :layout => 'print' }
       end
-    else   
+    else
+      
       @fault_book = FaultBook.find(params[:id])
-
+      @report = Report.find_by_fault_book_id @fault_book.id rescue nil
+      @service = Service.find @report.service_id rescue nil
+      @assets = @fault_book.assets.build
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @fault_book }
@@ -69,7 +72,7 @@ class FaultBooksController < ApplicationController
     
     respond_to do |format|
       if @fault_book.save
-        s = Serviceable.find_by_fleet_id(params['fault_book']['fleet_id'])
+        s = Serviceable.where(:service_type_id => 0, :fleet_id => params['fault_book']['fleet_id']).last
         s.next_service_date = @fault_book.fault_date 
         s.save
         format.html { redirect_to @fault_book, notice: 'Fault book was successfully created.' }

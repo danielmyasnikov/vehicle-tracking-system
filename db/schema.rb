@@ -9,88 +9,92 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130924130857) do
+ActiveRecord::Schema.define(version: 20131119085842) do
 
-  create_table "active_admin_comments", :force => true do |t|
-    t.string   "resource_id",   :null => false
-    t.string   "resource_type", :null => false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: true do |t|
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
     t.integer  "author_id"
     t.string   "author_type"
     t.text     "body"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "namespace"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_admin_notes_on_resource_type_and_resource_id", using: :btree
 
-  create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+  create_table "admin_users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
-  add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
-  add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "animals", :force => true do |t|
+  create_table "animals", force: true do |t|
     t.date     "born_on"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "application_settings", :force => true do |t|
+  create_table "application_settings", force: true do |t|
     t.string   "name"
     t.integer  "value"
     t.boolean  "trigger"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "assets", :force => true do |t|
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+  create_table "assets", force: true do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "invoice_file_name"
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
     t.integer  "fleet_id"
+    t.integer  "fault_book_id"
   end
 
-  create_table "contact_repairers", :force => true do |t|
+  create_table "contact_repairers", force: true do |t|
     t.string   "name"
     t.string   "email"
     t.string   "phone"
     t.integer  "repairer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "contact_truck_fleets", :force => true do |t|
+  create_table "contact_truck_fleets", force: true do |t|
     t.boolean  "main"
     t.string   "title"
     t.string   "mobile"
     t.string   "email"
     t.integer  "truck_fleet_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "full_name"
   end
 
-  create_table "drivers", :force => true do |t|
+  create_table "drivers", force: true do |t|
     t.string   "name"
     t.string   "phone_no"
     t.string   "pic"
@@ -98,8 +102,8 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.date     "dl_expiry"
     t.string   "training_schedule"
     t.string   "training_documents"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "fleet_id"
     t.integer  "truck_fleet_id"
     t.string   "training_period"
@@ -107,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.date     "start_schedule_from"
   end
 
-  create_table "email_notifications", :force => true do |t|
+  create_table "email_notifications", force: true do |t|
     t.integer "setting_id"
     t.integer "notification_id"
     t.boolean "primary"
@@ -116,7 +120,7 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.integer "interval"
   end
 
-  create_table "fault_books", :force => true do |t|
+  create_table "fault_books", force: true do |t|
     t.string   "fault_type"
     t.integer  "driver_id"
     t.integer  "fleet_id"
@@ -124,8 +128,8 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "mileage"
     t.string   "contact_no"
     t.text     "faults"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "accident_type"
     t.string   "address"
     t.float    "latitude"
@@ -135,7 +139,7 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.integer  "truck_fleet_id"
   end
 
-  create_table "fautl_books", :force => true do |t|
+  create_table "fautl_books", force: true do |t|
     t.string   "fault_type"
     t.integer  "driver_id"
     t.integer  "fleet_id"
@@ -143,20 +147,20 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "mileage"
     t.string   "contact_no"
     t.text     "faults"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "fleet_service_infos", :force => true do |t|
+  create_table "fleet_service_infos", force: true do |t|
     t.integer  "fleet_id"
     t.integer  "service_id"
     t.float    "km_since_last_service"
     t.float    "time_since_last_service"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  create_table "fleets", :force => true do |t|
+  create_table "fleets", force: true do |t|
     t.string   "pic"
     t.string   "make"
     t.string   "model"
@@ -165,8 +169,8 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "registration"
     t.string   "fleet_number"
     t.boolean  "auto_services"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "truck_fleet_id"
     t.float    "km_estimates"
     t.string   "period"
@@ -189,37 +193,37 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.integer  "age"
   end
 
-  create_table "lines", :force => true do |t|
+  create_table "lines", force: true do |t|
     t.integer  "item"
     t.string   "item_type"
     t.text     "line"
     t.integer  "log_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "lines", ["log_id"], :name => "index_lines_on_log_id"
+  add_index "lines", ["log_id"], name: "index_lines_on_log_id", using: :btree
 
-  create_table "logs", :force => true do |t|
+  create_table "logs", force: true do |t|
     t.string   "name"
     t.text     "line"
     t.boolean  "status"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.datetime "start_timestamp"
     t.datetime "final_timestamp"
   end
 
-  create_table "notifications", :force => true do |t|
+  create_table "notifications", force: true do |t|
     t.string   "name"
     t.boolean  "primary"
     t.boolean  "secondary"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.boolean  "required_intervals"
   end
 
-  create_table "repairers", :force => true do |t|
+  create_table "repairers", force: true do |t|
     t.string   "business_name"
     t.string   "picture"
     t.string   "street_address_1"
@@ -229,8 +233,8 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.integer  "postcode"
     t.boolean  "hour_service_24"
     t.string   "phone_number"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -241,7 +245,7 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "full_address"
   end
 
-  create_table "reports", :force => true do |t|
+  create_table "reports", force: true do |t|
     t.integer  "fleet_id"
     t.integer  "service_id"
     t.float    "warranty"
@@ -249,8 +253,8 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.float    "damage"
     t.float    "breakdown"
     t.float    "service"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "name"
     t.string   "make"
     t.string   "model"
@@ -258,51 +262,53 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "datecode"
     t.float    "services"
     t.float    "parts"
+    t.boolean  "fault_flag"
+    t.integer  "fault_book_id"
   end
 
-  add_index "reports", ["fleet_id"], :name => "index_reports_on_fleet_id"
-  add_index "reports", ["service_id"], :name => "index_reports_on_service_id"
+  add_index "reports", ["fleet_id"], name: "index_reports_on_fleet_id", using: :btree
+  add_index "reports", ["service_id"], name: "index_reports_on_service_id", using: :btree
 
-  create_table "roles", :force => true do |t|
+  create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
     t.string   "resource_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], :name => "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
-  create_table "service_types", :force => true do |t|
+  create_table "service_types", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "truck_fleet_id"
   end
 
-  create_table "serviceables", :force => true do |t|
+  create_table "serviceables", force: true do |t|
     t.integer  "service_type_id"
     t.integer  "fleet_id"
     t.float    "service_km_interval"
     t.float    "service_time_interval"
     t.string   "service_period"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.date     "next_service_date"
     t.boolean  "booked"
     t.date     "start_date"
   end
 
-  create_table "services", :force => true do |t|
+  create_table "services", force: true do |t|
     t.integer  "fleet_id"
     t.integer  "repairer_id"
     t.string   "service_type"
     t.boolean  "self_service"
     t.float    "KM_since_last_service"
     t.float    "time_since_last_service"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.date     "start_service_date"
     t.date     "finish_service_date"
     t.time     "start_service_time"
@@ -334,14 +340,15 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "status"
     t.string   "parts"
     t.string   "services"
+    t.integer  "fault_book_id"
   end
 
-  create_table "settings", :force => true do |t|
+  create_table "settings", force: true do |t|
     t.string   "truck_identification"
     t.string   "email_periods"
     t.integer  "email_recepient_id"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "truck_fleet_id"
     t.string   "sort"
     t.string   "email"
@@ -361,40 +368,40 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "updated_rescheduled_service"
   end
 
-  create_table "subscribers", :force => true do |t|
+  create_table "subscribers", force: true do |t|
     t.integer  "subscribtion_id"
     t.integer  "user_id"
     t.boolean  "stop_this_email"
     t.boolean  "unsubscribe"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  create_table "subscribtions", :force => true do |t|
+  create_table "subscribtions", force: true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "trainings", :force => true do |t|
+  create_table "trainings", force: true do |t|
     t.string   "name"
     t.date     "date"
     t.time     "start_time"
     t.time     "finish_time"
     t.integer  "driver_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "truck_fleets", :force => true do |t|
+  create_table "truck_fleets", force: true do |t|
     t.string   "trading_name_of_business"
     t.string   "street"
     t.string   "street_2"
     t.string   "suburb"
     t.string   "state"
     t.integer  "postcode"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -405,35 +412,35 @@ ActiveRecord::Schema.define(:version => 20130924130857) do
     t.string   "landline"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "name"
-    t.boolean  "approved",               :default => false, :null => false
-    t.boolean  "admin",                  :default => false
+    t.boolean  "approved",               default: false, null: false
+    t.boolean  "admin",                  default: false
     t.integer  "truck_fleet_id"
     t.string   "role"
   end
 
-  add_index "users", ["approved"], :name => "index_users_on_approved"
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["approved"], name: "index_users_on_approved", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "users_roles", :id => false, :force => true do |t|
+  create_table "users_roles", id: false, force: true do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
 end

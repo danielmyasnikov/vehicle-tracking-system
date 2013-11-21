@@ -4,9 +4,10 @@ class Report < ActiveRecord::Base
   
   belongs_to :fleet
   belongs_to :support, :class_name => "Service", :foreign_key => :service_id
+  belongs_to :fault_book
   attr_accessible :breakdown, :damage, :repair, :service, :warranty, :fleet_id, 
                   :service_id, :fleet, :name, :make, :model, :service_date, :datecode,
-                  :services, :parts
+                  :services, :parts, :fault_flag, :fault_book_id
                   
                   
   def self.reports_for_pie_array(reports, parameters = nil, group_by = nil)      
