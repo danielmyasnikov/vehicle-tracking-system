@@ -50,7 +50,7 @@
         	<%= @service.repairer_id.present? ? Repairer.find(@service.repairer_id).business_name : $not_available %></dd>
       	</div>
       	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
-        	<dt><strong><%= "What has been repaired: " %>:</strong></dt>
+        	<dt><strong><%= "Services: " %>:</strong></dt>
         	<dd><%= @service.services_done.present? ? @service.services_done.join(", ") : $not_available %></dd>
       	</div>
       	<div class="white-background margin-bottom-10px padding-top-bottom-10px">

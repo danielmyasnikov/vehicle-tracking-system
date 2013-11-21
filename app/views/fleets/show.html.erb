@@ -73,11 +73,13 @@
   </thead>
   <tbody>
     <% @fleet.serviceables.each do |s| %>
-      <tr>
-        <td><%= s.service_type.name %></td>
-        <td><%= "Every #{s.service_km_interval} KM" if s.service_km_interval %></td>
-        <td><%= "Every #{s.service_time_interval.to_i} #{s.service_period.downcase}" if s.service_time_interval.present?  %></td>
-      </tr>
+      <% if s.service_type_id != 0 %>
+        <tr>
+          <td><%= s.service_type.name %></td>
+          <td><%= "Every #{s.service_km_interval} KM" if s.service_km_interval %></td>
+          <td><%= "Every #{s.service_time_interval.to_i} #{s.service_period.downcase}" if s.service_time_interval.present?  %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

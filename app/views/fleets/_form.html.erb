@@ -90,7 +90,7 @@
 	  <% @fleet.serviceables.each_with_index do |fs, i| %>
 			<%= f.fields_for fs do |builder| %>
 				<div class="auto_services">
-				  <%= render "service_types", :f => builder, :fleet_service => fs, :i => i %>
+				  <%= render "service_types", :f => builder, :fleet_service => fs, :i => i if fs.service_type_id != 0 %>
 				</div>
 			<% end %>
 	  <% end %>
