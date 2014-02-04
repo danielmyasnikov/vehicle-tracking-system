@@ -17,12 +17,21 @@ class Fleet < ActiveRecord::Base
   # => push all validation as the last step .... validates_presence_of :VIN, :make, :year, :truck_fleet_id
   
   def cron_calc_milage
-    self.actual_km = milage_sum
+    self.actual_km = self.actual_km.to_i + milage_estimate
     self.save
   end
   
-  def milage_sum
-    actual_km.to_f + km_estimates.to_f / calc_days_for_milage_sum if calc_days_for_milage_sum != 0
+  def milage_estimate
+    km_estimates.to_f / calc_days_for_milage_sum if calc_days_for_milage_sum != 0
+  end
+  
+  def milage_in_3_days_due serviceable
+    
+  end
+  
+  def milage_due_today serviceable
+    serviceable = Serviceable.where(id: serviceable)
+    self.milage_since_last_service > serviceable.service_km_interval
   end
   
   def calc_days_for_milage_sum

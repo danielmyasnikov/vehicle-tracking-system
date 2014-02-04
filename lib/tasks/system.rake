@@ -12,6 +12,11 @@ namespace :mtf do
       line = "Processing fleet #{f.id} actual = #{f.actual_km} \n"
       aline.line = line
       f.cron_calc_milage
+      
+      f.serviceables.each do |s|
+        s.update_column(:milage_since_last_service, s.milage_since_last_service.to_i + f.milage_estimate)
+      end
+      
       line = "Processing fleet #{f.id} calculated = #{f.actual_km}"
       aline.line << line
       aline.save!

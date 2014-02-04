@@ -12,6 +12,7 @@
 		<% if en.notification.required_intervals? %>
 			<%= u.select :interval, @days, {}, { :id => "email_interval_" + en.id.to_s } %>
 		<% end %>
+		<i id='<%= "spinner-#{en.id}" %>' class='icon-spinner icon-spin icon-large'></i>
 		<%= u.submit :email_notifications, :name => "some ", :class => 'hidden' %>
 		</div>
 	</div>

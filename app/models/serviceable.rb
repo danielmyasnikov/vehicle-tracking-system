@@ -43,7 +43,7 @@ class Serviceable < ActiveRecord::Base
   def self.due(fleets_ids)
     if fleets_ids.present?
       serviceables = Serviceable.where(:fleet_id => fleets_ids)
-      serviceables.where('next_service_date <= ? and next_service_date >= ?', Date.today + 3, Date.today)
+      serviceables.where('next_service_date <= ? and next_service_date >= ? or milage_since_last_service > service_km_interval', Date.today + 3, Date.today)
     end
   end
   
@@ -56,7 +56,8 @@ class Serviceable < ActiveRecord::Base
   end
   
   def due?
-    next_service_date <= Date.today + 3 && next_service_date > Date.today if next_service_date.present?
+    due = next_service_date <= Date.today + 3 && next_service_date > Date.today rescue false
+    due || self.milage_since_last_service > self.service_km_interval
   end
   
   def today?
@@ -66,7 +67,7 @@ class Serviceable < ActiveRecord::Base
   def self.overdue(fleets_ids)
     if fleets_ids.present?
       serviceables = where(:fleet_id => fleets_ids)
-      serviceables.where('next_service_date < ?', Date.today).order("next_service_date ASC")
+      serviceables.where('next_service_date < ? or milage_since_last_service > service_km_interval', Date.today).order("next_service_date ASC")
     end
   end
   

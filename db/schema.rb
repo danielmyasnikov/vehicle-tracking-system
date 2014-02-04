@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119085842) do
+ActiveRecord::Schema.define(version: 20140204100022) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "resource_id",   null: false
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 20131119085842) do
     t.string   "registration"
     t.string   "fleet_number"
     t.boolean  "auto_services"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "truck_fleet_id"
     t.float    "km_estimates"
     t.string   "period"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 20131119085842) do
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
+    t.integer  "milage_since_last_service"
   end
 
   create_table "lines", force: true do |t|
@@ -282,11 +283,12 @@ ActiveRecord::Schema.define(version: 20131119085842) do
     t.float    "service_km_interval"
     t.float    "service_time_interval"
     t.string   "service_period"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.date     "next_service_date"
     t.boolean  "booked"
     t.date     "start_date"
+    t.integer  "milage_since_last_service"
   end
 
   create_table "services", force: true do |t|
