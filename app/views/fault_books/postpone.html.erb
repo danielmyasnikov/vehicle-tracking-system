@@ -1,7 +1,7 @@
 <% @postponing = true %>
 	
 <div id="postpone"><%- model_class = Serviceable -%>
-	<%= form_for @fault_book, :html => { :class => 'form-horizontal' }, :url => postponed_fault_book_path(@fault_book)  do |f| %>
+	<%= form_for @fault_book, :html => { :class => 'form-horizontal' }, :url => postponed_fault_book_path(@fault_book), method: :post  do |f| %>
 	  <div class="control-group">
       	<div class="controls">
       	  	<%= "Fault book creation date: #{@fault_book.created_at.strftime("%d/%m/%y")}" %>

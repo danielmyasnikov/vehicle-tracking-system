@@ -72,7 +72,7 @@ class FaultBooksController < ApplicationController
     
     respond_to do |format|
       if @fault_book.save
-        s = Serviceable.where(:service_type_id => 0, :fleet_id => params['fault_book']['fleet_id']).last
+        s = Serviceable.find_or_create_by_service_type_id_and_fleet_id(0, params['fault_book']['fleet_id'])
         s.next_service_date = @fault_book.fault_date 
         s.save
         format.html { redirect_to @fault_book, notice: 'Fault book was successfully created.' }
@@ -117,7 +117,7 @@ class FaultBooksController < ApplicationController
   end
   
   def postpone
-    @fault_book = FaultBook.find(params[:fault_book])
+    @fault_book = FaultBook.find(params[:id])
   end
   
   def postponed

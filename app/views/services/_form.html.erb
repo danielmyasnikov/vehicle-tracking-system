@@ -1,7 +1,21 @@
-<% fleet_id = Serviceable.find(params[:serviceable]).fleet.id rescue nil if params[:serviceable].present? %>
+<!-- REFACTOR -->
+
 <% fleet_id = Service.find(params[:id]).fleet.id rescue nil if params[:serviceable].blank? %>
+<% fleet_id = Serviceable.find(params[:serviceable]).fleet.id rescue nil if params[:serviceable].present? %>
+<% fleet_id = FaultBook.find(params[:fault_book]).fleet.id rescue nil if params[:fault_book].present? %>
 
 
+<% if params[:year].present? %>
+  <% start_date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i) %>
+  <% start_date = start_date.strftime("%d-%m-%Y") %>
+  <% @service.start_service_date = start_date %>
+<% else %>
+  <% start_date = Date.today.strftime("%d-%m-%Y") %>
+  <% start_date = start_date.strftime("%d-%m-%Y") %>
+  <% @service.start_service_date = start_date.strftime("%d-%m-%Y") %>
+<% end %>
+
+<% %>
 
 <%= form_for @service, :html => { :class => 'form-horizontal' } do |f| %>
   
@@ -23,28 +37,28 @@
     <%= f.label :fleet_number, :class => 'control-label fleet-labals font-bold' %>
     <div class="controls">
       <%= f.collection_select :fleet_id, @fleets, :id, 
-      current_user.truck_fleet.setting.truck_identification.to_sym, {selected: fleet_id}, { 
-      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
+      current_user.truck_fleet.setting.truck_identification.to_sym, { selected: fleet_id }, { 
+      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height' } %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :repairer_id, :class => 'control-label fleet-labals font-bold' %>
 		<div class="controls">
-	      <%= f.collection_select :repairer_id, Repairer.all, :id, :business_name, {}, {
+	      <%= f.collection_select :repairer_id, Repairer.all, :id, :business_name, {  }, {
 	      	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
 		</div>
   </div>
   <div class="control-group">
     <%= f.label :service_schedule, :class => 'control-label fleet-labals font-bold' %>
     <div class="controls">
-      <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], {}, {
+      <%= select :service, :service_type, ['Scheduled', 'Unscheduled'], { selected: params[:scheduled] }, {
       	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :service_type, :class => 'control-label fleet-labals font-bold' %>
     <div class="controls">
-      <%= f.select :service_type_name, @service_types, {}, {
+      <%= f.collection_select :service_type_name, @service_types, :last, :first, { selected: params[:service_id] }, {
       	:promt => true, :class => 'selectpicker select-widht-height text_field_width_height'} %>
     </div>
   </div>

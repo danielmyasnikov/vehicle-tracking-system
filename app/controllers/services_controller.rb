@@ -55,8 +55,12 @@ class ServicesController < ApplicationController
     @fleets = current_user.truck_fleet.fleets
     @trucks = Fleet.where(:auto_services => false).pluck(:id)
     
+    @type = params[:scheduled]
+    
     @service_types = ServiceType.truck_fleet_scoped(current_user).collect {|s| [s.name, s.id]}
     @service_types = @service_types + [['Fault', 0]]
+    
+    @service_types.reverse!
     
     start_service_time = params[:hours]
     year = params[:year].to_i

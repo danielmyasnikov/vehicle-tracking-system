@@ -1,7 +1,7 @@
 <% @postponing = true %>
 	
 <div id="postpone"><%- model_class = Serviceable -%>
-	<%= form_for @serviceable, :html => { :class => 'form-horizontal' }, :url => postponed_fleet_path(@serviceable)  do |f| %>
+	<%= form_for @serviceable, :html => { :class => 'form-horizontal' }, :url => postponed_fleet_path(@serviceable), method: :put  do |f| %>
 	  <div class="control-group">
       	<div class="controls">
       	  <%#= "Due or overdue date: #{@fleet.next_service_date}" %>

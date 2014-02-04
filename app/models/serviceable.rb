@@ -8,8 +8,13 @@ class Serviceable < ActiveRecord::Base
   belongs_to :fault_book
   
   def cancel_service
-    puts serviceable_period != 0 && next_service_date.present?
-    self.next_service_date = next_service_date + service_time_interval.to_i * serviceable_period.to_i if serviceable_period != 0 && next_service_date.present?
+    next_service = next_service_date + service_time_interval.to_i * serviceable_period.to_i if serviceable_period != 0 && next_service_date.present?
+    
+    if next_service.past?
+      next_service = Date.today + service_time_interval.to_i * serviceable_period.to_i if serviceable_period != 0 && next_service_date.present?
+    end
+    
+    self.next_service_date = next_service
     self.save
   end
   

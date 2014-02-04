@@ -23,6 +23,9 @@
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour,
 										:service => overdue,
+										:scheduled => "Scheduled",
+										:service_id => overdue.service_type.id,
+										:serviceable => overdue
 				        	), :class => 'btn btn-mini btn-success' %>
                 			<%= link_to 'P', postpone_fleet_path(
 	                      		overdue.fleet,
@@ -45,10 +48,10 @@
 				        		:hours =>  Time.now.hour,
 										:type => :fault,
 										:fault_book => overdue.id,
+										:scheduled => "Unscheduled",
 				        	), :class => 'btn btn-mini btn-success' %>
                 			<%= link_to 'P', postpone_fault_book_path(
-	                      		overdue.fleet,
-	                      		:fault_book => overdue),
+	                      		overdue),
 			                  	:class => 'btn btn-mini btn-warning' %>
 												  <%= link_to 'C',
 												              fault_book_path(overdue, :from_calendar => true),
@@ -86,10 +89,10 @@
 				        		:month => Date.today.month,
 				        		:day => Date.today.day,
 				        		:hours =>  Time.now.hour,
-										:type => :fault,
 										:fleet_id => due.fleet.id,
 										:service_id => due.service_type.id,
-										:serviceable => due
+										:serviceable => due,
+										:scheduled => "Scheduled"
 				        	),
 	                      	  :class => 'btn btn-mini btn-success' %>
 	                      	<%= link_to 'P', postpone_fleet_path(
@@ -114,7 +117,8 @@
 					        		:hours =>  Time.now.hour,
 											:type => :fault,
 											:fleet_id => due.fleet.id,
-											:fault_book => due.id
+											:fault_book => due.id,
+											:scheduled => "Unscheduled"
 					        	), :class => 'btn btn-mini btn-success' %>
 	                			<%= link_to 'P', postpone_fault_book_path(
 		                      		due.fleet,
@@ -382,6 +386,11 @@ $(document).ready(function() {
 	    week: "d[ MMMM]{ - d MMMM}",
 			day: 'd MMMM'
 		},
+		columnFormat: {
+  		month: 'ddd',
+  		week: 'ddd dd/MMM',
+  		day: 'dddd dd/MMM'
+  	},
 		header: {
 			left: 'prev,next today',
 			center: 'title',
@@ -525,7 +534,19 @@ $(document).ready(function() {
 	  
 	},
 	eventClick: function(event, jsEvent, view){
-		cuteLittleWindow = window.open("/services/" + event.id + "/edit",
+	  
+	  console.log("Event shit");
+	  console.log(event);
+	  
+	  m = event.start.getMonth() + 1;
+		suffix = (event.start.getHours >= 12)? 'pm' : 'am';
+	  
+		cuteLittleWindow = window.open("/services/" + event.id + "/edit?" + 
+		  'year='  + event.start.getFullYear() + '&' + 
+		  'month=' + m + '&' + 
+		  'day='   + event.start.getDate() + '&' + 
+		  'suffix=' + suffix + '&' +
+		  'hours=' + event.start.getHours(),
 			"littleWindow", "location=no,width=850,height=650,left=300");
 	},
 

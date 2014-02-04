@@ -29,7 +29,7 @@ Mytruckfleet::Application.routes.draw do
   resources :fault_books do
     member do 
       get 'postpone'
-      put 'postponed'
+      post 'postponed'
       get 'cancel'
       put 'cancel'
     end
