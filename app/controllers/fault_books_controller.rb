@@ -74,8 +74,12 @@ class FaultBooksController < ApplicationController
     @fault_book = FaultBook.new(params[:fault_book])
     @fault_book.truck_fleet_id = @fault_book.fleet.truck_fleet_id
     
+    @assets = Asset.new(params[:asset]) 
+    @assets.fault_book = @fault_book
+    
     respond_to do |format|
       if @fault_book.save
+        @assets.save
         s = Serviceable.find_or_create_by_service_type_id_and_fleet_id(0, params['fault_book']['fleet_id'])
         s.next_service_date = @fault_book.fault_date 
         s.save
@@ -92,9 +96,12 @@ class FaultBooksController < ApplicationController
   # PUT /fault_books/1.json
   def update
     @fault_book = FaultBook.find(params[:id])
+    @assets = Asset.new(params[:asset]) 
+    @assets.fault_book = @fault_book
 
     respond_to do |format|
       if @fault_book.update_attributes(params[:fault_book])
+        @assets.save!
         format.html { redirect_to @fault_book, notice: 'Fault book was successfully updated.' }
         format.json { head :no_content }
       else

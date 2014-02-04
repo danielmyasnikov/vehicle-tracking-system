@@ -148,6 +148,7 @@ class ServicesController < ApplicationController
       if @service.send(s) == true && @service.send(s + '_done') == true
         serviceable = @service.fleet.serviceables.where(:service_type_id => params[:service][:service_type_name]).first
         next_service = @service.fleet.calc_next_period_for_services(serviceable.service_time_interval, serviceable.service_period) if !serviceable.nil?
+        fleet.update_column(:milage_since_last_service, 0)
         serviceable.update_attributes(:next_service_date => Date.today + next_service) if !serviceable.nil?
       end
     end
@@ -201,7 +202,7 @@ class ServicesController < ApplicationController
     UserMailer.cancel_service(current_user, @service.fleet, '', '', '').deliver
 
     respond_to do |format|
-      format.html { redirect_to services_url }
+      format.html { redirect_to controller: :calendar, action: :index }
       format.json { head :no_content }
     end
   end
