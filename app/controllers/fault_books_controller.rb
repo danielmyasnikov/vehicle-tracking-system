@@ -34,6 +34,7 @@ class FaultBooksController < ApplicationController
       @report = Report.find_by_fault_book_id @fault_book.id rescue nil
       @service = Service.find @report.service_id rescue nil
       @assets = @fault_book.assets.build
+      @invoices = @fault_book.assets
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @fault_book }
@@ -49,6 +50,8 @@ class FaultBooksController < ApplicationController
     
     @drivers = current_user.truck_fleet.drivers
     @fleets = current_user.truck_fleet.fleets
+    
+    @assets = @fault_book.assets.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -62,6 +65,7 @@ class FaultBooksController < ApplicationController
     @drivers = current_user.truck_fleet.drivers
     @fleets = current_user.truck_fleet.fleets
     @fault_book.fault_date = @fault_book.fault_date.strftime("%d-%m-%Y")
+    @assets = @fault_book.assets.build
   end
 
   # POST /fault_books

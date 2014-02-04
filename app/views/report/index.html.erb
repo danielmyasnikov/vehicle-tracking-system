@@ -24,13 +24,10 @@
 		<div class="control-group">
 	    <%= label_tag :by_type, "Group by type", :class => 'control-label' %>
 	    	<label class='radio'>
-	    		<%= radio_button_tag 'filter[type]', :fleet_id, true %> Truck identification
-	    	</label>
-	      <label class='radio'>
-	    		<%= radio_button_tag 'filter[type]', :make %> Make
-	    	</label>
-	    	<label class='radio'>
-	    		<%= radio_button_tag 'filter[type]', :model %>Model
+	    	  <% [ ["Truck Identification", :name], ["Make", :make], ["Model", :model] ].each do |type| %>
+            <br><%= radio_button_tag 'filter[type]', type.last, @type == type.last.to_s %> 
+                <%= type.first %>
+          <% end %>
 	    	</label>
 	  </div>
 	<hr>
@@ -38,22 +35,15 @@
 	    <%= label_tag :by_service, "Calculate by service name", :class => 'control-label' %>
 			
     	<label class='checkbox'>
-    		<%= check_box_tag 'filter[service][]', :service, false, :id => 'filter_service_service' %>Service
-    	</label>
-    	<label class='checkbox'>
-    		<%= check_box_tag 'filter[service][]', :damage, false, :id => 'filter_service_damage' %>Damage
-    	</label>
-    	<label class='checkbox'>
-    		<%= check_box_tag 'filter[service][]', :breakdown, false, :id => 'filter_service_breakdown' %>Breakdown
-    	</label>
-    	<label class='checkbox'>
-    		<%= check_box_tag 'filter[service][]', :warranty, false, :id => 'filter_service_warranty' %>Warranty
-    	</label>
-      <label class='checkbox'>
-    		<%= check_box_tag 'filter[service][]', :repair, false, :id => 'filter_service_repair' %>Repair
-    	</label>
-    	<label class='checkbox'>
-    		<%= check_box_tag 'filter[service][]', :all, true, :id => 'filter_service_all' %>All
+    	  
+    	  <% [ ["Service", :service], ["Damage", :damage], ["Warranty", :warranty], 
+    	       ["Repair", :repair], ["All", :all] ].each do |service| %>
+    	  
+    	    <%#= check_box_tag 'filter[service][]', , , :id => 'filter_service_service' %>
+    	    
+          <br/><%= check_box_tag 'filter[service][]', service.last, @services.include?(service.last) %> 
+          <%= service.first %>
+        <% end %>
     	</label>
 	  </div>
 	<hr>

@@ -10,6 +10,8 @@ class ReportController < ApplicationController
     @reports = Report.truck_fleet_reports(current_user.truck_fleet_id)
     @fleets = current_user.truck_fleet.fleets
     
+    @type = params[:filter].present? ? params[:filter][:type] : nil
+    @services = params[:filter].present? ? params[:filter][:service] : nil
     type = params[:filter].present? ? params[:filter][:type] : nil
     services = params[:filter].present? ? params[:filter][:service] : nil
     

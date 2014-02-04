@@ -58,6 +58,13 @@
         	<dd><%= @service.other.present? ? @service.other : $not_available %></dd>
         </div>
         <% if !params[:print].present? %>
+          <% if @invoices.present? %>
+  				  <% @invoices.each_with_index do |asset, i| %>
+  				    <div class='external-event'><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></div>
+  				  <% end %>
+  				<% else %>
+  					<%= "No invoices available..." %>
+  			  <% end %>        
           <%= fields_for @assets do |asset| %>
       	    <div class="control-group background-grey padding-top-bottom-10px">
       	      <%= asset.label 'Invoices', :class => 'control-label fleet-labals' %>

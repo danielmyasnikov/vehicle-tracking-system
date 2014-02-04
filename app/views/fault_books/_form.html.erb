@@ -47,6 +47,16 @@
       <%= f.text_area :faults, :class => 'text_area', :rows => 5 %>
     </div>
   </div>
+  
+  <hr/>
+  <%= fields_for @assets do |asset| %>
+    <div class="control-group background-grey padding-top-bottom-10px">
+      <%= asset.label 'Invoices', :class => 'control-label fleet-labals' %>
+      <div class="controls">
+        <%= asset.file_field :invoice %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

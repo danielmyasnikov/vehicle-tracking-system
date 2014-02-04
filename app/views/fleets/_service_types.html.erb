@@ -16,7 +16,7 @@
 		%> 
 		
 		<%= select_tag "fields[#{fleet_service.service_type.id}][service_period]", 
-										options_for_select(['Year', 'Month', 'Day']), 
+										options_for_select(['Year', 'Month', 'Day'], fleet_service.service_period),
 										:class => "service_period service-km-select-km-est-width selectpicker" %>
 		
 		<%= text_field_tag "fields[#{fleet_service.service_type.id}][start_date]", Date.today.strftime("%d-%m-%Y"),
