@@ -1,6 +1,23 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  before_filter :authorize
+  
+  def authorize
+    if !params["controller"].match("devise")
+      unless current_user
+        redirect_to new_user_session_path, notice: "Please log in"
+        return
+      end
+    end
+  end
+  
+  def secure!
+    if current_user
+      redirect_to :back, notice: "Not authorised to view the content"
+    end
+  end
+  
   $not_available = 'Not available'
   
   def after_sign_in_path_for(resource)

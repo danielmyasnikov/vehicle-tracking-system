@@ -108,6 +108,9 @@ class ServicesController < ApplicationController
     
     respond_to do |format|
       if @service.save
+        serviceable = Serviceable.where(service_type_id: @service.service_type_name, fleet_id: @service.fleet.id).first
+        serviceable.booked = true
+        serviceable.save!
         UserMailer.completed_booking(current_user, @service).deliver
         # TODO: changed completed
         format.html { redirect_to @service, notice: 'Service was successfully created.' }
@@ -148,8 +151,11 @@ class ServicesController < ApplicationController
       if @service.send(s) == true && @service.send(s + '_done') == true
         serviceable = @service.fleet.serviceables.where(:service_type_id => params[:service][:service_type_name]).first
         next_service = @service.fleet.calc_next_period_for_services(serviceable.service_time_interval, serviceable.service_period) if !serviceable.nil?
-        fleet.update_column(:milage_since_last_service, 0)
-        serviceable.update_attributes(:next_service_date => Date.today + next_service) if !serviceable.nil?
+        if !serviceable.nil?
+          serviceable.update_attributes(:next_service_date => @service.finish_service_date + next_service)
+          serviceable.booked = false
+          serviceable.save!
+        end
       end
     end
   end
