@@ -72,9 +72,10 @@ class UserMailer < ActionMailer::Base
     notification = Notification.find_by_name("Update vehicle info except milage")
     setting = vehicle.truck_fleet.setting.email_notifications.find_by_notification_id(notification.id)
     emails = self.find_emails(user, vehicle, setting)
-    
-    mail :to => emails,
-         :subject => "Info updated. For #{vehicle.fleet_number}"
+    if email.present?
+      mail :to => emails,
+           :subject => "Info updated. For #{vehicle.fleet_number}"
+    end
   end
   
   # service: Serviceable, you can use # => service.fleet or service.service_type.name

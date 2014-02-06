@@ -74,12 +74,15 @@ class FaultBooksController < ApplicationController
     @fault_book = FaultBook.new(params[:fault_book])
     @fault_book.truck_fleet_id = @fault_book.fleet.truck_fleet_id
     
-    @assets = Asset.new(params[:asset]) 
-    @assets.fault_book = @fault_book
-    
     respond_to do |format|
       if @fault_book.save
-        @assets.save
+        
+        if params[:asset].present?
+          @assets = Asset.new(params[:asset]) 
+          @assets.fault_book = @fault_book
+          @assets.save
+        end
+        
         s = Serviceable.find_or_create_by_service_type_id_and_fleet_id(0, params['fault_book']['fleet_id'])
         s.next_service_date = @fault_book.fault_date 
         s.save

@@ -12,12 +12,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def secure!
-    if current_user
-      redirect_to :back, notice: "Not authorised to view the content"
-    end
-  end
-  
   $not_available = 'Not available'
   
   def after_sign_in_path_for(resource)
