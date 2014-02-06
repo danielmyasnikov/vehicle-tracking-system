@@ -37,8 +37,17 @@
       </div>
     </dl>
 	</div>
-	<% if @service.present? && @report.present? %>
-  	<div class="span6">
+  <div class="span6">
+    <% if !params[:print].present? %>
+      <% if @invoices.present? %>
+			  <% @invoices.each_with_index do |asset, i| %>
+			    <div class='external-event'><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></div>
+			  <% end %>
+			<% else %>
+				<%= "No invoices available..." %>
+		  <% end %>        
+  	<% end %>
+    <% if @service.present? && @report.present? %>
       <dl class="dl-horizontal">
       	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
         	<dt><strong><%= "Service date: " %>:</strong></dt>
@@ -57,26 +66,9 @@
         	<dt><strong><%= "Comments: " %>:</strong></dt>
         	<dd><%= @service.other.present? ? @service.other : $not_available %></dd>
         </div>
-        <% if !params[:print].present? %>
-          <% if @invoices.present? %>
-  				  <% @invoices.each_with_index do |asset, i| %>
-  				    <div class='external-event'><%= link_to "#{asset.invoice.name} created at: #{asset.created_at}", asset.invoice.url %></div>
-  				  <% end %>
-  				<% else %>
-  					<%= "No invoices available..." %>
-  			  <% end %>        
-          <%= fields_for @assets do |asset| %>
-      	    <div class="control-group background-grey padding-top-bottom-10px">
-      	      <%= asset.label 'Invoices', :class => 'control-label fleet-labals' %>
-      	      <div class="controls">
-      	        <%= asset.file_field :invoice %>
-      	      </div>
-      	    </div>
-      	  <% end %>
-      	<% end %>
       </dl>
-  	</div>
-  <% end %>
+    <% end %>
+	</div>
 </div>
 
 <div class="form-actions not-print">

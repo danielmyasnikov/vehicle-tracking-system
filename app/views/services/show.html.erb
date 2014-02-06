@@ -2,21 +2,80 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
+<div class="row">
+  <div class="span6">
+    <dl class="dl-horizontal">
+      
+      <div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
+      	<dd><%= @service.fleet.name.present? ? @service.fleet.name : $not_available %></dd>
+    	</div>
+    	
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:repairer_id) %>:</strong></dt>
+      	<dd><%= @repairer.business_name.present? ? @repairer.business_name : $not_available %></dd>
+    	</div>
+    	
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:service_type) %>:</strong></dt>
+      	<dd><%= @service.service_type.present? ? @service.service_type : $not_available %></dd>
+    	</div>
+    	
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:warranty) %>:</strong></dt>
+      	<dd><%= @service.warranty ? "Needs to be done" : "No"  %></dd>
+    	</div>
+    	
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:damage) %>:</strong></dt>
+      	<dd><%= @service.damage ? "Needs to be done" : "No"  %></dd>
+    	</div>
+    	
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:repair) %>:</strong></dt>
+      	<dd><%= @service.repair ? "Needs to be done" : "No"  %></dd>
+    	</div>
+    	
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:serivce) %>:</strong></dt>
+      	<dd><%= @service.service ? "Needs to be done" : "No"  %></dd>
+    	</div>
+    	
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong><%= model_class.human_attribute_name(:breakdown) %>:</strong></dt>
+      	<dd><%= @service.breakdown ? "Needs to be done" : "No"  %></dd>
+    	</div>
+    </dl>
+  </div>
+  <div class="span6">
+    <dl class="dl-horizontal">
+      <h2><%= @repairer.business_name %></h2>
+      <%= image_tag "http://maps.google.com/maps/api/staticmap?size=600x350&sensor=false&zoom=14&markers=#{@repairer.latitude}%2C#{@repairer.longitude}" %>
+      <div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong>Prime contact number:</strong></dt>
+      	<dd><%= @repairer.phone_number.present? ? @repairer.phone_number : $not_available %></dd>
+    	</div>
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong>24 hours service:</strong></dt>
+      	<dd><%= @repairer.hour_service_24 ? "Yes" : "No" %></dd>
+    	</div>
+    	<div class="white-background margin-bottom-10px padding-top-bottom-10px">
+      	<dt><strong>Full address:</strong></dt>
+      	<dd><%= @repairer.full_address.present? ? @repairer.full_address : $not_available %></dd>
+    	</div>
+    </dl>
+  </div>
+</div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:fleet_id) %>:</strong></dt>
-  <dd><%= @service.fleet.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:repairer_id) %>:</strong></dt>
-  <dd><%= Repairer.find(@service.repairer_id).business_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:service_type) %>:</strong></dt>
-  <dd><%= @service.service_type ? @service.service_type : "N/A" %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:warranty) %>:</strong></dt>
-  <dd><%= @service.warranty ? "Needs to be done" : "No"  %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:damage) %>:</strong></dt>
-  <dd><%= @service.damage ? "Needs to be done" : "No"  %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:repair) %>:</strong></dt>
-  <dd><%= @service.repair ? "Needs to be done" : "No"  %></dd>
-</dl>
+<div class="form-actions">
+  <div class="margin-bottom-10px">
+		<% if @graph_monthly_spent_vehicles %>
+			<%= high_chart("my_id", @graph_monthly_spent_vehicles) %>
+		<% else %>
+			<%= "No data available for Graph" %>
+		<% end %>
+	</div>
+</div>
 
 <div class="form-actions">
 	<%= link_to 'Finish booking',

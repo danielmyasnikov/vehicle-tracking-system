@@ -22,7 +22,32 @@ class ServicesController < ApplicationController
   # GET /services/1.json
   def show
     @service = Service.find(params[:id])
+    @repairer = Repairer.find @service.repairer_id
+    
+    #============== REPORT ======================#
+    
+    @reports = Report.where(fleet_id: @service.fleet.id)
+    
+    array_lastMonths = Report.arr_of_last_12_months
+    
+    @graph_reports = Report.reports_for_graph @reports
+    if @graph_reports.present?
+      @graph_monthly_spent_vehicles = LazyHighCharts::HighChart.new('graph') do |f|
+        f.options[:chart][:defaultSeriesType] = "area"
+        @graph_reports.each do |fleet, value|
+          f.xAxis(:categories => array_lastMonths,
+            :labels => {
+              :rotation => -45,
+              :align => 'right',
+            }
+          )
+          f.series(:name => fleet, :data => value)
+        end
+      end
+    end
 
+    # =================== END (REPORT) ===================== #
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @service }
